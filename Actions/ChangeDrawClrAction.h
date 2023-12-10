@@ -1,0 +1,15 @@
+#pragma once
+#include "Action.h"
+#include "..\GUI\UI_Info.h"
+#include "..\GUI\Input.h"
+class ChangeDrawClrAction :public Action
+{
+	color DrawingClr;
+public:
+	ChangeDrawClrAction(ApplicationManager* pApp, color DC);
+	virtual void ReadActionParameters();
+	virtual void Execute();
+	virtual void PlayRecording();
+
+};
+
