@@ -358,7 +358,7 @@ CFigure* ApplicationManager::DeleteFigure()
 void ApplicationManager::DeleteAllFigures()
 {
 	for (int i = 0; i < FigCount; i++) {
-		delete FigList[i];
+		//delete FigList[i];
 		FigList[i] = NULL;
 	}
 	FigCount = 0;
@@ -370,7 +370,7 @@ void ApplicationManager::DeleteAllRecordedActions()
 	if (!PlayingRecord) {
 	for (int i = 0; i < RecordedActionsCount; i++) {
 		if (RecordingActionList[i]) {
-		delete RecordingActionList[i];
+		//delete RecordingActionList[i];
 		RecordingActionList[i] = NULL;
 		}
 	}
@@ -481,7 +481,6 @@ void ApplicationManager::AddToUndoList(Action* pAct)
 			}
 		}
 		else {
-			//if (pAct)
 			delete pAct;
 			pAct = NULL;
 		}
@@ -506,7 +505,7 @@ void ApplicationManager::DeleteRedoList()
 {
 	for (int i = 0; i < RedoCount; i++) {
 		if (RedoList[i]) {
-			delete RedoList[i];
+			//delete RedoList[i];
 			RedoList[i] = NULL;
 		}
 	}
@@ -516,7 +515,7 @@ void ApplicationManager::DeleteUndoList()
 {
 	for (int i = 0; i < ActionsCount; i++) {
 		if (UndoList[i]) {
-			delete UndoList[i];
+			//delete UndoList[i];
 			UndoList[i] = NULL;
 		}
 	}
@@ -545,8 +544,8 @@ ApplicationManager::~ApplicationManager()
 	}
 
 	for (int i = 0; i < RecordedActionsCount; i++) {
+		if (RecordingActionList[i])
 		delete RecordingActionList[i];
-		RecordingActionList[i] = NULL;
 	}
 	delete pIn;
 	delete pOut;

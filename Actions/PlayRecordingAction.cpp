@@ -28,8 +28,8 @@ void PlayRecordingAction::Execute()
 	if (CanPlay) {
 	pManager->SetPlayingRecord(true);
 	ClearAllAction clearAll(pManager);
-	clearAll.Execute();
 	Action** RecordedActions = pManager->GetRecordedActions();
+	clearAll.Execute();
 
 		for (int i = 0; i < pManager->GetRecordedActionsCount(); i++) {
 			if (RecordedActions[i] != NULL) {
