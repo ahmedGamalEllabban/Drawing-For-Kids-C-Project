@@ -53,6 +53,8 @@ ApplicationManager::ApplicationManager()
 		UndoList[i] = NULL;
 		RedoList[i] = NULL;
 	}
+	for (int i = 0; i < MaxRecords; i++)
+		RecordingActionList[i] = NULL;
 }
 
 //==================================================================================//
@@ -361,7 +363,7 @@ CFigure* ApplicationManager::DeleteFigure()
 void ApplicationManager::DeleteAllFigures()
 {
 	for (int i = 0; i < FigCount; i++) {
-		//delete FigList[i];
+		delete FigList[i];
 		FigList[i] = NULL;
 	}
 	FigCount = 0;
@@ -373,7 +375,7 @@ void ApplicationManager::DeleteAllRecordedActions()
 	if (!PlayingRecord) {
 	for (int i = 0; i < RecordedActionsCount; i++) {
 		if (RecordingActionList[i]) {
-		//delete RecordingActionList[i];
+		delete RecordingActionList[i];
 		RecordingActionList[i] = NULL;
 		}
 	}
