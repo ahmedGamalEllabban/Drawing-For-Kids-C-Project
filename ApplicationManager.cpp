@@ -449,6 +449,42 @@ void ApplicationManager::getShapesCount(int& RC, int& SC, int& CC, int& HC, int&
 	}
 }
 
+void ApplicationManager::getColorsCount(int& BlackC, int& YC, int& OC, int& RC, int& GC, int& BlueC)
+{
+	for (int i = 0; i < FigCount; i++) {
+		if (FigList[i]->getFillColor() == BLACK) BlackC++;
+		else if (FigList[i]->getFillColor() == YELLOW) YC++;
+		else if (FigList[i]->getFillColor() == ORANGE) OC++;
+		else if (FigList[i]->getFillColor() == RED) RC++;
+		else if (FigList[i]->getFillColor() == GREEN) GC++;
+		else if (FigList[i]->getFillColor() == BLUE) BlueC++;
+	}
+}
+
+void ApplicationManager::deleteChosenFig(Point p)
+{
+	pOut->ClearDrawArea();
+
+	CFigure* selected = GetFigure(p.x, p.y);
+
+	SetSelectedFigure(selected);
+
+	DeleteFigure();
+
+	for (int i = 0; i < FigCount; i++) {
+		FigList[i]->Draw(pOut);
+	}
+}
+
+color ApplicationManager::getRandomColor()
+{
+	srand(static_cast<unsigned int>(time(NULL)));
+
+	int randomIndex = rand() % FigCount;
+
+	return FigList[randomIndex]->getFillColor();
+}
+
 Action* ApplicationManager::GetLastAction()
 {
 	if (ActionsCount > 0) {

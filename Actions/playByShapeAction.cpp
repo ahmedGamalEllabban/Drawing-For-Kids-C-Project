@@ -18,7 +18,7 @@
 
 using namespace std;
 
-playByShapeAction::playByShapeAction(ApplicationManager* app):Action(app)
+playByShapeAction::playByShapeAction(ApplicationManager* app) :Action(app)
 {
 	numOfShapes = pManager->getFigCount();
 	correct = 0;
@@ -31,7 +31,7 @@ void playByShapeAction::ReadActionParameters()
 {
 	Shapes randomShape;
 	CFigure* shape;
-	
+
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
@@ -42,14 +42,14 @@ void playByShapeAction::ReadActionParameters()
 	// Enum Values, Square:0 , Rectngle: 1, Hexagon: 2, Circle: 3, Triangle: 4 
 
 	shape = pManager->getRandomFig();
-	
+
 	if (dynamic_cast<CSquare*>(shape)) randomShape = SQUARE;
 	else if (dynamic_cast<CRectangle*>(shape)) randomShape = RECTANGLE;
 	else if (dynamic_cast<CHexagon*>(shape)) randomShape = HEXAGON;
 	else if (dynamic_cast<CCircle*>(shape)) randomShape = CIRCLE;
 	else if (dynamic_cast<CTriangle*>(shape)) randomShape = TRIANGLE;
 
-	
+
 	switch (randomShape)
 	{
 
@@ -75,9 +75,12 @@ void playByShapeAction::ReadActionParameters()
 
 	default:
 		break;
+
 	}
 
-	pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct)+ "  " + "Wrong: " + to_string(wrong));
+	pOut->ClearDrawArea();
+
+	pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 
 }
 
@@ -96,10 +99,14 @@ void playByShapeAction::playSquare()
 
 	pOut->PrintMessage("Select All the Squares :) ");
 
-	
-	while (numOfShapes-- > 0) {
+
+	while (numOfShapes > 0) {
 
 		pIn->GetPointClicked(p.x, p.y);
+
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
 
 		if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y))) {
 			correct++;
@@ -108,9 +115,11 @@ void playByShapeAction::playSquare()
 
 		else wrong++;
 
+		pManager->deleteChosenFig(p);
+
 		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
 
-		
+
 	}
 
 	pOut->PrintMessage("Game Ended ");
@@ -125,9 +134,13 @@ void playByShapeAction::playRectangle()
 
 	pOut->PrintMessage("Select All the Rectangles :) ");
 
-	while (numOfShapes-- > 0) {
+	while (numOfShapes > 0) {
 
 		pIn->GetPointClicked(p.x, p.y);
+
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
 
 		if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y))) {
 			correct++;
@@ -135,6 +148,8 @@ void playByShapeAction::playRectangle()
 		}
 
 		else wrong++;
+
+		pManager->deleteChosenFig(p);
 
 		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
 	}
@@ -155,6 +170,10 @@ void playByShapeAction::playHexagon()
 
 		pIn->GetPointClicked(p.x, p.y);
 
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
+
 		if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y))) {
 			correct++;
 			if (correct == HexCount) break;
@@ -162,9 +181,11 @@ void playByShapeAction::playHexagon()
 
 		else wrong++;
 
+		pManager->deleteChosenFig(p);
+
 		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
 	}
-	
+
 	pOut->PrintMessage("Game Ended ");
 }
 
@@ -177,9 +198,13 @@ void playByShapeAction::playCircle()
 
 	pOut->PrintMessage("Select All the Circles :) ");
 
-	while (numOfShapes-- > 0) {
+	while (numOfShapes > 0) {
 
 		pIn->GetPointClicked(p.x, p.y);
+
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
 
 		if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y))) {
 			correct++;
@@ -187,6 +212,8 @@ void playByShapeAction::playCircle()
 		}
 
 		else wrong++;
+
+		pManager->deleteChosenFig(p);
 
 		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
 	}
@@ -204,9 +231,13 @@ void playByShapeAction::playTriangle()
 
 	pOut->PrintMessage("Select All the Triangles :) ");
 
-	while (numOfShapes-- > 0) {
+	while (numOfShapes > 0) {
 
 		pIn->GetPointClicked(p.x, p.y);
+
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
 
 		if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y))) {
 			correct++;
@@ -214,6 +245,8 @@ void playByShapeAction::playTriangle()
 		}
 
 		else wrong++;
+
+		pManager->deleteChosenFig(p);
 
 		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
 	}
