@@ -1,5 +1,8 @@
 #include "CRectangle.h"
-
+#include <fstream>
+CRectangle::CRectangle()
+{
+}
 CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
 {
 	Corner1 = P1;
@@ -57,3 +60,51 @@ Point CRectangle::MoveFigure(Point move) {
 	Corner2.y += yDiff;
 	return c;
 }
+
+void CRectangle::save(ofstream& fout)
+{
+	fout << "RECT" << " \t\t" << ID << "\t" << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t";
+	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
+	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
+	else if (FigGfxInfo.DrawClr == RED) fout << "RED" << "\t";
+	else if (FigGfxInfo.DrawClr == GREEN) fout << "GREEN" << "\t";
+	else if (FigGfxInfo.DrawClr == YELLOW) fout << "YELLOW" << "\t";
+	else if (FigGfxInfo.DrawClr == ORANGE) fout << "ORANGE" << "\t";
+
+	if (FigGfxInfo.isFilled == true) {
+		if (FigGfxInfo.FillClr == BLACK) fout << "BLACK" << "\n";
+		else if (FigGfxInfo.FillClr == BLUE) fout << "BLUE" << "\n";
+		else if (FigGfxInfo.FillClr == RED) fout << "RED" << "\n";
+		else if (FigGfxInfo.FillClr == GREEN) fout << "GREEN" << "\n";
+		else if (FigGfxInfo.FillClr == YELLOW) fout << "YELLOW" << "\n";
+		else if (FigGfxInfo.FillClr == ORANGE)fout << "ORANGE" << "\n";
+	}
+	else { fout << "NOT_FILLED" << endl; }
+
+}
+
+void CRectangle::load(ifstream& fin)
+{
+	string drawclr, fillclr;
+	fin >> ID >> Corner1.x >> Corner1.y >> Corner2.x >> Corner2.y >> drawclr >> fillclr;
+	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
+	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
+	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }
+	else if (drawclr == "ORANGE") { FigGfxInfo.DrawClr = ORANGE; }
+	else if (drawclr == "YELLOW") { FigGfxInfo.DrawClr = YELLOW; }
+	else if (drawclr == "GREEN") { FigGfxInfo.DrawClr = GREEN; }
+
+
+	if (fillclr == "NOT_FILLED")(FigGfxInfo.FillClr = NULL);
+	else {
+		FigGfxInfo.isFilled = true;
+		if (fillclr == "BLACK") { FigGfxInfo.FillClr = BLACK; }
+		else if (fillclr == "BLUE") { FigGfxInfo.FillClr = BLUE; }
+		else if (fillclr == "RED") { FigGfxInfo.FillClr = RED; }
+		else if (fillclr == "ORANGE") { FigGfxInfo.FillClr = ORANGE; }
+		else if (fillclr == "YELLOW") { FigGfxInfo.FillClr = YELLOW; }
+		else if (fillclr == "GREEN") { FigGfxInfo.FillClr = GREEN; }
+	}
+
+}
+

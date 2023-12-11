@@ -15,6 +15,7 @@ protected:
 	/// Add more parameters if needed.
 
 public:
+	CFigure();
 	CFigure(GfxInfo FigureGfxInfo);
 
 	void SetSelected(bool s);	//select/unselect the figure
@@ -28,6 +29,8 @@ public:
 	color getFillColor();
 	void SetID(int);
 	int GetID()const;
+	void virtual save(ofstream& fout) = 0;
+	void virtual load(ifstream& fin) = 0;
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure
 

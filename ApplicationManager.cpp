@@ -29,6 +29,8 @@
 #include "Actions\StopRecordingAction.h"
 #include "Actions\PlayRecordingAction.h"
 #include "Actions\ClearAllAction.h"
+#include "Actions/SaveAction.h"
+#include "Actions/LoadAction.h"
 
 
 //Constructor
@@ -82,10 +84,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new AddHexaAction(this);
 			break;
 
-		case DRAW_TRIANGLE:
+		case DRAW_TRIANGLE: //AHMED HAZEM
 			pAct = new AddTriangleAction(this);
 			break;
-		case DRAW_CIRCLE:
+		case DRAW_CIRCLE: //AHMED HAZEM
 			pAct = new AddCircleAction(this);
 			break;
 
@@ -96,8 +98,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SELECT_SHAPE:
 			pAct = new SelectAction(this);
 			break;
+		case SAVE_GRAPH: //AHMED HAZEM
+			pAct = new SaveAction(this);
+			break;
 
-		case CHANGE_BORDERCLR:
+		case LOAD_GRAPH: //AHMED HAZEM
+			pAct = new LoadAction(this);
+			break;
+
+		case CHANGE_BORDERCLR: //AHMED HAZEM
 		{
 			pOut->CreateColorlist();
 			ActionType ActType = pIn->GetUserAction();
@@ -130,7 +139,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		}
 
-		case CHANGE_FILLCLR:
+		case CHANGE_FILLCLR://AHMED HAZEM
 		{
 			pOut->CreateColorlist();
 			ActionType ActType = pIn->GetUserAction();
@@ -215,7 +224,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case REDO:
 			pAct = new RedoAction(this);
 			break;
-		case CLEAR_ALL:
+		case CLEAR_ALL: //AHMED HAZEM
 			pAct = new ClearAllAction(this);
 			break;
 		case EXIT:
@@ -513,6 +522,20 @@ color ApplicationManager::getRandomColor()
 	int randomIndex = rand() % FigCount;
 
 	return FigList[randomIndex]->getFillColor();
+}
+
+int ApplicationManager::GetFigCount()
+{
+	return FigCount;
+}
+
+void ApplicationManager::Saveall(ofstream& fout)
+{
+	for (int i = 0; i < FigCount; i++) {
+		if (FigList[i] != NULL) {
+			FigList[i]->save(fout);
+		}
+	}
 }
 
 Action* ApplicationManager::GetLastAction()

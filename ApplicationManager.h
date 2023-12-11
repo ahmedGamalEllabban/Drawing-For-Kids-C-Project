@@ -83,6 +83,8 @@ public:
 	void deleteChosenFig(Point p);
 	int countShapeColors(string shape, color c);
 	color getRandomColor();
+	int GetFigCount();
+	void Saveall(ofstream& fout);
 	
 };
 

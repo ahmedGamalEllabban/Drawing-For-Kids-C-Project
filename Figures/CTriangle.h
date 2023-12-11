@@ -8,9 +8,12 @@ private:
     Point Corner2;
     Point Corner3;
 public:
-    CTriangle::CTriangle(Point, Point, Point , GfxInfo );
+    CTriangle();
+    CTriangle(Point, Point, Point , GfxInfo );
     virtual void Draw(Output* pOut) const;
     virtual bool IsInside(int, int) const;
     virtual Point MoveFigure(Point P);
+    virtual void save(ofstream& fout);
+    virtual void load(ifstream& fin);
 };
 
