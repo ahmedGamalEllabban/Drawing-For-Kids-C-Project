@@ -4,9 +4,48 @@
 #include "..\GUI\Output.h"
 #include "..\GUI\UI_Info.h"
 #include "..\Figures\CFigure.h"
+#include <ctime>
+#include <string>
+#include "..\Figures\CSquare.h"
+#include "..\Figures\CCircle.h"
+#include "..\Figures\CHexagon.h"
+#include "..\Figures\CTriangle.h"
+#include "..\Figures\CRectangle.h"
 
 playByBothAction::playByBothAction(ApplicationManager* app):Action(app)
 {
+	correct = wrong = 0;
+
+	numOfShapes = pManager->getFigCount();
+
+	randShape = pManager->getRandomFig();
+
+	randColor = randShape->getFillColor();
+
+	color colors[6] = { BLACK, YELLOW, RED, ORANGE, GREEN, BLUE };
+	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
+
+	for (int i = 0; i < 6; i++) {
+		Rects[i] = pManager->countShapeColors("R", colors[i]);
+	}
+
+	for (int i = 0; i < 6; i++) {
+		Squares[i] = pManager->countShapeColors("S", colors[i]);
+	}
+
+	for (int i = 0; i < 6; i++) {
+		Circles[i] = pManager->countShapeColors("C", colors[i]);
+	}
+
+	for (int i = 0; i < 6; i++) {
+		Hexas[i] = pManager->countShapeColors("H", colors[i]);
+	}
+
+	for (int i = 0; i < 6; i++) {
+		Triangles[i] = pManager->countShapeColors("T", colors[i]);
+	}
+
+	
 }
 
 void playByBothAction::ReadActionParameters()
@@ -15,13 +54,308 @@ void playByBothAction::ReadActionParameters()
 	Input* pIn = pManager->GetInput();
 
 	pOut->PrintMessage("Playing Pick and hide By Both Shape and Color ");
+
 	pOut->ClearPickHideToolBar();
 
-	pManager->createPlayArea();
+	Sleep(1000);
 
+	if (dynamic_cast<CSquare*>(randShape)) {
+		playSquare();
+	}
+	else if (dynamic_cast<CRectangle*>(randShape)) {
+		playRectangle();
+	}
+	else if (dynamic_cast<CHexagon*>(randShape)) {
+		playHexagon();
+	}
+	else if (dynamic_cast<CCircle*>(randShape)) {
+		playCircle();
+	}
+	else if (dynamic_cast<CTriangle*>(randShape)) {
+		playTriangle();
+	}
+
+	pOut->ClearDrawArea();
+
+	pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 }
 
 void playByBothAction::Execute()
 {
 	ReadActionParameters();
+}
+
+void playByBothAction::playSquare()
+{
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	pManager->createPlayArea();
+
+	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
+
+	if (randColor == BLACK) {
+		pOut->PrintMessage("Select all Black Squares :) ");
+		count = Squares[0];
+	}
+	else if (randColor == YELLOW) {
+		pOut->PrintMessage("Select all Yellow Squares :) ");
+		count = Squares[1];
+	}
+	else if (randColor == ORANGE) {
+		pOut->PrintMessage("Select all Orange Squares :) ");
+		count = Squares[3];
+	}
+	else if (randColor == RED) {
+		pOut->PrintMessage("Select all RED Squares :) ");
+		count = Squares[2];
+	}
+	else if (randColor == GREEN) {
+		pOut->PrintMessage("Select all Green Squares :) ");
+		count = Squares[4];
+	}
+	else if (randColor == BLUE) {
+		pOut->PrintMessage("Select all Blue Squares :) ");
+		count = Squares[5];
+	}
+
+	while (numOfShapes > 0)
+	{
+		pIn->GetPointClicked(p.x, p.y);
+
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
+
+		if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+			correct++;
+			if (correct == count) break;
+		}
+
+		else wrong++;
+
+		pManager->deleteChosenFig(p);
+
+		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+	}
+}
+
+void playByBothAction::playRectangle()
+{
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	pManager->createPlayArea();
+
+	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
+
+	if (randColor == BLACK) {
+		pOut->PrintMessage("Select all Black Rectangles :) ");
+		count = Rects[0];
+	}
+	else if (randColor == YELLOW) {
+		pOut->PrintMessage("Select all Yellow Rectangles :) ");
+		count = Rects[1];
+	}
+	else if (randColor == ORANGE) {
+		pOut->PrintMessage("Select all Orange Rectangles :) ");
+		count = Rects[3];
+	}
+	else if (randColor == RED) {
+		pOut->PrintMessage("Select all RED Rectangles :) ");
+		count = Rects[2];
+	}
+	else if (randColor == GREEN) {
+		pOut->PrintMessage("Select all Green Rectangles :) ");
+		count = Rects[4];
+	}
+	else if (randColor == BLUE) {
+		pOut->PrintMessage("Select all Blue Rectangles :) ");
+		count = Rects[5];
+	}
+
+	while (numOfShapes > 0)
+	{
+		pIn->GetPointClicked(p.x, p.y);
+
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
+
+		if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+			correct++;
+			if (correct == count) break;
+		}
+
+		else wrong++;
+
+		pManager->deleteChosenFig(p);
+
+		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+	}
+}
+
+void playByBothAction::playHexagon()
+{
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	pManager->createPlayArea();
+
+	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
+
+	if (randColor == BLACK) {
+		pOut->PrintMessage("Select all Black Hexagons :) ");
+		count = Hexas[0];
+	}
+	else if (randColor == YELLOW) {
+		pOut->PrintMessage("Select all Yellow Hexagons :) ");
+		count = Hexas[1];
+	}
+	else if (randColor == ORANGE) {
+		pOut->PrintMessage("Select all Orange Hexagons :) ");
+		count = Hexas[3];
+	}
+	else if (randColor == RED) {
+		pOut->PrintMessage("Select all RED Hexagons :) ");
+		count = Hexas[2];
+	}
+	else if (randColor == GREEN) {
+		pOut->PrintMessage("Select all Green Hexagons :) ");
+		count = Hexas[4];
+	}
+	else if (randColor == BLUE) {
+		pOut->PrintMessage("Select all Blue Hexagons :) ");
+		count = Hexas[5];
+	}
+
+	while (numOfShapes > 0)
+	{
+		pIn->GetPointClicked(p.x, p.y);
+
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
+
+		if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+			correct++;
+			if (correct == count) break;
+		}
+
+		else wrong++;
+
+		pManager->deleteChosenFig(p);
+
+		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+	}
+}
+
+void playByBothAction::playCircle()
+{
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	pManager->createPlayArea();
+
+	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
+
+	if (randColor == BLACK) {
+		pOut->PrintMessage("Select all Black Circles :) ");
+		count = Circles[0];
+	}
+	else if (randColor == YELLOW) {
+		pOut->PrintMessage("Select all Yellow Circles :) ");
+		count = Circles[1];
+	}
+	else if (randColor == ORANGE) {
+		pOut->PrintMessage("Select all Orange Circles :) ");
+		count = Circles[3];
+	}
+	else if (randColor == RED) {
+		pOut->PrintMessage("Select all RED Circles :) ");
+		count = Circles[2];
+	}
+	else if (randColor == GREEN) {
+		pOut->PrintMessage("Select all Green Circles :) ");
+		count = Circles[4];
+	}
+	else if (randColor == BLUE) {
+		pOut->PrintMessage("Select all Blue Circles :) ");
+		count = Circles[5];
+	}
+
+	while (numOfShapes > 0)
+	{
+		pIn->GetPointClicked(p.x, p.y);
+
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
+
+		if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+			correct++;
+			if (correct == count) break;
+		}
+
+		else wrong++;
+
+		pManager->deleteChosenFig(p);
+
+		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+	}
+}
+
+void playByBothAction::playTriangle()
+{
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	pManager->createPlayArea();
+
+	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
+
+	if (randColor == BLACK) {
+		pOut->PrintMessage("Select all Black Triangles :) ");
+		count = Triangles[0];
+	}
+	else if (randColor == YELLOW) {
+		pOut->PrintMessage("Select all Yellow Triangles :) ");
+		count = Triangles[1];
+	}
+	else if (randColor == ORANGE) {
+		pOut->PrintMessage("Select all Orange Triangles :) ");
+		count = Triangles[3];
+	}
+	else if (randColor == RED) {
+		pOut->PrintMessage("Select all RED Triangles :) ");
+		count = Triangles[2];
+	}
+	else if (randColor == GREEN) {
+		pOut->PrintMessage("Select all Green Triangles :) ");
+		count = Triangles[4];
+	}
+	else if (randColor == BLUE) {
+		pOut->PrintMessage("Select all Blue Triangles :) ");
+		count = Triangles[5];
+	}
+
+	while (numOfShapes > 0)
+	{
+		pIn->GetPointClicked(p.x, p.y);
+
+		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+
+		else numOfShapes--;
+
+		if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+			correct++;
+			if (correct == count) break;
+		}
+
+		else wrong++;
+
+		pManager->deleteChosenFig(p);
+
+		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+	}
 }

@@ -81,6 +81,7 @@ public:
 	void getShapesCount(int &RC, int& SC, int& CC, int& HC, int& TC) const;
 	void getColorsCount(int& BlackC, int& YC, int& OC, int& RC, int& GC, int& BlueC);
 	void deleteChosenFig(Point p);
+	int countShapeColors(string shape, color c);
 	color getRandomColor();
 	
 };

@@ -474,6 +474,36 @@ void ApplicationManager::deleteChosenFig(Point p)
 	}
 }
 
+int ApplicationManager::countShapeColors(string shape, color c)
+{
+	int count = 0;
+
+	for (int i = 0; i < FigCount; i++) {
+		if (shape == "R") {
+			if (dynamic_cast<CRectangle*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+		}
+
+		else if (shape == "S") {
+			if (dynamic_cast<CSquare*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+		}
+
+		else if (shape == "C") {
+			if (dynamic_cast<CCircle*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+		}
+
+		else if (shape == "H") {
+			if (dynamic_cast<CHexagon*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+		}
+
+		else if (shape == "T") {
+			if (dynamic_cast<CTriangle*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+		}
+
+	}
+
+	return count;
+}
+
 color ApplicationManager::getRandomColor()
 {
 	srand(static_cast<unsigned int>(time(NULL)));

@@ -4,8 +4,6 @@
 #include "..\GUI\Output.h"
 #include "..\GUI\UI_Info.h"
 #include "..\Figures\CFigure.h"
-#include <chrono>
-#include <thread>
 #include <ctime>
 #include <string>
 #include "..\Figures\CSquare.h"
@@ -36,6 +34,7 @@ void playByShapeAction::ReadActionParameters()
 	Input* pIn = pManager->GetInput();
 
 	pOut->PrintMessage("Playing Pick and hide By Shape ");
+
 	pOut->ClearPickHideToolBar();
 
 
@@ -49,6 +48,7 @@ void playByShapeAction::ReadActionParameters()
 	else if (dynamic_cast<CCircle*>(shape)) randomShape = CIRCLE;
 	else if (dynamic_cast<CTriangle*>(shape)) randomShape = TRIANGLE;
 
+	Sleep(1000);
 
 	switch (randomShape)
 	{

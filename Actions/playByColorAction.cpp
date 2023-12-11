@@ -29,6 +29,8 @@ void playByColorAction::ReadActionParameters()
 
 	randColor = pManager->getRandomColor();
 
+	Sleep(1000);
+
 	startGame();
 
 	pOut->ClearDrawArea();
