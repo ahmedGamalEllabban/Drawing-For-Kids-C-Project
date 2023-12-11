@@ -55,6 +55,17 @@ public:
 	void DeleteAllRecordedActions();
 	void SetPlayingRecord(bool b);
 	bool IsPlayingRecord();
+	Action* GetLastAction();
+	Action* GetLastAction_Redo();
+	void AddToUndoList(Action*);
+	void AddToRedoList(Action*);
+	void DeleteRedoList();
+	void DeleteUndoList();
+	void AddActionToRecordingList(Action*);
+	Action** GetRecordedActions();
+	bool IsRecording(); // Return true if we start recording and false if we didn't
+	void SetRecordingStatus(bool s); // Turns On and of recording
+	int GetRecordedActionsCount();
 
 
 	// -- Interface Management Functions
@@ -68,17 +79,10 @@ public:
 	int getFigCount() const;
 	CFigure* getRandomFig() const;
 	void getShapesCount(int &RC, int& SC, int& CC, int& HC, int& TC) const;
-	Action* GetLastAction();
-	Action* GetLastAction_Redo();
-	void AddToUndoList(Action*);
-	void AddToRedoList(Action*);
-	void DeleteRedoList();
-	void DeleteUndoList();
-	void AddActionToRecordingList(Action*);
-	Action** GetRecordedActions();
-	bool IsRecording(); // Return true if we start recording and false if we didn't
-	void SetRecordingStatus(bool s); // Turns On and of recording
-	int GetRecordedActionsCount();
+	void getColorsCount(int& BlackC, int& YC, int& OC, int& RC, int& GC, int& BlueC);
+	void deleteChosenFig(Point p);
+	color getRandomColor();
+	
 };
 
 #endif

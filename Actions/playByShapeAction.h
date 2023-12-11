@@ -16,7 +16,7 @@ class playByShapeAction : public Action
 		COUNT
 	};
 
-public :
+public:
 	playByShapeAction(ApplicationManager* app);
 	virtual void ReadActionParameters();
 	virtual void Execute();
@@ -25,5 +25,8 @@ public :
 	void playHexagon();
 	void playCircle();
 	void playTriangle();
+	virtual bool CanUndo() { return false; }
+	virtual void Undo() {}
+	virtual void Redo() {}
 };
 
