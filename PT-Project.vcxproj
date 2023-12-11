@@ -131,6 +131,7 @@
     <ClCompile Include="Actions\AddHexaAction.cpp" />
     <ClCompile Include="Actions\AddTriangleAction.cpp" />
     <ClCompile Include="Actions\ClearAllAction.cpp" />
+    <ClCompile Include="Actions\LoadAction.cpp" />
     <ClCompile Include="Actions\MoveFigureAction.cpp" />
     <ClCompile Include="Actions\AddCircleAction.cpp" />
     <ClCompile Include="Actions\AddSquareAction.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="Actions\ChangeDrawClrAction.cpp" />
     <ClCompile Include="Actions\ChangeFillClrAction.cpp" />
     <ClCompile Include="Actions\PlayRecordingAction.cpp" />
+    <ClCompile Include="Actions\SaveAction.cpp" />
     <ClCompile Include="Actions\StartRecordingAction.cpp" />
     <ClCompile Include="Actions\StopRecordingAction.cpp" />
     <ClCompile Include="Figures\CSquare.cpp" />
@@ -201,6 +203,7 @@
     <ClInclude Include="Actions\AddHexaAction.h" />
     <ClInclude Include="Actions\AddTriangleAction.h" />
     <ClInclude Include="Actions\ClearAllAction.h" />
+    <ClInclude Include="Actions\LoadAction.h" />
     <ClInclude Include="Actions\MoveFigureAction.h" />
     <ClInclude Include="Actions\AddCircleAction.h" />
     <ClInclude Include="Actions\AddSquareAction.h" />
@@ -208,6 +211,7 @@
     <ClInclude Include="Actions\ChangeDrawClrAction.h" />
     <ClInclude Include="Actions\ChangeFillClrAction.h" />
     <ClInclude Include="Actions\PlayRecordingAction.h" />
+    <ClInclude Include="Actions\SaveAction.h" />
     <ClInclude Include="Actions\StartRecordingAction.h" />
     <ClInclude Include="Actions\StopRecordingAction.h" />
     <ClInclude Include="Figures\CSquare.h" />

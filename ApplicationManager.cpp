@@ -236,12 +236,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::AddActionToRecordingList(Action* pAct)
 {
-	if (RecordedActionsCount < MaxRecords) {
-		RecordingActionList[RecordedActionsCount++] = pAct;
-		RecordStarted = true;
-	}
-	else {
-		pOut->PrintMessage("Error: You Can't Record More Than 20 Actions, The Following Actions Won't Be Recorded");
+	if (pAct) {
+		if (RecordedActionsCount < MaxRecords) {
+			RecordingActionList[RecordedActionsCount] = pAct;
+			RecordedActionsCount++;
+			RecordStarted = true;
+		}
+		else {
+			pOut->PrintMessage("Error: You Can't Record More Than 20 Actions, The Following Actions Won't Be Recorded");
+		}
 	}
 }
 
@@ -505,7 +508,7 @@ void ApplicationManager::DeleteRedoList()
 {
 	for (int i = 0; i < RedoCount; i++) {
 		if (RedoList[i]) {
-			//delete RedoList[i];
+			delete RedoList[i];
 			RedoList[i] = NULL;
 		}
 	}
@@ -515,7 +518,7 @@ void ApplicationManager::DeleteUndoList()
 {
 	for (int i = 0; i < ActionsCount; i++) {
 		if (UndoList[i]) {
-			//delete UndoList[i];
+			delete UndoList[i];
 			UndoList[i] = NULL;
 		}
 	}

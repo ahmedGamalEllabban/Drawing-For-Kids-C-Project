@@ -173,6 +173,8 @@
     <ClCompile Include="Actions\StopRecordingAction.cpp" />
     <ClCompile Include="Actions\PlayRecordingAction.cpp" />
     <ClCompile Include="Actions\ClearAllAction.cpp" />
+    <ClCompile Include="Actions\SaveAction.cpp" />
+    <ClCompile Include="Actions\LoadAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -285,6 +287,8 @@
     <ClInclude Include="Actions\StopRecordingAction.h" />
     <ClInclude Include="Actions\PlayRecordingAction.h" />
     <ClInclude Include="Actions\ClearAllAction.h" />
+    <ClInclude Include="Actions\SaveAction.h" />
+    <ClInclude Include="Actions\LoadAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
