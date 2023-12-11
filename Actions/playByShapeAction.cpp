@@ -75,6 +75,7 @@ void playByShapeAction::ReadActionParameters()
 
 	default:
 		break;
+
 	}
 
 	pOut->ClearDrawArea();
