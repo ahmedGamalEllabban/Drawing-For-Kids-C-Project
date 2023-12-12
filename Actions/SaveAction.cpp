@@ -36,14 +36,15 @@ void SaveAction::Execute()
 	else if (CDrawClr == GREEN) Fout << "GREEN\t";
 	else if (CDrawClr == YELLOW) Fout << "YELLOW\t";
 	else if (CDrawClr == ORANGE) Fout << "ORANGE\t";
-	
-	if (CFillClr == BLACK) Fout << "BLACK\n";
-	else if (CFillClr == RED) Fout << "RED\n";
-	else if (CFillClr == BLUE) Fout << "BLUE\n";
-	else if (CFillClr == GREEN) Fout << "GREEN\n";
-	else if (CFillClr == YELLOW) Fout << "YELLOW\n";
-	else if (CFillClr == ORANGE) Fout << "ORANGE\n";
-	else if (CFillClr == NULL) Fout << "NOT_FILLED\n";
+	if (pOut->checkisfilled()) {
+		if (CFillClr == BLACK) Fout << "BLACK\n";
+		else if (CFillClr == RED) Fout << "RED\n";
+		else if (CFillClr == BLUE) Fout << "BLUE\n";
+		else if (CFillClr == GREEN) Fout << "GREEN\n";
+		else if (CFillClr == YELLOW) Fout << "YELLOW\n";
+		else if (CFillClr == ORANGE) Fout << "ORANGE\n";
+	}
+	else Fout << "NOT_FILLED\n";
 	
 
 

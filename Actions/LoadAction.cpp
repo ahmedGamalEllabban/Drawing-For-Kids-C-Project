@@ -1,4 +1,5 @@
 #include "LoadAction.h"
+#include "ClearAllAction.h"
 #include <string>
 #include <fstream>
 #include "../Figures/CCircle.h"
@@ -28,7 +29,8 @@ void LoadAction::ReadActionParameters()
 void LoadAction::Execute()
 {
 	ReadActionParameters();
-	pManager->DeleteAllFigures();
+	ClearAllAction CA(pManager);
+	CA.Execute();
 	int figsnumber;
 	Input* pIn;
 	Output* pOut;
@@ -48,7 +50,8 @@ void LoadAction::Execute()
 		else if (CDrawClr == "ORANGE") pOut->setDrawclr(ORANGE);
 		else if (CDrawClr == "YELLOW") pOut->setDrawclr(YELLOW);
 		else if (CDrawClr == "GREEN") pOut->setDrawclr(GREEN);
-		if (CFillClr == "BLACK") pOut->setFillclr(BLACK);
+		if (CFillClr == "NOT_FILLED") pOut->SetNonFilled();
+		else if (CFillClr == "BLACK") pOut->setFillclr(BLACK);
 		else if (CFillClr == "RED") pOut->setFillclr(RED);
 		else if (CFillClr == "BLUE") pOut->setFillclr(BLUE);
 		else if (CFillClr == "ORANGE") pOut->setFillclr(ORANGE);
