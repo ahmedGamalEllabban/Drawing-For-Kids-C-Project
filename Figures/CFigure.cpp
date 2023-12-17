@@ -27,6 +27,12 @@ void CFigure::ChngFillClr(color Fclr)
 	FigGfxInfo.FillClr = Fclr;
 }
 
+void CFigure::RemoveFillClr(color PrevClr)
+{
+	FigGfxInfo.isFilled = false;
+	FigGfxInfo.FillClr = PrevClr;
+}
+
 color CFigure::getFillColor()
 {
 	return FigGfxInfo.FillClr;

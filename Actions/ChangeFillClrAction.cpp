@@ -15,10 +15,14 @@ void ChangeFillClrAction::Execute()
 	Output* op = pManager->GetOutput();
 	CFigure* FIG = pManager->GetSelectedFigure();
 	if (FIG) {
+		IsFilled = op->checkisfilled();
 		op->setfilled();
+		PrevFillingClr = FIG->getFillColor();
+		ID = FIG->GetID();
 		op->setFillclr(FillingClr);
 		FIG->ChngFillClr(FillingClr);
 		FIG->SetSelected(false);
+		
 		pManager->SetSelectedFigure(NULL);
 	}
 
@@ -41,5 +45,49 @@ void ChangeFillClrAction::PlayRecording()
 		FIG->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
 	}
+}
+
+
+void ChangeFillClrAction::Undo()
+{
+	Output* op = pManager->GetOutput();
+	CFigure* FIG = pManager->GetFigure(ID);
+	if (FIG) {
+		if (IsFilled) {
+			op->setfilled();
+			FIG->ChngFillClr(PrevFillingClr);
+		}
+		else {
+			op->SetNonFilled();
+			
+			FIG->RemoveFillClr(PrevFillingClr);
+		}
+		FIG->SetSelected(false);
+		op->setFillclr(PrevFillingClr);
+		pManager->SetSelectedFigure(NULL);
+	}
+}
+
+void ChangeFillClrAction::Redo()
+{
+	Output* op = pManager->GetOutput();
+	CFigure* FIG = pManager->GetFigure(ID);
+	if (FIG) {
+		IsFilled = op->checkisfilled();
+		op->setfilled();
+		PrevFillingClr = FIG->getFillColor();
+		ID = FIG->GetID();
+		op->setFillclr(FillingClr);
+		FIG->ChngFillClr(FillingClr);
+		FIG->SetSelected(false);
+
+		pManager->SetSelectedFigure(NULL);
+	}
+}
+
+
+bool ChangeFillClrAction::CanUndo()
+{
+	return true;
 }
 

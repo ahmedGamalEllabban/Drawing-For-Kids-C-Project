@@ -25,6 +25,7 @@ public:
 	virtual bool IsInside(int, int) const = 0;//Ahmed: checks whether a point in inside the figure or not 
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
+	void RemoveFillClr(color PrevClr);
 	virtual Point MoveFigure(Point P) = 0;
 	color getFillColor();
 	void SetID(int);

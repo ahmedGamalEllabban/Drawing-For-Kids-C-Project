@@ -35,6 +35,36 @@ void ChangeDrawClrAction::PlayRecording()
 	Output* op = pManager->GetOutput();
 	CFigure* FIG = pManager->GetSelectedFigure();
 	if (FIG) {
+		ID = FIG->GetID();
+		op->setDrawclr(DrawingClr);
+		FIG->ChngDrawClr(DrawingClr);
+		FIG->SetSelected(false);
+		pManager->SetSelectedFigure(NULL);
+	}
+}
+
+bool ChangeDrawClrAction::CanUndo()
+{
+	return true;
+}
+
+void ChangeDrawClrAction::Undo()
+{
+	Output* op = pManager->GetOutput();
+	CFigure* FIG = pManager->GetFigure(ID);
+	if (FIG) {
+		op->setDrawclr(PrevDrawingClr);
+		FIG->ChngDrawClr(PrevDrawingClr);
+		FIG->SetSelected(false);
+		pManager->SetSelectedFigure(NULL);
+	}
+}
+
+void ChangeDrawClrAction::Redo()
+{
+	Output* op = pManager->GetOutput();
+	CFigure* FIG = pManager->GetFigure(ID);
+	if (FIG) {
 		op->setDrawclr(DrawingClr);
 		FIG->ChngDrawClr(DrawingClr);
 		FIG->SetSelected(false);

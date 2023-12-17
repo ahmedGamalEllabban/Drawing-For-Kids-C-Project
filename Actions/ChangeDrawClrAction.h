@@ -4,12 +4,16 @@
 #include "..\GUI\Input.h"
 class ChangeDrawClrAction :public Action
 {
-	color DrawingClr;
+	color DrawingClr,PrevDrawingClr;
+	int ID;
 public:
 	ChangeDrawClrAction(ApplicationManager* pApp, color DC);
 	virtual void ReadActionParameters();
 	virtual void Execute();
 	virtual void PlayRecording();
+	virtual bool CanUndo();
+	virtual void Undo();
+	virtual void Redo();
 
 };
 
