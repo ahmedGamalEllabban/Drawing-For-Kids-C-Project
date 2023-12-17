@@ -28,6 +28,7 @@ public:
 	void RemoveFillClr(color PrevClr);
 	virtual Point MoveFigure(Point P) = 0;
 	color getFillColor();
+	color getDrawColor();
 	void SetID(int);
 	int GetID()const;
 	void virtual save(ofstream& fout) = 0;

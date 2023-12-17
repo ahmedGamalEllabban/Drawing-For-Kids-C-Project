@@ -37,6 +37,10 @@ color CFigure::getFillColor()
 {
 	return FigGfxInfo.FillClr;
 }
+color CFigure::getDrawColor()
+{
+	return FigGfxInfo.DrawClr;
+}
 
 void CFigure::SetID(int id)
 {

@@ -15,6 +15,8 @@ void ChangeDrawClrAction::Execute()
 	Output* op = pManager->GetOutput();
 	CFigure* FIG = pManager->GetSelectedFigure();
 	if (FIG) {
+		PrevDrawingClr=FIG->getDrawColor();
+		ID = FIG->GetID();
 		op->setDrawclr(DrawingClr);
 		FIG->ChngDrawClr(DrawingClr);
 		FIG->SetSelected(false);
@@ -35,7 +37,6 @@ void ChangeDrawClrAction::PlayRecording()
 	Output* op = pManager->GetOutput();
 	CFigure* FIG = pManager->GetSelectedFigure();
 	if (FIG) {
-		ID = FIG->GetID();
 		op->setDrawclr(DrawingClr);
 		FIG->ChngDrawClr(DrawingClr);
 		FIG->SetSelected(false);
