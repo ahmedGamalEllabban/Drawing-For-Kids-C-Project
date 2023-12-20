@@ -14,18 +14,21 @@ void DeleteAction::ReadActionParameters()
 {}
 void DeleteAction::Execute() {
 
+	CFigure* fig = pManager->DeleteFigure();
+	if (fig){
+	fig->SetSelected(false);
+	DeletedFig = fig;
+	ID = fig->GetID();
+	fig = NULL;
+	pManager->SetSelectedFigure(NULL);
+	}
+
 	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
 	if (pManager->IsRecording()) {
 		DeleteAction* dAction = new DeleteAction(pManager);
 		*dAction = *this;
 		pManager->AddActionToRecordingList(dAction);
 	}
-
-	CFigure* fig = pManager->DeleteFigure();
-	fig->SetSelected(false);
-	DeletedFig = fig;
-	ID = fig->GetID();
-	fig = NULL;
 	pManager->DeleteRedoList();
 }
 void DeleteAction::Undo() {
@@ -42,7 +45,7 @@ void DeleteAction::Redo()
 	fig = pManager->DeleteFigure();
 	DeletedFig = fig;
 	fig = NULL;
-
+	pManager->SetSelectedFigure(NULL);
 }
 
 DeleteAction::~DeleteAction()

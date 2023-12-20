@@ -108,6 +108,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case CHANGE_BORDERCLR: //AHMED HAZEM
 		{
+			if (SelectedFig){
 			pOut->CreateColorlist();
 			ActionType ActType = pIn->GetUserAction();
 			switch (ActType)
@@ -137,10 +138,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 				break;
 			}
 			break;
+			}
 		}
 
 		case CHANGE_FILLCLR://AHMED HAZEM
 		{
+			if (SelectedFig){
 			pOut->CreateColorlist();
 			ActionType ActType = pIn->GetUserAction();
 			switch (ActType)
@@ -170,9 +173,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 				break;
 			}
 			break;
+			}
 		}
 
 		case MOVE_FIGURE:
+			if (SelectedFig)
 			pAct = new MoveFigureAction(this);
 			break;
 
@@ -216,6 +221,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			isPlaying = true;
 			break;
 		case DELETE_FIGURE:
+			if(SelectedFig)
 			pAct = new DeleteAction(this);
 			break;
 		case UNDO:
@@ -361,12 +367,14 @@ CFigure* ApplicationManager::DeleteFigure()
 {
 	int i = GetSelectedFigureIndex();
 	if (i == -1) return NULL;
+	else{
 	for (int j = i; j < FigCount - 1; j++) {
 		swap(FigList[j], FigList[j + 1]);
 	}
 	--FigCount;
 	FigList[FigCount] = NULL;
 	return SelectedFig;
+	}
 }
 
 void ApplicationManager::DeleteAllFigures()
@@ -597,23 +605,27 @@ void ApplicationManager::AddToRedoList(Action* pAct)
 }
 void ApplicationManager::DeleteRedoList()
 {
-	for (int i = 0; i < RedoCount; i++) {
-		if (RedoList[i]) {
+	if (!PlayingRecord) {
+		for (int i = 0; i < RedoCount; i++) {
+			if (RedoList[i]) {
 			delete RedoList[i];
 			RedoList[i] = NULL;
+			}
 		}
-	}
 	RedoCount = 0;
+	}
 }
 void ApplicationManager::DeleteUndoList()
 {
-	for (int i = 0; i < ActionsCount; i++) {
-		if (UndoList[i]) {
+	if (!PlayingRecord){
+		for (int i = 0; i < ActionsCount; i++) {
+			if (UndoList[i]) {
 			delete UndoList[i];
 			UndoList[i] = NULL;
+			}
 		}
-	}
 	ActionsCount = 0;
+	}
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

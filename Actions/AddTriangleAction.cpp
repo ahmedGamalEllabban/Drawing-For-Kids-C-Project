@@ -42,12 +42,6 @@ void AddTriangleAction::Execute() {
 	//This action needs to read some parameters first
 	ReadActionParameters();
 
-	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
-	if (pManager->IsRecording()) {
-		AddTriangleAction* addAction = new AddTriangleAction(pManager);
-		*addAction = *this;
-		pManager->AddActionToRecordingList(addAction);
-	}
 
 	//Create a rectangle with the parameters read from the user
 	CTriangle* T = new CTriangle(P1, P2 , P3, TriangleGfxInfo);
@@ -55,6 +49,12 @@ void AddTriangleAction::Execute() {
 	//Add the Triangle to the list of figures
 	pManager->AddFigure(T);
 	ID = T->GetID();
+	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
+	if (pManager->IsRecording()) {
+		AddTriangleAction* addAction = new AddTriangleAction(pManager);
+		*addAction = *this;
+		pManager->AddActionToRecordingList(addAction);
+	}
 	pManager->DeleteRedoList();
 
 }

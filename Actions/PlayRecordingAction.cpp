@@ -34,7 +34,7 @@ void PlayRecordingAction::Execute()
 		for (int i = 0; i < pManager->GetRecordedActionsCount(); i++) {
 			if (RecordedActions[i] != NULL) {
 			RecordedActions[i]->PlayRecording();
-			pManager->AddToUndoList(RecordedActions[i]);
+			//pManager->AddToUndoList(RecordedActions[i]);
 			pManager->UpdateInterface();
 			Pause(1000);
 			}

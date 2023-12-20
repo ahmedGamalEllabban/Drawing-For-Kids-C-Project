@@ -29,6 +29,10 @@ void AddSquareAction::Execute()
 {
 	ReadActionParameters();
 
+	CSquare* S = new CSquare(Center, SquareGfxInfo);
+
+	pManager->AddFigure(S);
+	ID = S->GetID();
 	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
 	if (pManager->IsRecording()) {
 		AddSquareAction* addAction = new AddSquareAction(pManager);
@@ -36,10 +40,6 @@ void AddSquareAction::Execute()
 		pManager->AddActionToRecordingList(addAction);
 	}
 
-	CSquare* S = new CSquare(Center, SquareGfxInfo);
-
-	pManager->AddFigure(S);
-	ID = S->GetID();
 	
 	pManager->DeleteRedoList();
 }

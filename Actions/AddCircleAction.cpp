@@ -43,12 +43,6 @@ void AddCircleAction::Execute()
 {//This action needs to read some parameters first
 	ReadActionParameters();
 
-	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
-	if (pManager->IsRecording()) {
-		AddCircleAction* addAction = new AddCircleAction(pManager);
-		*addAction = *this;
-		pManager->AddActionToRecordingList(addAction);
-	}
 
 	//Create a Circle with the parameters read from the user
 	CCircle* C = new CCircle(Center, P2, CircleGfxInfo);
@@ -56,6 +50,12 @@ void AddCircleAction::Execute()
 	//Add the Circle to the list of figures
 	pManager->AddFigure(C);
 	ID = C->GetID();
+	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
+	if (pManager->IsRecording()) {
+		AddCircleAction* addAction = new AddCircleAction(pManager);
+		*addAction = *this;
+		pManager->AddActionToRecordingList(addAction);
+	}
 	
 	pManager->DeleteRedoList();
 }

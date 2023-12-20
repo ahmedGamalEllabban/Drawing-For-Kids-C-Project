@@ -18,12 +18,6 @@ void SelectAction::ReadActionParameters() {
 void SelectAction::Execute() {
 	ReadActionParameters();
 
-	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
-	if (pManager->IsRecording()) {
-		SelectAction* sAction = new SelectAction(pManager);
-		*sAction = *this;
-		pManager->AddActionToRecordingList(sAction);
-	}
 
 	CFigure* fig, * fig2; //A pointer to figure class
 	fig = pManager->GetFigure(P.x, P.y);//sets the fig data member to the pointer of the selected figure
@@ -42,6 +36,12 @@ void SelectAction::Execute() {
 		}
 	}
 
+	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
+	if (pManager->IsRecording()) {
+		SelectAction* sAction = new SelectAction(pManager);
+		*sAction = *this;
+		pManager->AddActionToRecordingList(sAction);
+	}
 }
 
 void SelectAction::PlayRecording()

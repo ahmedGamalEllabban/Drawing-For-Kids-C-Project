@@ -21,12 +21,6 @@ void MoveFigureAction::ReadActionParameters()
 void MoveFigureAction::Execute() {
 	ReadActionParameters();
 
-	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
-	if (pManager->IsRecording()) {
-		MoveFigureAction* mAction = new MoveFigureAction(pManager);
-		*mAction = *this;
-		pManager->AddActionToRecordingList(mAction);
-	}
 
 	CFigure* figure = pManager->GetSelectedFigure();
 	if (figure) {
@@ -34,6 +28,13 @@ void MoveFigureAction::Execute() {
 		PB=figure->MoveFigure(P);
 		ID = figure->GetID();
 		pManager->DeleteRedoList();
+		pManager->SetSelectedFigure(NULL);
+	}
+	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
+	if (pManager->IsRecording()) {
+		MoveFigureAction* mAction = new MoveFigureAction(pManager);
+		*mAction = *this;
+		pManager->AddActionToRecordingList(mAction);
 	}
 }
 

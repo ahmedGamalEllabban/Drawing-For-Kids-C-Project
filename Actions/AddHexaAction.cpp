@@ -36,6 +36,12 @@ void AddHexaAction::Execute()
 	//This action needs to read some parameters first
 	ReadActionParameters();
 
+	//Create a hexagon with the parameters read from the user
+	CHexagon* H = new CHexagon(P, HexaGfxInfo);
+
+	//Add the hexagon to the list of figures
+	pManager->AddFigure(H);
+	ID = H->GetID();
 	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
 	if (pManager->IsRecording()) {
 		AddHexaAction* addAction = new AddHexaAction(pManager);
@@ -43,12 +49,6 @@ void AddHexaAction::Execute()
 		pManager->AddActionToRecordingList(addAction);
 	}
 
-	//Create a hexagon with the parameters read from the user
-	CHexagon* H = new CHexagon(P, HexaGfxInfo);
-
-	//Add the hexagon to the list of figures
-	pManager->AddFigure(H);
-	ID = H->GetID();
 	pManager->DeleteRedoList();
 }
 

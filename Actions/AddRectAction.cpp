@@ -40,6 +40,12 @@ void AddRectAction::Execute()
 	//This action needs to read some parameters first
 	ReadActionParameters();
 
+	//Create a rectangle with the parameters read from the user
+	CRectangle *R=new CRectangle(P1, P2, RectGfxInfo);
+
+	//Add the rectangle to the list of figures
+	pManager->AddFigure(R);
+	ID = R->GetID();
 	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
 	if (pManager->IsRecording()) {
 		AddRectAction* addAction = new AddRectAction(pManager);
@@ -47,12 +53,6 @@ void AddRectAction::Execute()
 		pManager->AddActionToRecordingList(addAction);
 	}
 	
-	//Create a rectangle with the parameters read from the user
-	CRectangle *R=new CRectangle(P1, P2, RectGfxInfo);
-
-	//Add the rectangle to the list of figures
-	pManager->AddFigure(R);
-	ID = R->GetID();
 	pManager->DeleteRedoList();
 }
 
