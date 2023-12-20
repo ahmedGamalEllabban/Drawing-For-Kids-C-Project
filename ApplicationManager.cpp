@@ -306,13 +306,13 @@ int ApplicationManager::GetFigureCount() const {
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {
-	int i = 0;
+	int i = FigCount-1;
 	//If a figure is found return a pointer to it.
 	//if this point (x,y) does not belong to any figure return NULL
-	while( i < FigCount && FigList[i]) {
+	while( i >=0 && FigList[i]) {
 			if (FigList[i]->IsInside(x, y))
 				return FigList[i];
-			i++;
+			i--;
 	}
 	
 	//Add your code here to search for a figure given a point x,y	
