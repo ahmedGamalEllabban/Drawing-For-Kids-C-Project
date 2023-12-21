@@ -17,6 +17,7 @@ void ClearAllAction::Execute()
 	pManager->GetOutput()->SetNonFilled();
 	pManager->GetOutput()->setDrawclr(BLUE);
 	pManager->SetRecordingStatus(false);
+	pManager->SetSelectedFigure(NULL);
 	if (pManager->IsPlayingRecord()) {
 	pManager->GetOutput()->PrintMessage("The Application Has Been Reset And Playing Record Started");
 	}
