@@ -33,15 +33,23 @@ void CFigure::RemoveFillClr(color PrevClr)
 	FigGfxInfo.FillClr = PrevClr;
 }
 
-color CFigure::getFillColor()
+GfxInfo CFigure::getGfxInfo()
 {
-	return FigGfxInfo.FillClr;
+	return FigGfxInfo;
 }
+void CFigure::SetGfxinfo(GfxInfo info)
+{
+	FigGfxInfo = info;
+}
+
 color CFigure::getDrawColor()
 {
 	return FigGfxInfo.DrawClr;
 }
-
+color CFigure::getFillColor()
+{
+	return FigGfxInfo.FillClr;
+}
 void CFigure::SetID(int id)
 {
 	ID = id;

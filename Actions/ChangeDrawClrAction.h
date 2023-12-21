@@ -4,7 +4,8 @@
 #include "..\GUI\Input.h"
 class ChangeDrawClrAction :public Action
 {
-	color DrawingClr,PrevDrawingClr;
+	GfxInfo DrawingClr,PrevDrawingClr;
+	GfxInfo PrevDefault;
 	int ID;
 public:
 	ChangeDrawClrAction(ApplicationManager* pApp, color DC);

@@ -136,6 +136,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			case CHNGCLR_RED:
 				pAct = new ChangeDrawClrAction(this, RED);
 				break;
+			default:
+				pAct = NULL;
+				break;
 			}
 			break;
 			}
@@ -170,6 +173,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 			case CHNGCLR_RED:
 				pAct = new ChangeFillClrAction(this, RED);
+				break;
+			default:
+				pAct = NULL;
 				break;
 			}
 			break;

@@ -2,8 +2,8 @@
 #include "Action.h"
 class ChangeFillClrAction :public Action
 {
-	color FillingClr, PrevFillingClr;
-	bool IsFilled;
+	GfxInfo FillingClr, PrevFillingClr;
+	GfxInfo PrevDefault;
 	int ID;
 public:
 	ChangeFillClrAction(ApplicationManager* pApp, color FC);

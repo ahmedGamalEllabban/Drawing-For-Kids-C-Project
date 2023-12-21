@@ -27,9 +27,11 @@ public:
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 	void RemoveFillClr(color PrevClr);
 	virtual Point MoveFigure(Point P) = 0;
+	GfxInfo getGfxInfo();
+	void SetGfxinfo(GfxInfo);
+	void SetID(int);
 	color getFillColor();
 	color getDrawColor();
-	void SetID(int);
 	int GetID()const;
 	void virtual save(ofstream& fout) = 0;
 	void virtual load(ifstream& fin) = 0;
