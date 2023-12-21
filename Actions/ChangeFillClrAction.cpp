@@ -3,7 +3,7 @@
 #include "..\Figures\CFigure.h"
 ChangeFillClrAction::ChangeFillClrAction(ApplicationManager* pApp, color FC) :Action(pApp)
 {
-	FillingClr.FillClr = FC;
+	FillingClr = FC;
 }
 
 void ChangeFillClrAction::ReadActionParameters()
@@ -22,15 +22,15 @@ void ChangeFillClrAction::Execute()
 		op->setfilled();
 		PrevFillingClr = FIG->getGfxInfo();
 		ID = FIG->GetID();
-		op->setFillclr(FillingClr.FillClr);
-		FIG->ChngFillClr(FillingClr.FillClr);
+		op->setFillclr(FillingClr);
+		FIG->ChngFillClr(FillingClr);
 		FIG->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
 	}
 
 	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
 	if (pManager->IsRecording()) {
-		ChangeFillClrAction* ChangeColorAction = new ChangeFillClrAction(pManager, FillingClr.FillClr);
+		ChangeFillClrAction* ChangeColorAction = new ChangeFillClrAction(pManager, FillingClr);
 		*ChangeColorAction = *this;
 		pManager->AddActionToRecordingList(ChangeColorAction);
 	}
@@ -43,12 +43,12 @@ void ChangeFillClrAction::PlayRecording()
 	if (FIG) {
 	
 		op->setfilled();
-		op->setFillclr(FillingClr.FillClr);
-		FIG->ChngFillClr(FillingClr.FillClr);
+		op->setFillclr(FillingClr);
+		FIG->ChngFillClr(FillingClr);
 		FIG->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
 	}
-	ChangeFillClrAction* ChangeColorAction = new ChangeFillClrAction(pManager, FillingClr.FillClr);
+	ChangeFillClrAction* ChangeColorAction = new ChangeFillClrAction(pManager, FillingClr);
 	*ChangeColorAction = *this;
 	pManager->AddToUndoList(ChangeColorAction);
 }
@@ -78,8 +78,8 @@ void ChangeFillClrAction::Redo()
 	if (FIG) {
 		ID = FIG->GetID();
 		op->setfilled();
-		op->setFillclr(FillingClr.FillClr);
-		FIG->ChngFillClr(FillingClr.FillClr);
+		op->setFillclr(FillingClr);
+		FIG->ChngFillClr(FillingClr);
 		FIG->SetSelected(false);
 
 		pManager->SetSelectedFigure(NULL);

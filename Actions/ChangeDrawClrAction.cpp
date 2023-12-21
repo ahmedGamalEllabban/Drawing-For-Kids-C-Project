@@ -3,7 +3,7 @@
 #include "..\GUI/UI_Info.h"
 ChangeDrawClrAction::ChangeDrawClrAction(ApplicationManager* pApp, color DC) : Action(pApp)
 {
-	DrawingClr.DrawClr = DC;
+	DrawingClr = DC;
 }
 
 void ChangeDrawClrAction::ReadActionParameters()
@@ -19,17 +19,17 @@ void ChangeDrawClrAction::Execute()
 		PrevDefault.DrawClr = op->getCrntDrawColor();
 		PrevDefault.FillClr = op->getCrntFillColor();
 		PrevDefault.BorderWdth = op->getCrntPenWidth();
-		PrevDrawingClr=FIG->getGfxInfo();
+		PrevDrawingClr=FIG->getDrawColor();
 		ID = FIG->GetID();
-		op->setDrawclr(DrawingClr.DrawClr);
-		FIG->ChngDrawClr(DrawingClr.DrawClr);
+		op->setDrawclr(DrawingClr);
+		FIG->ChngDrawClr(DrawingClr);
 		FIG->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
 	}
 
 	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
 	if (pManager->IsRecording()) {
-		ChangeDrawClrAction* ChangeColorAction = new ChangeDrawClrAction(pManager, DrawingClr.DrawClr);
+		ChangeDrawClrAction* ChangeColorAction = new ChangeDrawClrAction(pManager, DrawingClr);
 		*ChangeColorAction = *this;
 		pManager->AddActionToRecordingList(ChangeColorAction);
 	}
@@ -41,12 +41,12 @@ void ChangeDrawClrAction::PlayRecording()
 	Output* op = pManager->GetOutput();
 	CFigure* FIG = pManager->GetSelectedFigure();
 	if (FIG) {
-		op->setDrawclr(DrawingClr.DrawClr);
-		FIG->ChngDrawClr(DrawingClr.DrawClr);
+		op->setDrawclr(DrawingClr);
+		FIG->ChngDrawClr(DrawingClr);
 		FIG->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
 	}
-	ChangeDrawClrAction* ChangeColorAction = new ChangeDrawClrAction(pManager, DrawingClr.DrawClr);
+	ChangeDrawClrAction* ChangeColorAction = new ChangeDrawClrAction(pManager, DrawingClr);
 	*ChangeColorAction = *this;
 	pManager->AddToUndoList(ChangeColorAction);
 }
@@ -65,8 +65,7 @@ void ChangeDrawClrAction::Undo()
 			op->setfilled();
 		else
 			op->SetNonFilled();
-		op->setDrawclr(PrevDrawingClr.DrawClr);
-		FIG->SetGfxinfo(PrevDrawingClr);
+		FIG->ChngDrawClr(PrevDrawingClr);
 		FIG->SetSelected(false);
 
 		op->setFillclr(PrevDefault.FillClr);
@@ -80,8 +79,8 @@ void ChangeDrawClrAction::Redo()
 	Output* op = pManager->GetOutput();
 	CFigure* FIG = pManager->GetFigure(ID);
 	if (FIG) {
-		op->setDrawclr(DrawingClr.DrawClr);
-		FIG->ChngDrawClr(DrawingClr.DrawClr);
+		op->setDrawclr(DrawingClr);
+		FIG->ChngDrawClr(DrawingClr);
 		FIG->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
 	}
