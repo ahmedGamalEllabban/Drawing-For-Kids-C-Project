@@ -91,5 +91,8 @@ void AddTriangleAction::PlayRecording()
 	//Add the Triangle to the list of figures
 	pManager->AddFigure(T);
 	ID = T->GetID();
+	AddTriangleAction* addAction = new AddTriangleAction(pManager);
+	*addAction = *this;
+	pManager->AddToUndoList(addAction);
 	pManager->DeleteRedoList();
 }

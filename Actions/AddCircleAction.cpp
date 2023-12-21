@@ -88,7 +88,11 @@ void AddCircleAction::PlayRecording()
 	//Add the Circle to the list of figures
 	pManager->AddFigure(C);
 	ID = C->GetID();
-
+////////////////////////////////////////////
+	AddCircleAction* addAction = new AddCircleAction(pManager);
+	*addAction = *this;
+	pManager->AddToUndoList(addAction);
+////////////////////////////////////////////
 	pManager->DeleteRedoList();
 
 }

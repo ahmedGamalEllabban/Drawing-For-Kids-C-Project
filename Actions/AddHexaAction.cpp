@@ -82,5 +82,8 @@ void AddHexaAction::PlayRecording()
 	//Add the hexagon to the list of figures
 	pManager->AddFigure(H);
 	ID = H->GetID();
+	AddHexaAction* addAction = new AddHexaAction(pManager);
+	*addAction = *this;
+	pManager->AddToUndoList(addAction);
 	pManager->DeleteRedoList();
 }

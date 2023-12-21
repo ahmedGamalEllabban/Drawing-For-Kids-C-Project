@@ -64,5 +64,8 @@ void DeleteAction::PlayRecording()
 	DeletedFig = fig;
 	ID = fig->GetID();
 	fig = NULL;
+	DeleteAction* dAction = new DeleteAction(pManager);
+	*dAction = *this;
+	pManager->AddToUndoList(dAction);
 	pManager->DeleteRedoList();
 }

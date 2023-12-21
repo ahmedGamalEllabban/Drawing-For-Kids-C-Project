@@ -605,19 +605,18 @@ void ApplicationManager::AddToRedoList(Action* pAct)
 }
 void ApplicationManager::DeleteRedoList()
 {
-	if (!PlayingRecord) {
+
 		for (int i = 0; i < RedoCount; i++) {
 			if (RedoList[i]) {
-			delete RedoList[i];
+				delete RedoList[i];
 			RedoList[i] = NULL;
 			}
 		}
 	RedoCount = 0;
-	}
+	
 }
 void ApplicationManager::DeleteUndoList()
 {
-	if (!PlayingRecord){
 		for (int i = 0; i < ActionsCount; i++) {
 			if (UndoList[i]) {
 			delete UndoList[i];
@@ -625,7 +624,7 @@ void ApplicationManager::DeleteUndoList()
 			}
 		}
 	ActionsCount = 0;
-	}
+
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

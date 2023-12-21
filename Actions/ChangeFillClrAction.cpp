@@ -45,6 +45,9 @@ void ChangeFillClrAction::PlayRecording()
 		FIG->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
 	}
+	ChangeFillClrAction* ChangeColorAction = new ChangeFillClrAction(pManager, FillingClr);
+	*ChangeColorAction = *this;
+	pManager->AddToUndoList(ChangeColorAction);
 }
 
 

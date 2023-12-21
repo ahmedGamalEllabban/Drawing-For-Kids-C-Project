@@ -64,6 +64,9 @@ void MoveFigureAction::PlayRecording()
 		figure->SetSelected(false);
 		PB = figure->MoveFigure(P);
 		ID = figure->GetID();
+		MoveFigureAction* mAction = new MoveFigureAction(pManager);
+		*mAction = *this;
+		pManager->AddToUndoList(mAction);
 		pManager->DeleteRedoList();
 	}
 }

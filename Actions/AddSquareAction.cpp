@@ -73,6 +73,8 @@ void AddSquareAction::PlayRecording()
 
 	pManager->AddFigure(S);
 	ID = S->GetID();
-
+	AddSquareAction* addAction = new AddSquareAction(pManager);
+	*addAction = *this;
+	pManager->AddToUndoList(addAction);
 	pManager->DeleteRedoList();
 }

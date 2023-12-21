@@ -42,6 +42,9 @@ void ChangeDrawClrAction::PlayRecording()
 		FIG->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
 	}
+	ChangeDrawClrAction* ChangeColorAction = new ChangeDrawClrAction(pManager, DrawingClr);
+	*ChangeColorAction = *this;
+	pManager->AddToUndoList(ChangeColorAction);
 }
 
 bool ChangeDrawClrAction::CanUndo()

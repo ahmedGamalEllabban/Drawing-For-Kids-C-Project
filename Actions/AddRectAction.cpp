@@ -86,5 +86,8 @@ void AddRectAction::PlayRecording()
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(R);
 	ID = R->GetID();
+	AddRectAction* addAction = new AddRectAction(pManager);
+	*addAction = *this;
+	pManager->AddToUndoList(addAction);
 	pManager->DeleteRedoList();
 }
