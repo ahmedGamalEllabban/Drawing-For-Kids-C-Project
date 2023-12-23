@@ -1,10 +1,14 @@
 #pragma once
 #include "Action.h"
+#include "..\GUI\Output.h"
+#include "..\GUI\Input.h"
 class playByShapeAction : public Action
 {
 	int correct, wrong, numOfShapes;
 	int RectCount, SquareCount, HexCount, TriangleCount, CircleCount;
 	Point p;
+	Output* pOut;
+	Input* pIn;
 
 	enum Shapes
 	{

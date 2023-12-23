@@ -1,11 +1,17 @@
 #pragma once
 #include "Action.h"
+#include "..\GUI\Output.h"
+#include "..\GUI\Input.h"
+
 class playByColorAction : public Action
 {
 	int correct, wrong, numOfShapes;
 	int blackCount, yellowCount, orangeCount, redCount, greenCount, blueCount;
 	Point p;
 	color randColor;
+	Output* pOut;
+	Input* pIn;
+
 
 
 public:

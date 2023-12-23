@@ -214,16 +214,19 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case PLAYBYSHAPE: // ahmed kamal
 			pAct = new playByShapeAction(this);
+			loopCount = FigCount;
 			isPlaying = true;
 			break;
 
 		case PLAYBYCOLOR: //  ahmed kamal
 			pAct = new playByColorAction(this);
+			loopCount = FigCount;
 			isPlaying = true;
 			break;
 
 		case PLAYBYBOTH:
 			pAct = new playByBothAction(this);
+			loopCount = FigCount;
 			isPlaying = true;
 			break;
 		case DELETE_FIGURE:
@@ -252,7 +255,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if(pAct != NULL)
 	{
 		pAct->Execute();//Execute
-		AddToUndoList(pAct);
+
+		if (!isPlayMode) {
+			AddToUndoList(pAct);
+		}
+
+		else delete pAct;
+
 		pAct=NULL;//You may need to change this line depending to your implementation
 	}
 }
@@ -355,6 +364,7 @@ void ApplicationManager::SetSelectedFigure(CFigure* Fig)
 	SelectedFig = Fig;
 }
 int ApplicationManager::GetSelectedFigureIndex() {
+
 	if (SelectedFig == NULL) return -1;
 	else {
 		int i = 0;
@@ -439,6 +449,7 @@ void ApplicationManager::UpdateInterface() const
 }
 void ApplicationManager::createPlayArea() const // ahmed kamal
 {
+
 	pOut->ClearDrawArea();
 
 	for (int i = 0; i < FigCount; i++)
@@ -453,6 +464,7 @@ int ApplicationManager::getFigCount() const
 
 CFigure* ApplicationManager::getRandomFig() const
 {
+
 	srand(static_cast<unsigned int>(time(NULL)));
 
 	int randomIndex = rand() % FigCount;
@@ -492,9 +504,14 @@ void ApplicationManager::deleteChosenFig(Point p)
 
 	SetSelectedFigure(selected);
 
-	DeleteFigure();
+	int i = GetSelectedFigureIndex();
 
-	for (int i = 0; i < FigCount; i++) {
+	if (i != -1) {
+			swap(FigList[i], FigList[loopCount - 1]);
+			loopCount--;
+	}	
+
+	for (int i = 0; i < loopCount; i++) {
 		FigList[i]->Draw(pOut);
 	}
 }

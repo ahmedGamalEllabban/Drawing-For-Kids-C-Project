@@ -14,6 +14,9 @@
 
 playByBothAction::playByBothAction(ApplicationManager* app):Action(app)
 {
+	pOut = pManager->GetOutput();
+	pIn = pManager->GetInput();
+
 	correct = wrong = 0;
 
 	numOfShapes = pManager->getFigCount();

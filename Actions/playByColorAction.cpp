@@ -8,6 +8,8 @@
 
 playByColorAction::playByColorAction(ApplicationManager* app) :Action(app)
 {
+	pOut = pManager->GetOutput();
+	pIn = pManager->GetInput();
 	numOfShapes = pManager->getFigCount();
 	correct = 0;
 	wrong = 0;
@@ -18,14 +20,11 @@ playByColorAction::playByColorAction(ApplicationManager* app) :Action(app)
 
 void playByColorAction::ReadActionParameters()
 {
-
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
-
 	pOut->PrintMessage("Playing Pick and hide By Color ");
 
 	pOut->ClearPickHideToolBar();
+
+	Sleep(1000);
 
 	randColor = pManager->getRandomColor();
 
@@ -45,8 +44,6 @@ void playByColorAction::Execute()
 
 void playByColorAction::startGame()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
 	int count = 0;
 
 	pManager->createPlayArea();
@@ -80,21 +77,34 @@ void playByColorAction::startGame()
 	{
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		else numOfShapes--;
+			Sleep(1000);
 
-		if (randColor == pManager->GetFigure(p.x, p.y)->getFillColor()) {
-			correct++;
-			if (correct == count) break;
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
 
+			if (randColor == pManager->GetFigure(p.x, p.y)->getFillColor()) {
+				correct++;
+				if (correct == count) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+
+		}
+
+		
 	}
 
 

@@ -18,6 +18,8 @@ using namespace std;
 
 playByShapeAction::playByShapeAction(ApplicationManager* app) :Action(app)
 {
+	pOut = pManager->GetOutput();
+	pIn = pManager->GetInput();
 	numOfShapes = pManager->getFigCount();
 	correct = 0;
 	wrong = 0;
@@ -29,9 +31,6 @@ void playByShapeAction::ReadActionParameters()
 {
 	Shapes randomShape;
 	CFigure* shape;
-
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
 
 	pOut->PrintMessage("Playing Pick and hide By Shape ");
 
@@ -91,10 +90,6 @@ void playByShapeAction::Execute()
 
 void playByShapeAction::playSquare()
 {
-
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	pOut->PrintMessage("Select All the Squares :) ");
@@ -104,32 +99,38 @@ void playByShapeAction::playSquare()
 
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		else numOfShapes--;
+			Sleep(1000);
 
-		if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y))) {
-			correct++;
-			if (correct == SquareCount) break;
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
 
+			if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y))) {
+				correct++;
+				if (correct == SquareCount) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+
+		}
 
 	}
-
-	pOut->PrintMessage("Game Ended ");
 }
 
 void playByShapeAction::playRectangle()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	pOut->PrintMessage("Select All the Rectangles :) ");
@@ -138,30 +139,38 @@ void playByShapeAction::playRectangle()
 
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
 
-		else numOfShapes--;
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y))) {
-			correct++;
-			if (correct == RectCount) break;
+			Sleep(1000);
+
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
+
+			if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y))) {
+				correct++;
+				if (correct == RectCount) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+		}
+
 	}
-
-	pOut->PrintMessage("Game Ended ");
 }
 
 void playByShapeAction::playHexagon()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	pOut->PrintMessage("Select All the Hexagons :) ");
@@ -170,30 +179,39 @@ void playByShapeAction::playHexagon()
 
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
 
-		else numOfShapes--;
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y))) {
-			correct++;
-			if (correct == HexCount) break;
+			Sleep(1000);
+
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
+
+			if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y))) {
+				correct++;
+				if (correct == HexCount) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+		}
+
+		
 	}
-
-	pOut->PrintMessage("Game Ended ");
 }
 
 void playByShapeAction::playCircle()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	pOut->PrintMessage("Select All the Circles :) ");
@@ -202,31 +220,39 @@ void playByShapeAction::playCircle()
 
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
 
-		else numOfShapes--;
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y))) {
-			correct++;
-			if (correct == CircleCount) break;
+			Sleep(1000);
+
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
+
+			if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y))) {
+				correct++;
+				if (correct == CircleCount) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+		}
+
 	}
-
-	pOut->PrintMessage("Game Ended ");
 
 }
 
 void playByShapeAction::playTriangle()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	pOut->PrintMessage("Select All the Triangles :) ");
@@ -235,21 +261,33 @@ void playByShapeAction::playTriangle()
 
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
 
-		else numOfShapes--;
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y))) {
-			correct++;
-			if (correct == TriangleCount) break;
+			Sleep(1000);
+
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
+
+			if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y))) {
+				correct++;
+				if (correct == TriangleCount) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+		}
+
+		
 	}
-
-	pOut->PrintMessage("Game Ended ");
 }

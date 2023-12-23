@@ -14,6 +14,7 @@ class ApplicationManager
 	enum { MaxActionsCount = 5 };
 private:
 	int FigCount;		//Actual number of figures
+	int loopCount;  // ahmed kamal
 	int ID;
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 
@@ -74,6 +75,7 @@ public:
 	void UpdateInterface() const;	//Redraws all the drawing window	
 	int GetSelectedFigureIndex();
 	CFigure* DeleteFigure();
+
 	// -- Play Related functions ***** ahmed kamal
 	void createPlayArea() const;
 	int getFigCount() const;
