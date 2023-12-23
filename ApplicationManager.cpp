@@ -323,13 +323,28 @@ int ApplicationManager::GetFigureCount() const {
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {
 	int i = FigCount-1;
+	int j = loopCount - 1;
 	//If a figure is found return a pointer to it.
 	//if this point (x,y) does not belong to any figure return NULL
-	while( i >=0 && FigList[i]) {
+
+	if (!isPlayMode) {
+
+		while (i >= 0 && FigList[i]) {
 			if (FigList[i]->IsInside(x, y))
 				return FigList[i];
 			i--;
+		}
+
 	}
+
+	else {
+		while (j >= 0 && FigList[j]) {
+			if (FigList[j]->IsInside(x, y))
+				return FigList[j];
+			j--;
+		}
+	}
+	
 	
 	//Add your code here to search for a figure given a point x,y	
 	//Remember that ApplicationManager only calls functions do NOT implement it.

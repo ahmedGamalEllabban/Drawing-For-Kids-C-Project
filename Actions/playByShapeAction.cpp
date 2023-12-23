@@ -175,7 +175,7 @@ void playByShapeAction::playHexagon()
 
 	pOut->PrintMessage("Select All the Hexagons :) ");
 
-	while (numOfShapes-- > 0) {
+	while (numOfShapes > 0) {
 
 		pIn->GetPointClicked(p.x, p.y);
 
