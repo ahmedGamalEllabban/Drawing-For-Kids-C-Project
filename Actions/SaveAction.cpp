@@ -52,3 +52,8 @@ void SaveAction::Execute()
 	pManager->Saveall(Fout);
 	Fout.close();
 }
+
+void SaveAction::setFileName(string name)
+{
+	File_Name = name;
+}

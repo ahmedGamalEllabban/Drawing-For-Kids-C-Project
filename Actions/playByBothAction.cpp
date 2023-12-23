@@ -53,9 +53,6 @@ playByBothAction::playByBothAction(ApplicationManager* app):Action(app)
 
 void playByBothAction::ReadActionParameters()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pOut->PrintMessage("Playing Pick and hide By Both Shape and Color ");
 
 	pOut->ClearPickHideToolBar();
@@ -90,9 +87,6 @@ void playByBothAction::Execute()
 
 void playByBothAction::playSquare()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
@@ -145,9 +139,6 @@ void playByBothAction::playSquare()
 
 void playByBothAction::playRectangle()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
@@ -181,28 +172,37 @@ void playByBothAction::playRectangle()
 	{
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		else numOfShapes--;
+			Sleep(1000);
 
-		if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
-			correct++;
-			if (correct == count) break;
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
+
+			if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+				correct++;
+				if (correct == count) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+		}
+
 	}
 }
 
 void playByBothAction::playHexagon()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
@@ -236,28 +236,38 @@ void playByBothAction::playHexagon()
 	{
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		else numOfShapes--;
+			Sleep(1000);
 
-		if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
-			correct++;
-			if (correct == count) break;
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
+
+			if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+				correct++;
+				if (correct == count) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+		}
+
+		
 	}
 }
 
 void playByBothAction::playCircle()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
@@ -291,28 +301,38 @@ void playByBothAction::playCircle()
 	{
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		else numOfShapes--;
+			Sleep(1000);
 
-		if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
-			correct++;
-			if (correct == count) break;
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
+
+			if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+				correct++;
+				if (correct == count) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+		}
+
+		
 	}
 }
 
 void playByBothAction::playTriangle()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
 	pManager->createPlayArea();
 
 	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
@@ -346,19 +366,32 @@ void playByBothAction::playTriangle()
 	{
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		else numOfShapes--;
+			Sleep(1000);
 
-		if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
-			correct++;
-			if (correct == count) break;
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
+
+			if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+				correct++;
+				if (correct == count) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+		}
+
+		
 	}
 }

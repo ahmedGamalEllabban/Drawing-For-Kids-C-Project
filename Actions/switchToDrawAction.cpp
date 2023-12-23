@@ -12,7 +12,6 @@ switchToDrawAction::switchToDrawAction(ApplicationManager* app) :Action(app)
 void switchToDrawAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
 
 	pOut->ClearDrawArea();
 	pOut->ClearPlayToolBar();

@@ -31,6 +31,7 @@
 #include "Actions\ClearAllAction.h"
 #include "Actions/SaveAction.h"
 #include "Actions/LoadAction.h"
+#include "Actions/exitAction.h"
 
 
 //Constructor
@@ -244,7 +245,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case EXIT:
 			///create ExitAction here
-			
+			pAct = new exitAction(this);
 			break;
 		
 		case STATUS:	//a click on the status bar ==> no action

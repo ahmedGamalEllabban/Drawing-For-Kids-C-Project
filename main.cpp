@@ -21,8 +21,5 @@ int main()
 
 	} while(ActType != EXIT);
 	
-
-	
-	return 0;
 }
 
