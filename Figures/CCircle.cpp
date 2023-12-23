@@ -7,35 +7,37 @@ CCircle::CCircle()
 
 CCircle::CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo): CFigure(FigureGfxInfo)
 {
-	P1 = p1;
+	center = p1;
 	P2 = p2;
 
 }
 
 void CCircle::Draw(Output* pOut) const
 {
-	pOut->DrawCircle(P1, P2, FigGfxInfo, Selected); 
+	pOut->DrawCircle(center, P2, FigGfxInfo, Selected);
 }
 
 Point CCircle::MoveFigure(Point move) {
-	int DiffX = P2.x - P1.x;
-	int DiffY = P2.y - P1.y;
-	Point Center2 = P1;
-	P1 = move;
-	P2.x = DiffX + P1.x;
-	P2.y = DiffY + P1.y;
+	int DiffX = P2.x - center.x;
+	int DiffY = P2.y - center.y;
+	Point Center2 = center;
+	center = move;
+	P2.x = DiffX + center.x;
+	P2.y = DiffY + center.y;
 	return Center2;
 }
 bool CCircle::IsInside(int x, int y) const{
-	int SR = (P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y);// NOTE: change the implementation if a member data of radius is added
-	int SR1 = (P1.x - x) * (P1.x - x) + (P1.y - y) * (P1.y - y);//New Radius square
+	int SR = (center.x - P2.x) * (center.x - P2.x) + (center.y - P2.y) * (center.y - P2.y);// NOTE: change the implementation if a member data of radius is added
+	int SR1 = (center.x - x) * (center.x - x) + (center.y - y) * (center.y - y);//New Radius square
 	if (SR>=SR1)// sees whether the square distance between the point and the Circle center is less than the radius 
 		return true;
 		return false;
 }
 void CCircle::save(ofstream& fout)
 {
-	fout << "CIRCLE" << " \t\t" << ID << "\t" << P1.x << "\t" << P1.y << "\t" << P2.x << "\t" << P2.y << "\t";
+	fout << "CIRCLE" << " \t\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << P2.x << "\t" << P2.y << "\t"; //Saving the Coordinates of The Center & Another Point On It
+	
+	// Saving Draw Color
 	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
 	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
 	else if (FigGfxInfo.DrawClr == RED) fout << "RED" << "\t";
@@ -43,6 +45,7 @@ void CCircle::save(ofstream& fout)
 	else if (FigGfxInfo.DrawClr == YELLOW) fout << "YELLOW" << "\t";
 	else if (FigGfxInfo.DrawClr == ORANGE) fout << "ORANGE" << "\t";
 
+	//Saving Fill Color In Case IsFilled==true , OtherWise Set it NOT_FILLED 
 	if (FigGfxInfo.isFilled == true) {
 		if (FigGfxInfo.FillClr == BLACK) fout << "BLACK" << "\n";
 		else if (FigGfxInfo.FillClr == BLUE) fout << "BLUE" << "\n";
@@ -51,7 +54,7 @@ void CCircle::save(ofstream& fout)
 		else if (FigGfxInfo.FillClr == YELLOW) fout << "YELLOW" << "\n";
 		else if (FigGfxInfo.FillClr == ORANGE)fout << "ORANGE" << "\n";
 	}
-	else { fout << "NOT_FILLED" << endl; }
+	else { fout << "NOT_FILLED" << endl; } //In Case The Circle Wasn't Filled
 
 
 
@@ -60,7 +63,9 @@ void CCircle::save(ofstream& fout)
 void CCircle::load(ifstream& fin)
 {
 	string drawclr, fillclr;
-	fin >> ID >> P1.x >> P1.y >> P2.x >> P2.y >> drawclr >> fillclr;
+	fin >> ID >> center.x >> center.y >> P2.x >> P2.y >> drawclr >> fillclr; //Set The ID And The Coordinates Of A Loaded Circle 
+
+	//Setting The Drawing Color
 	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
 	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
 	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }
@@ -68,8 +73,10 @@ void CCircle::load(ifstream& fin)
 	else if (drawclr == "YELLOW") { FigGfxInfo.DrawClr = YELLOW; }
 	else if (drawclr == "GREEN") { FigGfxInfo.DrawClr = GREEN; }
 
-	if (fillclr == "NOT_FILLED") { FigGfxInfo.FillClr = NULL; FigGfxInfo.isFilled = false; }
+	
+	if (fillclr == "NOT_FILLED") { FigGfxInfo.FillClr = NULL; FigGfxInfo.isFilled = false; }// Checking If The Circle Was Filled Or Not
 	else {
+		// Set The Filling Color
 		FigGfxInfo.isFilled = true;
 		if (fillclr == "BLACK") { FigGfxInfo.FillClr = BLACK; }
 		else if (fillclr == "BLUE") { FigGfxInfo.FillClr = BLUE; }

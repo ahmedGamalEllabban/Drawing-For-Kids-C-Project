@@ -3,7 +3,7 @@
 //#include "DEFS.h"
 class CCircle :public CFigure
 {
-	Point P1, P2;
+	Point center, P2;
 public:
 	CCircle();
 	CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo);

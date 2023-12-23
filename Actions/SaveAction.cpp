@@ -13,11 +13,11 @@ SaveAction::SaveAction(ApplicationManager* pApp):Action(pApp)
 void SaveAction::ReadActionParameters()
 {
 	Input* pIn;
-	Output* pOut; 
+	Output* pOut;
 	pIn = pManager->GetInput();
 	pOut = pManager->GetOutput();
-	pOut->PrintMessage("plese enter the file name to save in: ");
-	File_Name=pIn->GetSrting(pOut);
+	pOut->PrintMessage("Please enter the file name to save in: "); // Reading The File Name To save In
+	File_Name = pIn->GetSrting(pOut);
 }
 
 void SaveAction::Execute()
@@ -26,16 +26,21 @@ void SaveAction::Execute()
 	Output* pOut;
 	pIn = pManager->GetInput();
 	pOut = pManager->GetOutput();
-	color CDrawClr = pOut->getCrntDrawColor();
-	color CFillClr = pOut->getCrntFillColor();
+	color CDrawClr = pOut->getCrntDrawColor(); 
+	color CFillClr = pOut->getCrntFillColor(); 
 	ReadActionParameters();
-	ofstream Fout(File_Name+".txt");
+	
+	ofstream Fout(File_Name+".txt"); // Opening The File 
+
+	//Saving The Main Draw Color
 	if (CDrawClr == BLACK) Fout << "BLACK\t";
 	else if (CDrawClr == RED) Fout << "RED\t";
 	else if (CDrawClr == BLUE) Fout << "BLUE\t";
 	else if (CDrawClr == GREEN) Fout << "GREEN\t";
 	else if (CDrawClr == YELLOW) Fout << "YELLOW\t";
 	else if (CDrawClr == ORANGE) Fout << "ORANGE\t";
+
+	//Saving The Main Fill Color In Case IsFilled Is True
 	if (pOut->checkisfilled()) {
 		if (CFillClr == BLACK) Fout << "BLACK\n";
 		else if (CFillClr == RED) Fout << "RED\n";
@@ -48,9 +53,11 @@ void SaveAction::Execute()
 	
 
 
-	Fout << pManager->GetFigCount()<<endl;
+	Fout << pManager->GetFigCount()<<endl; //Saving Number Of Figures
 	pManager->Saveall(Fout);
 	Fout.close();
+	pOut->PrintMessage("Saved Successfully :)");
+
 }
 
 void SaveAction::setFileName(string name)

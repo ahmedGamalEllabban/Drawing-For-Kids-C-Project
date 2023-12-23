@@ -370,7 +370,7 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	else			
 		DrawingClr = RectGfxInfo.DrawClr;
 	
-	pWind->SetPen(DrawingClr,1);
+	pWind->SetPen(DrawingClr,2);
 	drawstyle style;
 	if (RectGfxInfo.isFilled)	
 	{
@@ -402,7 +402,7 @@ void Output::DrawSquare(Point P, GfxInfo RectGfxInfo, bool selected) const // Sq
 	else
 		DrawingClr = RectGfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, 1);
+	pWind->SetPen(DrawingClr, 2);
 	drawstyle style;
 	if (RectGfxInfo.isFilled)
 	{
@@ -465,7 +465,7 @@ void Output::DrawHexa(Point P, GfxInfo RectGfxInfo, bool selected) const // Hexa
 	else
 		DrawingClr = RectGfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, 1);
+	pWind->SetPen(DrawingClr, 2);
 	drawstyle style;
 	if (RectGfxInfo.isFilled)
 	{
@@ -500,7 +500,7 @@ void Output::DrawCircle(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected)
 		else
 			DrawingClr = RectGfxInfo.DrawClr;
 
-		pWind->SetPen(DrawingClr, 1);
+		pWind->SetPen(DrawingClr, 2);
 		drawstyle style;
 		if (RectGfxInfo.isFilled)
 		{
@@ -514,16 +514,14 @@ void Output::DrawCircle(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected)
 }
 void Output::DrawTriangle(Point P1, Point P2, Point P3, GfxInfo RectGfxInfo, bool selected)
 {
-//	if (P1.y < UI.ToolBarHeight) { P1.y = UI.ToolBarHeight + UI.ToolBarBorderWidth; }
-//	if (P2.y < UI.ToolBarHeight) { P2.y = UI.ToolBarHeight + UI.ToolBarBorderWidth; }
-//	if (P3.y < UI.ToolBarHeight) { P3.y = UI.ToolBarHeight + UI.ToolBarBorderWidth; }
+
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted 
 	else
 		DrawingClr = RectGfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, 1);
+	pWind->SetPen(DrawingClr, 2);
 	drawstyle style;
 	if (RectGfxInfo.isFilled)
 	{
