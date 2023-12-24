@@ -6,6 +6,7 @@ class AddTriangleAction :
 private: Point P1, P2, P3;
        GfxInfo TriangleGfxInfo;
 	   int ID;
+	   bool CanDraw;
 public:
     AddTriangleAction(ApplicationManager*);
 	//Reads Triangle parameters
@@ -15,7 +16,7 @@ public:
 	virtual void Execute();
 	virtual void Undo();
 	virtual void Redo();
-	virtual bool CanUndo() { return true; }
+	virtual bool CanUndo() { return CanDraw; }
 	virtual void PlayRecording();
 
 

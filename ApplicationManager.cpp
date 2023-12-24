@@ -651,7 +651,6 @@ void ApplicationManager::AddToRedoList(Action* pAct)
 		RedoList[0] = NULL;
 		RedoList[0] = pAct;
 		for (int i = 0; i < MaxActionsCount - 1; i++) {
-			if (RedoList[i]&& RedoList[i + 1])
 			swap(RedoList[i], RedoList[i + 1]);
 		}
 	}

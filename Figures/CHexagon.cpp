@@ -51,8 +51,16 @@ bool CHexagon::IsInside(int x1, int y1)const {
 
 Point CHexagon::MoveFigure(Point move) {
 	Point Center2 = Center;
-	Center = move;
-	return Center2;
+	if (move.y - 100 < UI.ToolBarHeight + UI.ToolBarBorderWidth || move.y + 100 > UI.height - UI.StatusBarHeight) {
+		Point Temp;
+		Temp.x = -1;
+		Temp.y = -1;
+		return Temp;
+	}
+	else {
+		Center = move;
+		return Center2;
+	}
 }
 
 void CHexagon::save(ofstream& fout)

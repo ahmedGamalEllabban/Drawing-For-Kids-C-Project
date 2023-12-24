@@ -46,19 +46,36 @@ bool CRectangle::IsInside(int x, int y) const {
 }
 
 Point CRectangle::MoveFigure(Point move) {
-	Point c;
+	Point c, P1, P2;
 	c.x = (Corner1.x + Corner2.x) / 2;
 	c.y = (Corner1.y + Corner2.y) / 2;
 
 	int xDiff = move.x - c.x;
 	int yDiff = move.y - c.y;
 
-	Corner1.x += xDiff;
-	Corner1.y += yDiff;
+	P1.y = Corner1.y + yDiff;
+	P2.y = Corner2.y + yDiff;
 
-	Corner2.x += xDiff;
-	Corner2.y += yDiff;
-	return c;
+	if  (
+		P1.y < UI.ToolBarHeight + UI.ToolBarBorderWidth 
+		|| P2.y < UI.ToolBarHeight + UI.ToolBarBorderWidth 
+		|| P1.y > UI.height - UI.StatusBarHeight 
+		|| P2.y > UI.height - UI.StatusBarHeight
+		)
+	{
+		Point T;
+		T.x = -1;
+		T.y = -1;
+		return T;
+	}
+	else {
+		Corner1.x += xDiff;
+		Corner1.y += yDiff;
+
+		Corner2.x += xDiff;
+		Corner2.y += yDiff;
+		return c;
+	}
 }
 
 void CRectangle::save(ofstream& fout)

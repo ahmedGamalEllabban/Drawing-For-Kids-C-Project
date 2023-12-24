@@ -4,6 +4,7 @@ class MoveFigureAction :
     public Action
 {
 	Point P,PB;
+	bool IsReady;
 	int ID;
 public:
 	MoveFigureAction(ApplicationManager* pApp);
@@ -13,7 +14,7 @@ public:
 	virtual void Execute();
 	virtual void Undo();
 	virtual void Redo();
-	virtual bool CanUndo() { return true; }
+	virtual bool CanUndo() { return IsReady; }
 	virtual void PlayRecording();
 
 };
