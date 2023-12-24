@@ -27,11 +27,7 @@ void playByColorAction::ReadActionParameters()
 
 		pOut->ClearPickHideToolBar();
 
-		Sleep(1000);
-
 		randColor = pManager->getRandomColor();
-
-		Sleep(1000);
 
 		startGame();
 
