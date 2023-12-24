@@ -9,6 +9,7 @@
 AddHexaAction::AddHexaAction(ApplicationManager* pApp) :Action(pApp)
 {
 	CanDraw = true;
+	length = 100;
 }
 
 void AddHexaAction::ReadActionParameters()
@@ -22,7 +23,7 @@ void AddHexaAction::ReadActionParameters()
 	//Read center and store in point P
 	pIn->GetPointClicked(P.x, P.y);
 
-	 if (P.y - 100 < UI.ToolBarHeight + UI.ToolBarBorderWidth || P.y + 100 > UI.height - UI.StatusBarHeight)
+	 if (P.y - length < UI.ToolBarHeight + UI.ToolBarBorderWidth || P.y + length > UI.height - UI.StatusBarHeight)
 		CanDraw = false;
 	
 
@@ -43,7 +44,7 @@ void AddHexaAction::Execute()
 	if (CanDraw) {
 
 		//Create a hexagon with the parameters read from the user
-		CHexagon* H = new CHexagon(P, HexaGfxInfo);
+		CHexagon* H = new CHexagon(P, HexaGfxInfo, length);
 
 		//Add the hexagon to the list of figures
 		pManager->AddFigure(H);
@@ -78,7 +79,7 @@ void AddHexaAction::Undo()
 
 void AddHexaAction::Redo()
 {
-	CHexagon* H = new CHexagon(P, HexaGfxInfo);
+	CHexagon* H = new CHexagon(P, HexaGfxInfo, length);
 	//Add the hexagon to the list of figures
 	pManager->AddFigure(H);
 	H->SetID(ID);
@@ -87,7 +88,7 @@ void AddHexaAction::Redo()
 void AddHexaAction::PlayRecording()
 {
 	//Create a hexagon with the parameters read from the user
-	CHexagon* H = new CHexagon(P, HexaGfxInfo);
+	CHexagon* H = new CHexagon(P, HexaGfxInfo, length);
 
 	//Add the hexagon to the list of figures
 	pManager->AddFigure(H);

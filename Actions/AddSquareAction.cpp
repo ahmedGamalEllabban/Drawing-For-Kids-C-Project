@@ -7,6 +7,7 @@
 AddSquareAction::AddSquareAction(ApplicationManager* pApp):Action(pApp)
 {
 	CanDraw = true;
+	length = 150;
 }
 
 void AddSquareAction::ReadActionParameters()
@@ -18,7 +19,7 @@ void AddSquareAction::ReadActionParameters()
 
 	pIn->GetPointClicked(Center.x, Center.y);
 
-	if (Center.y - 50 < UI.ToolBarHeight + UI.ToolBarBorderWidth || Center.y + 50 > UI.height - UI.StatusBarHeight)
+	if (Center.y - length / 2 < UI.ToolBarHeight + UI.ToolBarBorderWidth || Center.y + length / 2 > UI.height - UI.StatusBarHeight)
 		CanDraw = false;
 
 	SquareGfxInfo.isFilled = pOut->checkisfilled(); // default is not filled
@@ -36,7 +37,7 @@ void AddSquareAction::Execute()
 	if (CanDraw) {
 
 
-	CSquare* S = new CSquare(Center, SquareGfxInfo);
+	CSquare* S = new CSquare(Center, SquareGfxInfo, length);
 
 	pManager->AddFigure(S);
 	ID = S->GetID();
@@ -71,7 +72,7 @@ void AddSquareAction::Undo()
 
 void AddSquareAction::Redo()
 {
-	CSquare* S = new CSquare(Center, SquareGfxInfo);
+	CSquare* S = new CSquare(Center, SquareGfxInfo, length);
 
 	pManager->AddFigure(S);
 	 S->SetID(ID);
@@ -80,7 +81,7 @@ void AddSquareAction::Redo()
 
 void AddSquareAction::PlayRecording()
 {
-	CSquare* S = new CSquare(Center, SquareGfxInfo);
+	CSquare* S = new CSquare(Center, SquareGfxInfo, length);
 
 	pManager->AddFigure(S);
 	ID = S->GetID();

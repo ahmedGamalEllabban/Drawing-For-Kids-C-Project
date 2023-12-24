@@ -393,9 +393,9 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	
 }
 
-void Output::DrawSquare(Point P, GfxInfo RectGfxInfo, bool selected) const // Square Function
+void Output::DrawSquare(Point P, GfxInfo RectGfxInfo, bool selected, int length) const // Square Function
 {
-	int x1 = P.x - SquareRad, x2 = P.x + SquareRad, y1 = P.y + SquareRad, y2 = P.y - SquareRad;  // ahmed kamal 
+	int x1 = P.x - length / 2, x2 = P.x + length / 2, y1 = P.y + length / 2, y2 = P.y - length / 2;  // Ahmed Gamal 
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
@@ -427,7 +427,7 @@ void Output::DrawSquare(Point P, GfxInfo RectGfxInfo, bool selected) const // Sq
 
 }
 
-void Output::DrawHexa(Point P, GfxInfo RectGfxInfo, bool selected) const // Hexagon Function
+void Output::DrawHexa(Point P, GfxInfo RectGfxInfo, bool selected, int length) const // Hexagon Function
 {
 	const int vertices = 6;
 	int X[vertices];
@@ -436,18 +436,18 @@ void Output::DrawHexa(Point P, GfxInfo RectGfxInfo, bool selected) const // Hexa
 	// The Length Of The Hexagonal Is 100
 
 	X[0] = P.x;
-	X[1] = P.x + 86;
-	X[2] = P.x + 86;
+	X[1] = P.x + length * 0.866;
+	X[2] = P.x + length * 0.866;
 	X[3] = P.x;
-	X[4] = P.x - 86;
-	X[5] = P.x - 86;
+	X[4] = P.x - length * 0.866;
+	X[5] = P.x - length * 0.866;
 
-	Y[0] = P.y + 100;
-	Y[1] = P.y + 50;
-	Y[2] = P.y - 50;
-	Y[3] = P.y - 100;
-	Y[4] = P.y - 50;
-	Y[5] = P.y + 50;
+	Y[0] = P.y + length;
+	Y[1] = P.y + length / 2;
+	Y[2] = P.y - length / 2;
+	Y[3] = P.y - length;
+	Y[4] = P.y - length / 2;
+	Y[5] = P.y + length / 2;
 
 	/*
 	for (int i = 0; i < vertices; i++) {

@@ -7,6 +7,7 @@ class AddSquareAction : public Action
 	GfxInfo SquareGfxInfo;
 	int ID;
 	bool CanDraw;
+	int length;
 
 public:
 	AddSquareAction(ApplicationManager* pApp);
