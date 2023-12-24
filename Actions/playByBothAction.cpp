@@ -57,13 +57,15 @@ void playByBothAction::ReadActionParameters()
 
 		randShape = pManager->getRandomFig();
 
+		while (randShape->getGfxInfo().isFilled != 1) {
+			randShape = pManager->getRandomFig();
+		}
+
 		randColor = randShape->getFillColor();
 
 		pOut->PrintMessage("Playing Pick and hide By Both Shape and Color ");
 
 		pOut->ClearPickHideToolBar();
-
-		Sleep(1000);
 
 		if (dynamic_cast<CSquare*>(randShape)) {
 			playSquare();
