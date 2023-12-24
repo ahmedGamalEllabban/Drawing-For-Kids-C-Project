@@ -10,6 +10,7 @@ private:
 	Point P1, P2; //Rectangle Corners
 	GfxInfo RectGfxInfo;
 	int ID;
+	bool CanDraw;
 public:
 	AddRectAction(ApplicationManager *pApp);
 
@@ -20,7 +21,7 @@ public:
 	virtual void Execute() ;
 	virtual void Undo();
 	virtual void Redo();
-	virtual bool CanUndo() { return true; }
+	virtual bool CanUndo() { return CanDraw; }
 	virtual void PlayRecording();
 
 

@@ -6,6 +6,7 @@ class AddHexaAction :
 private:
 	Point P;
 	GfxInfo HexaGfxInfo;
+	bool CanDraw;
 	int ID;
 public:
 	AddHexaAction(ApplicationManager* pApp);
@@ -15,7 +16,7 @@ public:
 	virtual void Execute();
 	virtual void Undo();
 	virtual void Redo();
-	virtual bool CanUndo() { return true; }
+	virtual bool CanUndo() { return CanDraw; }
 	virtual void PlayRecording();
 
 

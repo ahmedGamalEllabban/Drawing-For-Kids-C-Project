@@ -29,9 +29,17 @@ bool CSquare::IsInside(int x, int y) const
 
 Point CSquare::MoveFigure(Point P)
 {
+	if (P.y - 50 < UI.ToolBarHeight + UI.ToolBarBorderWidth || P.y + 50 > UI.height - UI.StatusBarHeight) {
+		Point Temp;
+		Temp.x = -1;
+		Temp.y = -1;
+		return Temp;
+	}
+	else {
 	Point Center2 = Center;
 	Center = P;
 	return Center2;
+	}
 }
 
 void CSquare::save(ofstream& fout)

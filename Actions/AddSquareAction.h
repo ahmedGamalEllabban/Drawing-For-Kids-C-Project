@@ -6,6 +6,7 @@ class AddSquareAction : public Action
 	Point Center;
 	GfxInfo SquareGfxInfo;
 	int ID;
+	bool CanDraw;
 
 public:
 	AddSquareAction(ApplicationManager* pApp);
@@ -13,7 +14,7 @@ public:
 	virtual void Execute();
 	virtual void Undo();
 	virtual void Redo();
-	virtual bool CanUndo() { return true; }
+	virtual bool CanUndo() { return CanDraw; }
 	virtual void PlayRecording();
 
 

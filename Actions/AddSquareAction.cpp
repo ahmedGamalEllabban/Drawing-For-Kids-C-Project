@@ -6,6 +6,7 @@
 
 AddSquareAction::AddSquareAction(ApplicationManager* pApp):Action(pApp)
 {
+	CanDraw = true;
 }
 
 void AddSquareAction::ReadActionParameters()
@@ -16,6 +17,9 @@ void AddSquareAction::ReadActionParameters()
 	pOut->PrintMessage("New Square: Click at a Point to draw");
 
 	pIn->GetPointClicked(Center.x, Center.y);
+
+	if (Center.y - 50 < UI.ToolBarHeight + UI.ToolBarBorderWidth || Center.y + 50 > UI.height - UI.StatusBarHeight)
+		CanDraw = false;
 
 	SquareGfxInfo.isFilled = pOut->checkisfilled(); // default is not filled
 
@@ -28,6 +32,9 @@ void AddSquareAction::ReadActionParameters()
 void AddSquareAction::Execute()
 {
 	ReadActionParameters();
+
+	if (CanDraw) {
+
 
 	CSquare* S = new CSquare(Center, SquareGfxInfo);
 
@@ -42,6 +49,10 @@ void AddSquareAction::Execute()
 
 	
 	pManager->DeleteRedoList();
+	}
+	else {
+		pManager->GetOutput()->PrintMessage("You Can't Draw On Any Bar");
+	}
 }
 
 void AddSquareAction::Undo()

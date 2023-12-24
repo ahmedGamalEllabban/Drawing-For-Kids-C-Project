@@ -86,22 +86,69 @@ bool CTriangle::IsInside(int x, int y)const {
 	}
 
 Point CTriangle::MoveFigure(Point move) {
-	Point c;
+	Point c, P1, P2, P3;
 	c.x = (Corner1.x + Corner2.x + Corner3.x) / 3;
 	c.y = (Corner1.y + Corner2.y + Corner3.y) / 3;
 
 	int xDiff = move.x - c.x;
 	int yDiff = move.y - c.y;
 
-	Corner1.x += xDiff;
-	Corner1.y += yDiff;
+	P1.y = Corner1.y + yDiff;
+	P2.y = Corner2.y + yDiff;
+	P3.y = Corner3.y + yDiff;
 
-	Corner2.x += xDiff;
-	Corner2.y += yDiff;
+	int MinY = 0;
+	int MaxY = 0;
 
-	Corner3.x += xDiff;
-	Corner3.y += yDiff;
-	return c;
+	MaxY = P1.y;
+	MinY = P1.y;
+	if (P1.y > P2.y) {
+		if (P1.y > P3.y) {
+			MaxY = P1.y;
+		}
+		else {
+			MaxY = P3.y;
+		}
+		if (P2.y < P3.y) {
+			MinY = P2.y;
+		}
+		else {
+			MinY = P3.y;
+		}
+	}
+	else {
+		if (P2.y > P3.y) {
+			MaxY = P2.y;
+		}
+		else {
+			MaxY = P3.y;
+		}
+		if (P1.y < P3.y) {
+			MinY = P1.y;
+		}
+		else {
+			MinY = P3.y;
+		}
+	}
+
+	if (MinY < UI.ToolBarHeight + UI.ToolBarBorderWidth || MaxY > UI.height - UI.StatusBarHeight) {
+		Point t;
+		t.x = -1;
+		t.y = -1;
+		return t;
+	}
+	else {
+
+		Corner1.x += xDiff;
+		Corner1.y += yDiff;
+
+		Corner2.x += xDiff;
+		Corner2.y += yDiff;
+
+		Corner3.x += xDiff;
+		Corner3.y += yDiff;
+		return c;
+	}
 }
 
 void CTriangle::save(ofstream& fout)

@@ -7,7 +7,9 @@
 #include "..\GUI\Output.h"
 
 AddHexaAction::AddHexaAction(ApplicationManager* pApp) :Action(pApp)
-{}
+{
+	CanDraw = true;
+}
 
 void AddHexaAction::ReadActionParameters()
 {
@@ -20,6 +22,9 @@ void AddHexaAction::ReadActionParameters()
 	//Read center and store in point P
 	pIn->GetPointClicked(P.x, P.y);
 
+	 if (P.y - 100 < UI.ToolBarHeight + UI.ToolBarBorderWidth || P.y + 100 > UI.height - UI.StatusBarHeight)
+		CanDraw = false;
+	
 
 	HexaGfxInfo.isFilled = pOut->checkisfilled();	//default is not filled
 	//get drawing, filling colors and pen width from the interface
@@ -35,21 +40,26 @@ void AddHexaAction::Execute()
 {
 	//This action needs to read some parameters first
 	ReadActionParameters();
+	if (CanDraw) {
 
-	//Create a hexagon with the parameters read from the user
-	CHexagon* H = new CHexagon(P, HexaGfxInfo);
+		//Create a hexagon with the parameters read from the user
+		CHexagon* H = new CHexagon(P, HexaGfxInfo);
 
-	//Add the hexagon to the list of figures
-	pManager->AddFigure(H);
-	ID = H->GetID();
-	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
-	if (pManager->IsRecording()) {
-		AddHexaAction* addAction = new AddHexaAction(pManager);
-		*addAction = *this;
-		pManager->AddActionToRecordingList(addAction);
+		//Add the hexagon to the list of figures
+		pManager->AddFigure(H);
+		ID = H->GetID();
+		// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
+		if (pManager->IsRecording()) {
+			AddHexaAction* addAction = new AddHexaAction(pManager);
+			*addAction = *this;
+			pManager->AddActionToRecordingList(addAction);
+		}
+		pManager->DeleteRedoList();
+
 	}
-
-	pManager->DeleteRedoList();
+	else {
+		pManager->GetOutput()->PrintMessage("You Can't Draw On Any Bar");
+	}
 }
 
 void AddHexaAction::Undo()
