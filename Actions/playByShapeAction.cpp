@@ -11,7 +11,9 @@
 #include "..\Figures\CHexagon.h"
 #include "..\Figures\CTriangle.h"
 #include "..\Figures\CRectangle.h"
-
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment (lib, "winmm.lib")
 
 
 using namespace std;
@@ -29,57 +31,65 @@ playByShapeAction::playByShapeAction(ApplicationManager* app) :Action(app)
 
 void playByShapeAction::ReadActionParameters()
 {
-	Shapes randomShape;
-	CFigure* shape;
+	if (numOfShapes != 0) {
 
-	pOut->PrintMessage("Playing Pick and hide By Shape ");
+		Shapes randomShape;
+		CFigure* shape;
 
-	pOut->ClearPickHideToolBar();
+		pOut->PrintMessage("Playing Pick and hide By Shape ");
+
+		pOut->ClearPickHideToolBar();
 
 
-	// Enum Values, Square:0 , Rectngle: 1, Hexagon: 2, Circle: 3, Triangle: 4 
+		// Enum Values, Square:0 , Rectngle: 1, Hexagon: 2, Circle: 3, Triangle: 4 
 
-	shape = pManager->getRandomFig();
+		shape = pManager->getRandomFig();
 
-	if (dynamic_cast<CSquare*>(shape)) randomShape = SQUARE;
-	else if (dynamic_cast<CRectangle*>(shape)) randomShape = RECTANGLE;
-	else if (dynamic_cast<CHexagon*>(shape)) randomShape = HEXAGON;
-	else if (dynamic_cast<CCircle*>(shape)) randomShape = CIRCLE;
-	else if (dynamic_cast<CTriangle*>(shape)) randomShape = TRIANGLE;
+		if (dynamic_cast<CSquare*>(shape)) randomShape = SQUARE;
+		else if (dynamic_cast<CRectangle*>(shape)) randomShape = RECTANGLE;
+		else if (dynamic_cast<CHexagon*>(shape)) randomShape = HEXAGON;
+		else if (dynamic_cast<CCircle*>(shape)) randomShape = CIRCLE;
+		else if (dynamic_cast<CTriangle*>(shape)) randomShape = TRIANGLE;
 
-	Sleep(1000);
+		Sleep(1000);
 
-	switch (randomShape)
-	{
+		switch (randomShape)
+		{
 
-	case SQUARE:
-		playSquare();
-		break;
+		case SQUARE:
+			playSquare();
+			break;
 
-	case RECTANGLE:
-		playRectangle();
-		break;
+		case RECTANGLE:
+			playRectangle();
+			break;
 
-	case HEXAGON:
-		playHexagon();
-		break;
+		case HEXAGON:
+			playHexagon();
+			break;
 
-	case CIRCLE:
-		playCircle();
-		break;
+		case CIRCLE:
+			playCircle();
+			break;
 
-	case TRIANGLE:
-		playTriangle();
-		break;
+		case TRIANGLE:
+			playTriangle();
+			break;
 
-	default:
-		break;
+		default:
+			break;
 
+		}
+
+		pOut->ClearDrawArea();
+
+		pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 	}
 
-	pOut->ClearDrawArea();
-
-	pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+	else {
+		pOut->ClearPickHideToolBar();
+		pOut->PrintMessage("Can't play without any drawings");
+	}
 
 }
 
@@ -115,6 +125,8 @@ void playByShapeAction::playSquare()
 
 			if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == SquareCount) break;
 			}
 
@@ -156,6 +168,8 @@ void playByShapeAction::playRectangle()
 
 			if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == RectCount) break;
 			}
 
@@ -196,6 +210,8 @@ void playByShapeAction::playHexagon()
 
 			if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == HexCount) break;
 			}
 
@@ -237,6 +253,8 @@ void playByShapeAction::playCircle()
 
 			if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == CircleCount) break;
 			}
 
@@ -278,6 +296,8 @@ void playByShapeAction::playTriangle()
 
 			if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == TriangleCount) break;
 			}
 

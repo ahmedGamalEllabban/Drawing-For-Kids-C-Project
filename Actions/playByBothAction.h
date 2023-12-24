@@ -7,7 +7,7 @@
 class playByBothAction: public Action
 {
 	Point p;
-	int correct, wrong, numOfShapes, count;
+	int correct, wrong, numOfShapes, count, nonFilledCount;
 	int Rects[6], Squares[6], Circles[6], Hexas[6], Triangles[6];
 	Output* pOut;
 	Input* pIn;

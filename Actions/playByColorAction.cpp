@@ -5,7 +5,9 @@
 #include "..\GUI\UI_Info.h"
 #include "..\Figures\CFigure.h"
 #include "time.h"
-
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment (lib, "winmm.lib")
 playByColorAction::playByColorAction(ApplicationManager* app) :Action(app)
 {
 	pOut = pManager->GetOutput();
@@ -14,27 +16,37 @@ playByColorAction::playByColorAction(ApplicationManager* app) :Action(app)
 	correct = 0;
 	wrong = 0;
 	blackCount = yellowCount = orangeCount = redCount = greenCount = blueCount = 0;
-	pManager->getColorsCount(blackCount, yellowCount, orangeCount, redCount, greenCount, blackCount);
+	pManager->getColorsCount(blackCount, yellowCount, orangeCount, redCount, greenCount, blueCount);
+	fillCount = pManager->getFillCount();
 
 }
 
 void playByColorAction::ReadActionParameters()
 {
-	pOut->PrintMessage("Playing Pick and hide By Color ");
+	if (numOfShapes != 0 && fillCount > 0) {
 
-	pOut->ClearPickHideToolBar();
+		pOut->PrintMessage("Playing Pick and hide By Color ");
 
-	Sleep(1000);
+		pOut->ClearPickHideToolBar();
 
-	randColor = pManager->getRandomColor();
+		randColor = pManager->getRandomColor();
 
-	Sleep(1000);
+		startGame();
 
-	startGame();
+		pOut->ClearDrawArea();
 
-	pOut->ClearDrawArea();
+		pOut->PrintMessage("Game Ended. Final Results -----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+	}
 
-	pOut->PrintMessage("Game Ended. Final Results -----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+	else if (fillCount == 0 && numOfShapes != 0) {
+		pOut->ClearPickHideToolBar();
+		pOut->PrintMessage("No colored shapes to play with ");
+	}
+
+	else {
+		pOut->ClearPickHideToolBar();
+		pOut->PrintMessage("Can't play without any drawings ");
+	}
 }
 
 void playByColorAction::Execute()
@@ -91,8 +103,11 @@ void playByColorAction::startGame()
 
 			else numOfShapes--;
 
-			if (randColor == pManager->GetFigure(p.x, p.y)->getFillColor()) {
+			if (randColor == pManager->GetFigure(p.x, p.y)->getFillColor()
+											&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled){
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
@@ -100,7 +115,7 @@ void playByColorAction::startGame()
 
 			pManager->deleteChosenFig(p);
 
-			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 
 		}
 

@@ -19,6 +19,8 @@
 #include "Figures/CTriangle.h"// ahmed kamal
 #include <time.h>
 #include <string>
+#include <Windows.h>
+#include <mmsystem.h>
 #include "Actions/DeleteAction.h"
 #include "Actions/Action.h"
 #include "Actions/UndoAction.h"
@@ -33,7 +35,7 @@
 #include "Actions/LoadAction.h"
 #include "Actions/exitAction.h"
 
-
+#pragma comment(lib,"winmm.lib")
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -78,21 +80,26 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 		case DRAW_RECT:
+			PlaySound(TEXT("Sound/rectangle.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddRectAction(this);
 			break;
 
 		case DRAW_HEXA:
+			PlaySound(TEXT("Sound/Hexagon.wav"),NULL, SND_FILENAME| SND_ASYNC);
 			pAct = new AddHexaAction(this);
 			break;
 
-		case DRAW_TRIANGLE: //AHMED HAZEM
+		case DRAW_TRIANGLE:
+			PlaySound(TEXT("Sound/Triangle.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddTriangleAction(this);
 			break;
-		case DRAW_CIRCLE: //AHMED HAZEM
+		case DRAW_CIRCLE:
+			PlaySound(TEXT("Sound/Circle.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddCircleAction(this);
 			break;
 
 		case DRAW_SQUARE:
+			PlaySound(TEXT("Sound/square.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddSquareAction(this);
 			break;
 
@@ -505,12 +512,12 @@ void ApplicationManager::getShapesCount(int& RC, int& SC, int& CC, int& HC, int&
 void ApplicationManager::getColorsCount(int& BlackC, int& YC, int& OC, int& RC, int& GC, int& BlueC)
 {
 	for (int i = 0; i < FigCount; i++) {
-		if (FigList[i]->getFillColor() == BLACK) BlackC++;
-		else if (FigList[i]->getFillColor() == YELLOW) YC++;
-		else if (FigList[i]->getFillColor() == ORANGE) OC++;
-		else if (FigList[i]->getFillColor() == RED) RC++;
-		else if (FigList[i]->getFillColor() == GREEN) GC++;
-		else if (FigList[i]->getFillColor() == BLUE) BlueC++;
+		if (FigList[i]->getFillColor() == BLACK && FigList[i]->getGfxInfo().isFilled) BlackC++;
+		else if (FigList[i]->getFillColor() == YELLOW && FigList[i]->getGfxInfo().isFilled) YC++;
+		else if (FigList[i]->getFillColor() == ORANGE && FigList[i]->getGfxInfo().isFilled) OC++;
+		else if (FigList[i]->getFillColor() == RED && FigList[i]->getGfxInfo().isFilled) RC++;
+		else if (FigList[i]->getFillColor() == GREEN && FigList[i]->getGfxInfo().isFilled) GC++;
+		else if (FigList[i]->getFillColor() == BLUE && FigList[i]->getGfxInfo().isFilled) BlueC++;
 	}
 }
 
@@ -540,25 +547,47 @@ int ApplicationManager::countShapeColors(string shape, color c)
 
 	for (int i = 0; i < FigCount; i++) {
 		if (shape == "R") {
-			if (dynamic_cast<CRectangle*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CRectangle*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
 		else if (shape == "S") {
-			if (dynamic_cast<CSquare*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CSquare*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
 		else if (shape == "C") {
-			if (dynamic_cast<CCircle*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CCircle*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
 		else if (shape == "H") {
-			if (dynamic_cast<CHexagon*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CHexagon*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
 		else if (shape == "T") {
-			if (dynamic_cast<CTriangle*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CTriangle*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
+	}
+
+	return count;
+}
+
+int ApplicationManager::getFillCount()
+{
+	int count = 0;
+
+	for (int i = 0; i < FigCount; i++) {
+		if (FigList[i]->getGfxInfo().isFilled) count++;
+	}
+
+	return count;
+}
+
+int ApplicationManager::getNonFillCount()
+{
+	int count = 0;
+
+	for (int i = 0; i < FigCount; i++) {
+		if (FigList[i]->getGfxInfo().isFilled == 0) count++;
 	}
 
 	return count;
@@ -569,6 +598,10 @@ color ApplicationManager::getRandomColor()
 	srand(static_cast<unsigned int>(time(NULL)));
 
 	int randomIndex = rand() % FigCount;
+
+	while (FigList[randomIndex]->getGfxInfo().isFilled != 1) {
+		randomIndex = rand() % FigCount;
+	}
 
 	return FigList[randomIndex]->getFillColor();
 }
