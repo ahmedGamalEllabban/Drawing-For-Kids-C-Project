@@ -32,9 +32,8 @@ void PlayRecordingAction::Execute()
 	clearAll.Execute();
 	Pause(1000);
 		for (int i = 0; i < pManager->GetRecordedActionsCount(); i++) {
-			if (RecordedActions[i] != NULL) {
+			if (RecordedActions[i]) {
 			RecordedActions[i]->PlayRecording();
-			//pManager->AddToUndoList(RecordedActions[i]);
 			pManager->UpdateInterface();
 			Pause(1000);
 			}

@@ -18,13 +18,23 @@ void CCircle::Draw(Output* pOut) const
 }
 
 Point CCircle::MoveFigure(Point move) {
+	double radius;
 	int DiffX = P2.x - center.x;
 	int DiffY = P2.y - center.y;
+	radius = sqrt(DiffX * DiffX + DiffY * DiffY);
+	if (radius < (UI.height - UI.StatusBarHeight) - move.y && radius < move.y - (UI.ToolBarHeight + UI.ToolBarBorderWidth)) {
 	Point Center2 = center;
 	center = move;
 	P2.x = DiffX + center.x;
 	P2.y = DiffY + center.y;
 	return Center2;
+	}
+	else{
+		Point Temp1;
+		Temp1.x = -1;
+		Temp1.y = -1;
+		return Temp1;
+	}
 }
 bool CCircle::IsInside(int x, int y) const{
 	int SR = (center.x - P2.x) * (center.x - P2.x) + (center.y - P2.y) * (center.y - P2.y);// NOTE: change the implementation if a member data of radius is added
@@ -35,9 +45,7 @@ bool CCircle::IsInside(int x, int y) const{
 }
 void CCircle::save(ofstream& fout)
 {
-	fout << "CIRCLE" << " \t\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << P2.x << "\t" << P2.y << "\t"; //Saving the Coordinates of The Center & Another Point On It
-	
-	// Saving Draw Color
+	fout << "CIRCLE" << " \t\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << P2.x << "\t" << P2.y << "\t";
 	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
 	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
 	else if (FigGfxInfo.DrawClr == RED) fout << "RED" << "\t";
@@ -45,7 +53,6 @@ void CCircle::save(ofstream& fout)
 	else if (FigGfxInfo.DrawClr == YELLOW) fout << "YELLOW" << "\t";
 	else if (FigGfxInfo.DrawClr == ORANGE) fout << "ORANGE" << "\t";
 
-	//Saving Fill Color In Case IsFilled==true , OtherWise Set it NOT_FILLED 
 	if (FigGfxInfo.isFilled == true) {
 		if (FigGfxInfo.FillClr == BLACK) fout << "BLACK" << "\n";
 		else if (FigGfxInfo.FillClr == BLUE) fout << "BLUE" << "\n";
@@ -54,7 +61,7 @@ void CCircle::save(ofstream& fout)
 		else if (FigGfxInfo.FillClr == YELLOW) fout << "YELLOW" << "\n";
 		else if (FigGfxInfo.FillClr == ORANGE)fout << "ORANGE" << "\n";
 	}
-	else { fout << "NOT_FILLED" << endl; } //In Case The Circle Wasn't Filled
+	else { fout << "NOT_FILLED" << endl; }
 
 
 
@@ -63,9 +70,7 @@ void CCircle::save(ofstream& fout)
 void CCircle::load(ifstream& fin)
 {
 	string drawclr, fillclr;
-	fin >> ID >> center.x >> center.y >> P2.x >> P2.y >> drawclr >> fillclr; //Set The ID And The Coordinates Of A Loaded Circle 
-
-	//Setting The Drawing Color
+	fin >> ID >> center.x >> center.y >> P2.x >> P2.y >> drawclr >> fillclr;
 	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
 	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
 	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }
@@ -73,10 +78,8 @@ void CCircle::load(ifstream& fin)
 	else if (drawclr == "YELLOW") { FigGfxInfo.DrawClr = YELLOW; }
 	else if (drawclr == "GREEN") { FigGfxInfo.DrawClr = GREEN; }
 
-	
-	if (fillclr == "NOT_FILLED") { FigGfxInfo.FillClr = NULL; FigGfxInfo.isFilled = false; }// Checking If The Circle Was Filled Or Not
+	if (fillclr == "NOT_FILLED") { FigGfxInfo.FillClr = NULL; FigGfxInfo.isFilled = false; }
 	else {
-		// Set The Filling Color
 		FigGfxInfo.isFilled = true;
 		if (fillclr == "BLACK") { FigGfxInfo.FillClr = BLACK; }
 		else if (fillclr == "BLUE") { FigGfxInfo.FillClr = BLUE; }

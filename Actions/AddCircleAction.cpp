@@ -9,6 +9,7 @@
 
 AddCircleAction::AddCircleAction(ApplicationManager* pApp):Action(pApp)
 {
+	canDraw = true;
 }
 
 void AddCircleAction::ReadActionParameters()
@@ -28,13 +29,28 @@ void AddCircleAction::ReadActionParameters()
 	pIn->GetPointClicked(P2.x, P2.y);
 
 
-
+	if (Center.y > (UI.ToolBarHeight + UI.ToolBarBorderWidth) && Center.y < (UI.height - UI.StatusBarHeight)) {
+		double radius;
+		int diffX= Center.x-P2.x;
+		int diffY = Center.y - P2.y;
+		radius = sqrt(diffX*diffX+diffY*diffY);
+		if (radius<(UI.height - UI.StatusBarHeight) -Center.y && radius< Center.y-(UI.ToolBarHeight + UI.ToolBarBorderWidth)) {
 	CircleGfxInfo.isFilled = pOut->checkisfilled();	//default is not filled
 	//get drawing, filling colors and pen width from the interface
 	CircleGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	CircleGfxInfo.FillClr = pOut->getCrntFillColor();
 
 	pOut->ClearStatusBar();
+		}
+		else {
+			canDraw = false;
+		pOut->PrintMessage("You can't draw on the toolbar or the status bar");
+		}
+	}
+	else {
+		canDraw = false;
+		pOut->PrintMessage("You can't draw on the toolbar or the status bar");
+	}
 
 
 }
@@ -43,7 +59,7 @@ void AddCircleAction::Execute()
 {//This action needs to read some parameters first
 	ReadActionParameters();
 
-
+	if (canDraw) {
 	//Create a Circle with the parameters read from the user
 	CCircle* C = new CCircle(Center, P2, CircleGfxInfo);
 
@@ -58,6 +74,7 @@ void AddCircleAction::Execute()
 	}
 	
 	pManager->DeleteRedoList();
+	}
 }
 
 void AddCircleAction::Undo()
