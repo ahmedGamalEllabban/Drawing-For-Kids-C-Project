@@ -18,6 +18,7 @@ void SelectAction::ReadActionParameters() {
 void SelectAction::Execute() {
 	ReadActionParameters();
 
+	Output* pOut = pManager->GetOutput();
 
 	CFigure* fig, * fig2; //A pointer to figure class
 	fig = pManager->GetFigure(P.x, P.y);//sets the fig data member to the pointer of the selected figure
@@ -25,14 +26,17 @@ void SelectAction::Execute() {
 		if (fig->IsSelected()) {
 			fig->SetSelected(false);
 			pManager->SetSelectedFigure(NULL);
+			pOut->ClearStatusBar();
 		}
 		else {//sees the previous selected figure and unselect it then select the required figure
 			fig2 = pManager->GetSelectedFigure();
 			if (fig2) {
 				fig2->SetSelected(false);
+				pOut->ClearStatusBar();
 			}
 			pManager->SetSelectedFigure(fig);
 			fig->SetSelected(true);
+			fig->PrintInfo(pOut);
 		}
 	}
 

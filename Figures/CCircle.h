@@ -12,5 +12,6 @@ public:
 	virtual bool IsInside(int, int) const;
 	virtual void save(ofstream& fout);
 	virtual void load(ifstream& fin);
+	virtual void PrintInfo(Output* pOut);	//print all figure info on the status bar
 };
 

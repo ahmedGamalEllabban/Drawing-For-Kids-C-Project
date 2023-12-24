@@ -67,6 +67,8 @@ public:
 	bool IsRecording(); // Return true if we start recording and false if we didn't
 	void SetRecordingStatus(bool s); // Turns On and of recording
 	int GetRecordedActionsCount();
+	int GetUndoActionsCount();
+	int GetRedoActionsCount();
 
 
 	// -- Interface Management Functions

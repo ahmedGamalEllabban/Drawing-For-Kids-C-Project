@@ -4,7 +4,7 @@
 class CSquare : public CFigure
 {
 	Point Center;
-
+	int length;
 public:
 	CSquare();
 	CSquare(Point p, GfxInfo FigureGfxInfo);
@@ -13,6 +13,6 @@ public:
 	virtual Point MoveFigure(Point P);
 	virtual void save(ofstream& fout);
 	virtual void load(ifstream& fin);
-
+	virtual void PrintInfo(Output* pOut);	//print all figure info on the status bar
 };
 

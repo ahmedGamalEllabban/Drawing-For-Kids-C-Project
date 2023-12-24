@@ -8,6 +8,7 @@ CSquare::CSquare()
 CSquare::CSquare(Point p, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
 {
 	Center = p;
+	length = 100;
 }
 void CSquare::Draw(Output* pOut) const
 {
@@ -86,6 +87,12 @@ void CSquare::load(ifstream& fin)
 		else if (fillclr == "YELLOW") { FigGfxInfo.FillClr = YELLOW; }
 		else if (fillclr == "GREEN") { FigGfxInfo.FillClr = GREEN; }
 	}
+
+}
+
+void CSquare::PrintInfo(Output* pOut)
+{
+	pOut->PrintMessage("Sleceted A Square, ID: " + to_string(ID) + " | Center Point : (" + to_string(Center.x) + ", " + to_string(Center.y) + ") | Side Length : " + to_string(length));
 
 }
 

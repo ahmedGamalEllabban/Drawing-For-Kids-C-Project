@@ -6,6 +6,7 @@ CHexagon::CHexagon()
 CHexagon::CHexagon(Point P, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Center = P;
+	length = 100;
 }
 
 
@@ -106,5 +107,11 @@ void CHexagon::load(ifstream& fin)
 		else if (fillclr == "GREEN") { FigGfxInfo.FillClr = GREEN; }
 	}
 
+
+}
+
+void CHexagon::PrintInfo(Output* pOut)
+{
+	pOut->PrintMessage("Sleceted A Hexagon, ID: " + to_string(ID) + " | Center Point : (" + to_string(Center.x) + ", " + to_string(Center.y) + ") | Side Length : " + to_string(length));
 
 }

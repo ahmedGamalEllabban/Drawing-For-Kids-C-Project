@@ -32,7 +32,7 @@ void StartRecordingAction::ReadActionParameters() {
 }
 
 bool StartRecordingAction::RecordingCanBeEnabled() { // Function To Check If We Can Start Recording
-	if (pManager->GetFigureCount() == 0 && pManager->GetRecordedActionsCount() == 0) {
+	if (pManager->GetFigureCount() == 0 && pManager->GetRecordedActionsCount() == 0 && pManager->GetUndoActionsCount() == 0 && pManager->GetRedoActionsCount() == 0) {
 		return true;
 	}
 	else {

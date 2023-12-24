@@ -301,6 +301,16 @@ int ApplicationManager::GetRecordedActionsCount()
 	return RecordedActionsCount;
 }
 
+int ApplicationManager::GetUndoActionsCount()
+{
+	return ActionsCount;
+}
+
+int ApplicationManager::GetRedoActionsCount()
+{
+	return RedoCount;
+}
+
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//

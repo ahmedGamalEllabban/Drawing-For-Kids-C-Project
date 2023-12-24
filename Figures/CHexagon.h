@@ -5,6 +5,7 @@ class CHexagon :
 {
 private:
 	Point Center;
+	int length;
 public:
 	CHexagon();
 	CHexagon(Point, GfxInfo FigureGfxInfo);
@@ -13,5 +14,7 @@ public:
 	virtual Point MoveFigure(Point P);
 	virtual void save(ofstream& fout);
 	virtual void load(ifstream& fin);
+	virtual void PrintInfo(Output* pOut);	//print all figure info on the status bar
+
 };
 

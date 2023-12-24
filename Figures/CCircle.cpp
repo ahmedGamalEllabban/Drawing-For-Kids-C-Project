@@ -9,7 +9,6 @@ CCircle::CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo): CFigure(FigureGfxIn
 {
 	center = p1;
 	P2 = p2;
-
 }
 
 void CCircle::Draw(Output* pOut) const
@@ -18,10 +17,9 @@ void CCircle::Draw(Output* pOut) const
 }
 
 Point CCircle::MoveFigure(Point move) {
-	double radius;
 	int DiffX = P2.x - center.x;
 	int DiffY = P2.y - center.y;
-	radius = sqrt(DiffX * DiffX + DiffY * DiffY);
+	double radius = sqrt(DiffX * DiffX + DiffY * DiffY);
 	if (radius < (UI.height - UI.StatusBarHeight) - move.y && radius < move.y - (UI.ToolBarHeight + UI.ToolBarBorderWidth)) {
 	Point Center2 = center;
 	center = move;
@@ -88,5 +86,14 @@ void CCircle::load(ifstream& fin)
 		else if (fillclr == "YELLOW") { FigGfxInfo.FillClr = YELLOW; }
 		else if (fillclr == "GREEN") { FigGfxInfo.FillClr = GREEN; }
 	}
+
+}
+
+void CCircle::PrintInfo(Output* pOut)
+{
+	int DiffX = P2.x - center.x;
+	int DiffY = P2.y - center.y;
+	double radius = sqrt(DiffX * DiffX + DiffY * DiffY);
+	pOut->PrintMessage("Sleceted A Circle, ID: " + to_string(ID) + " | Center Point : (" + to_string(center.x) + ", " + to_string(center.y) + ") | Radius : " + to_string((int)radius));
 
 }
