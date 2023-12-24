@@ -33,6 +33,14 @@ void playByColorAction::ReadActionParameters()
 
 		startGame();
 
+		if (correct >= wrong + 2) {
+			PlaySound(TEXT("Sound/Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
+
+		else if (wrong >= correct + 2) {
+			PlaySound(TEXT("Sound/Lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
+
 		pOut->ClearDrawArea();
 
 		pOut->PrintMessage("Game Ended. Final Results -----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
@@ -111,7 +119,10 @@ void playByColorAction::startGame()
 				if (correct == count) break;
 			}
 
-			else wrong++;
+			else {
+				wrong++;
+				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			}
 
 			pManager->deleteChosenFig(p);
 
