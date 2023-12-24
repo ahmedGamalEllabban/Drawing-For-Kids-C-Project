@@ -80,6 +80,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 		case DRAW_RECT:
+			PlaySound(TEXT("Sound/rectangle.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddRectAction(this);
 			break;
 
@@ -88,14 +89,17 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new AddHexaAction(this);
 			break;
 
-		case DRAW_TRIANGLE: //AHMED HAZEM
+		case DRAW_TRIANGLE:
+			PlaySound(TEXT("Sound/Triangle.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddTriangleAction(this);
 			break;
-		case DRAW_CIRCLE: //AHMED HAZEM
+		case DRAW_CIRCLE:
+			PlaySound(TEXT("Sound/Circle.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddCircleAction(this);
 			break;
 
 		case DRAW_SQUARE:
+			PlaySound(TEXT("Sound/square.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddSquareAction(this);
 			break;
 
