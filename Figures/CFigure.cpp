@@ -8,6 +8,8 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 { 
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	Selected = false;
+	isFilled = false;
+
 }
 
 void CFigure::SetSelected(bool s)
@@ -24,12 +26,14 @@ void CFigure::ChngDrawClr(color Dclr)
 void CFigure::ChngFillClr(color Fclr)
 {
 	FigGfxInfo.isFilled = true;
+	isFilled = true;
 	FigGfxInfo.FillClr = Fclr;
 }
 
 void CFigure::RemoveFillClr(color PrevClr)
 {
 	FigGfxInfo.isFilled = false;
+	isFilled = false;
 	FigGfxInfo.FillClr = PrevClr;
 }
 
@@ -58,5 +62,10 @@ void CFigure::SetID(int id)
 int CFigure::GetID() const
 {
 	return ID;
+}
+
+bool CFigure::getFillStats()
+{
+	return isFilled;
 }
 

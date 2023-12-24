@@ -10,6 +10,7 @@ class CFigure
 protected:
 	int ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
+	bool isFilled;
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	
 	/// Add more parameters if needed.
@@ -35,6 +36,8 @@ public:
 	int GetID()const;
 	void virtual save(ofstream& fout) = 0;
 	void virtual load(ifstream& fin) = 0;
+
+	bool getFillStats(); // ahmed kamal
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure
 

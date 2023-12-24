@@ -495,12 +495,12 @@ void ApplicationManager::getShapesCount(int& RC, int& SC, int& CC, int& HC, int&
 void ApplicationManager::getColorsCount(int& BlackC, int& YC, int& OC, int& RC, int& GC, int& BlueC)
 {
 	for (int i = 0; i < FigCount; i++) {
-		if (FigList[i]->getFillColor() == BLACK) BlackC++;
-		else if (FigList[i]->getFillColor() == YELLOW) YC++;
-		else if (FigList[i]->getFillColor() == ORANGE) OC++;
-		else if (FigList[i]->getFillColor() == RED) RC++;
-		else if (FigList[i]->getFillColor() == GREEN) GC++;
-		else if (FigList[i]->getFillColor() == BLUE) BlueC++;
+		if (FigList[i]->getFillColor() == BLACK && FigList[i]->getGfxInfo().isFilled) BlackC++;
+		else if (FigList[i]->getFillColor() == YELLOW && FigList[i]->getGfxInfo().isFilled) YC++;
+		else if (FigList[i]->getFillColor() == ORANGE && FigList[i]->getGfxInfo().isFilled) OC++;
+		else if (FigList[i]->getFillColor() == RED && FigList[i]->getGfxInfo().isFilled) RC++;
+		else if (FigList[i]->getFillColor() == GREEN && FigList[i]->getGfxInfo().isFilled) GC++;
+		else if (FigList[i]->getFillColor() == BLUE && FigList[i]->getGfxInfo().isFilled) BlueC++;
 	}
 }
 
@@ -530,25 +530,47 @@ int ApplicationManager::countShapeColors(string shape, color c)
 
 	for (int i = 0; i < FigCount; i++) {
 		if (shape == "R") {
-			if (dynamic_cast<CRectangle*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CRectangle*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
 		else if (shape == "S") {
-			if (dynamic_cast<CSquare*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CSquare*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
 		else if (shape == "C") {
-			if (dynamic_cast<CCircle*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CCircle*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
 		else if (shape == "H") {
-			if (dynamic_cast<CHexagon*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CHexagon*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
 		else if (shape == "T") {
-			if (dynamic_cast<CTriangle*>(FigList[i]) && FigList[i]->getFillColor() == c) count++;
+			if (dynamic_cast<CTriangle*>(FigList[i]) && FigList[i]->getFillColor() == c && FigList[i]->getGfxInfo().isFilled) count++;
 		}
 
+	}
+
+	return count;
+}
+
+int ApplicationManager::getFillCount()
+{
+	int count = 0;
+
+	for (int i = 0; i < FigCount; i++) {
+		if (FigList[i]->getGfxInfo().isFilled) count++;
+	}
+
+	return count;
+}
+
+int ApplicationManager::getNonFillCount()
+{
+	int count = 0;
+
+	for (int i = 0; i < FigCount; i++) {
+		if (FigList[i]->getGfxInfo().isFilled == 0) count++;
 	}
 
 	return count;

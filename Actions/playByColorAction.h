@@ -5,7 +5,7 @@
 
 class playByColorAction : public Action
 {
-	int correct, wrong, numOfShapes;
+	int correct, wrong, numOfShapes, fillCount;
 	int blackCount, yellowCount, orangeCount, redCount, greenCount, blueCount;
 	Point p;
 	color randColor;

@@ -21,9 +21,7 @@ playByBothAction::playByBothAction(ApplicationManager* app):Action(app)
 
 	numOfShapes = pManager->getFigCount();
 
-	randShape = pManager->getRandomFig();
-
-	randColor = randShape->getFillColor();
+	nonFilledCount = pManager->getNonFillCount();
 
 	color colors[6] = { BLACK, YELLOW, RED, ORANGE, GREEN, BLUE };
 	// indexing  0: Black, 1: Yellow, 2: Red, 3: Orange, 4: Green, 5: Blue  ---------------*
@@ -53,31 +51,48 @@ playByBothAction::playByBothAction(ApplicationManager* app):Action(app)
 
 void playByBothAction::ReadActionParameters()
 {
-	pOut->PrintMessage("Playing Pick and hide By Both Shape and Color ");
+	if (numOfShapes != 0 && pManager->getFillCount() != 0) {
 
-	pOut->ClearPickHideToolBar();
+		randShape = pManager->getRandomFig();
 
-	Sleep(1000);
+		randColor = randShape->getFillColor();
 
-	if (dynamic_cast<CSquare*>(randShape)) {
-		playSquare();
-	}
-	else if (dynamic_cast<CRectangle*>(randShape)) {
-		playRectangle();
-	}
-	else if (dynamic_cast<CHexagon*>(randShape)) {
-		playHexagon();
-	}
-	else if (dynamic_cast<CCircle*>(randShape)) {
-		playCircle();
-	}
-	else if (dynamic_cast<CTriangle*>(randShape)) {
-		playTriangle();
+		pOut->PrintMessage("Playing Pick and hide By Both Shape and Color ");
+
+		pOut->ClearPickHideToolBar();
+
+		Sleep(1000);
+
+		if (dynamic_cast<CSquare*>(randShape)) {
+			playSquare();
+		}
+		else if (dynamic_cast<CRectangle*>(randShape)) {
+			playRectangle();
+		}
+		else if (dynamic_cast<CHexagon*>(randShape)) {
+			playHexagon();
+		}
+		else if (dynamic_cast<CCircle*>(randShape)) {
+			playCircle();
+		}
+		else if (dynamic_cast<CTriangle*>(randShape)) {
+			playTriangle();
+		}
+
+		pOut->ClearDrawArea();
+
+		pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 	}
 
-	pOut->ClearDrawArea();
+	else if (numOfShapes != 0 && pManager->getFillCount() == 0) {
+		pOut->ClearPickHideToolBar();
+		pOut->PrintMessage("No colored Shapes to play with ");
+	}
 
-	pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+	else {
+		pOut->ClearPickHideToolBar();
+		pOut->PrintMessage("Can't play without any drawings ");
+	}
 }
 
 void playByBothAction::Execute()
@@ -120,20 +135,34 @@ void playByBothAction::playSquare()
 	{
 		pIn->GetPointClicked(p.x, p.y);
 
-		if (pManager->GetFigure(p.x, p.y) == NULL) continue;
+		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
+			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
 
-		else numOfShapes--;
+			Sleep(1000);
 
-		if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
-			correct++;
-			if (correct == count) break;
+			break;
 		}
 
-		else wrong++;
+		else {
 
-		pManager->deleteChosenFig(p);
+			if (pManager->GetFigure(p.x, p.y) == NULL) continue;
 
-		pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			else numOfShapes--;
+
+			if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
+				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
+				correct++;
+				if (correct == count) break;
+			}
+
+			else wrong++;
+
+			pManager->deleteChosenFig(p);
+
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+		}
+
+		
 	}
 }
 
@@ -186,7 +215,8 @@ void playByBothAction::playRectangle()
 
 			else numOfShapes--;
 
-			if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+			if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
+				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
 				if (correct == count) break;
 			}
@@ -195,7 +225,7 @@ void playByBothAction::playRectangle()
 
 			pManager->deleteChosenFig(p);
 
-			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 		}
 
 	}
@@ -250,7 +280,8 @@ void playByBothAction::playHexagon()
 
 			else numOfShapes--;
 
-			if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+			if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
+				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
 				if (correct == count) break;
 			}
@@ -259,7 +290,7 @@ void playByBothAction::playHexagon()
 
 			pManager->deleteChosenFig(p);
 
-			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 		}
 
 		
@@ -315,7 +346,8 @@ void playByBothAction::playCircle()
 
 			else numOfShapes--;
 
-			if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+			if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
+				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
 				if (correct == count) break;
 			}
@@ -324,7 +356,7 @@ void playByBothAction::playCircle()
 
 			pManager->deleteChosenFig(p);
 
-			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 		}
 
 		
@@ -380,7 +412,8 @@ void playByBothAction::playTriangle()
 
 			else numOfShapes--;
 
-			if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor) {
+			if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
+				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
 				if (correct == count) break;
 			}
@@ -389,7 +422,7 @@ void playByBothAction::playTriangle()
 
 			pManager->deleteChosenFig(p);
 
-			pOut->PrintMessage("Correct: " + to_string(correct) + "\t" + "Wrong: " + to_string(wrong));
+			pOut->PrintMessage("Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 		}
 
 		

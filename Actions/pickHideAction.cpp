@@ -13,7 +13,6 @@ pickHideAction::pickHideAction(ApplicationManager* app):Action(app)
 void pickHideAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
 
 	pOut->PrintMessage("Choose the mode you want to play  ");
 

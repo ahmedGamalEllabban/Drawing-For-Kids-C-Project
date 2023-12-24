@@ -29,57 +29,65 @@ playByShapeAction::playByShapeAction(ApplicationManager* app) :Action(app)
 
 void playByShapeAction::ReadActionParameters()
 {
-	Shapes randomShape;
-	CFigure* shape;
+	if (numOfShapes != 0) {
 
-	pOut->PrintMessage("Playing Pick and hide By Shape ");
+		Shapes randomShape;
+		CFigure* shape;
 
-	pOut->ClearPickHideToolBar();
+		pOut->PrintMessage("Playing Pick and hide By Shape ");
+
+		pOut->ClearPickHideToolBar();
 
 
-	// Enum Values, Square:0 , Rectngle: 1, Hexagon: 2, Circle: 3, Triangle: 4 
+		// Enum Values, Square:0 , Rectngle: 1, Hexagon: 2, Circle: 3, Triangle: 4 
 
-	shape = pManager->getRandomFig();
+		shape = pManager->getRandomFig();
 
-	if (dynamic_cast<CSquare*>(shape)) randomShape = SQUARE;
-	else if (dynamic_cast<CRectangle*>(shape)) randomShape = RECTANGLE;
-	else if (dynamic_cast<CHexagon*>(shape)) randomShape = HEXAGON;
-	else if (dynamic_cast<CCircle*>(shape)) randomShape = CIRCLE;
-	else if (dynamic_cast<CTriangle*>(shape)) randomShape = TRIANGLE;
+		if (dynamic_cast<CSquare*>(shape)) randomShape = SQUARE;
+		else if (dynamic_cast<CRectangle*>(shape)) randomShape = RECTANGLE;
+		else if (dynamic_cast<CHexagon*>(shape)) randomShape = HEXAGON;
+		else if (dynamic_cast<CCircle*>(shape)) randomShape = CIRCLE;
+		else if (dynamic_cast<CTriangle*>(shape)) randomShape = TRIANGLE;
 
-	Sleep(1000);
+		Sleep(1000);
 
-	switch (randomShape)
-	{
+		switch (randomShape)
+		{
 
-	case SQUARE:
-		playSquare();
-		break;
+		case SQUARE:
+			playSquare();
+			break;
 
-	case RECTANGLE:
-		playRectangle();
-		break;
+		case RECTANGLE:
+			playRectangle();
+			break;
 
-	case HEXAGON:
-		playHexagon();
-		break;
+		case HEXAGON:
+			playHexagon();
+			break;
 
-	case CIRCLE:
-		playCircle();
-		break;
+		case CIRCLE:
+			playCircle();
+			break;
 
-	case TRIANGLE:
-		playTriangle();
-		break;
+		case TRIANGLE:
+			playTriangle();
+			break;
 
-	default:
-		break;
+		default:
+			break;
 
+		}
+
+		pOut->ClearDrawArea();
+
+		pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
 	}
 
-	pOut->ClearDrawArea();
-
-	pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
+	else {
+		pOut->ClearPickHideToolBar();
+		pOut->PrintMessage("Can't play without any drawings");
+	}
 
 }
 

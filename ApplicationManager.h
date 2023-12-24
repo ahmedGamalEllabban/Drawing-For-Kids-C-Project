@@ -84,6 +84,8 @@ public:
 	void getColorsCount(int& BlackC, int& YC, int& OC, int& RC, int& GC, int& BlueC);
 	void deleteChosenFig(Point p);
 	int countShapeColors(string shape, color c);
+	int getFillCount();
+	int getNonFillCount();
 	color getRandomColor();
 	int GetFigCount();
 	void Saveall(ofstream& fout);
