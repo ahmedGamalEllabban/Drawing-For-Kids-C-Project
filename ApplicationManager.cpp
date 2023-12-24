@@ -585,6 +585,10 @@ color ApplicationManager::getRandomColor()
 
 	int randomIndex = rand() % FigCount;
 
+	while (FigList[randomIndex]->getGfxInfo().isFilled != 1) {
+		randomIndex = rand() % FigCount;
+	}
+
 	return FigList[randomIndex]->getFillColor();
 }
 
