@@ -19,6 +19,8 @@
 #include "Figures/CTriangle.h"// ahmed kamal
 #include <time.h>
 #include <string>
+#include <Windows.h>
+#include <mmsystem.h>
 #include "Actions/DeleteAction.h"
 #include "Actions/Action.h"
 #include "Actions/UndoAction.h"
@@ -33,7 +35,7 @@
 #include "Actions/LoadAction.h"
 #include "Actions/exitAction.h"
 
-
+#pragma comment(lib,"winmm.lib")
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -82,6 +84,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case DRAW_HEXA:
+			PlaySound(TEXT("Sound/Hexagon.wav"),NULL, SND_FILENAME| SND_ASYNC);
 			pAct = new AddHexaAction(this);
 			break;
 
