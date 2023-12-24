@@ -11,7 +11,9 @@
 #include "..\Figures\CHexagon.h"
 #include "..\Figures\CTriangle.h"
 #include "..\Figures\CRectangle.h"
-
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment (lib, "winmm.lib")
 
 
 using namespace std;
@@ -123,6 +125,8 @@ void playByShapeAction::playSquare()
 
 			if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == SquareCount) break;
 			}
 
@@ -164,6 +168,8 @@ void playByShapeAction::playRectangle()
 
 			if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == RectCount) break;
 			}
 
@@ -204,6 +210,8 @@ void playByShapeAction::playHexagon()
 
 			if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == HexCount) break;
 			}
 
@@ -245,6 +253,8 @@ void playByShapeAction::playCircle()
 
 			if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == CircleCount) break;
 			}
 
@@ -286,6 +296,8 @@ void playByShapeAction::playTriangle()
 
 			if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == TriangleCount) break;
 			}
 

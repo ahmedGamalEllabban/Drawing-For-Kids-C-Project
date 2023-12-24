@@ -5,7 +5,9 @@
 #include "..\GUI\UI_Info.h"
 #include "..\Figures\CFigure.h"
 #include "time.h"
-
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment (lib, "winmm.lib")
 playByColorAction::playByColorAction(ApplicationManager* app) :Action(app)
 {
 	pOut = pManager->GetOutput();
@@ -108,6 +110,8 @@ void playByColorAction::startGame()
 			if (randColor == pManager->GetFigure(p.x, p.y)->getFillColor()
 											&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled){
 				correct++;
+
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 

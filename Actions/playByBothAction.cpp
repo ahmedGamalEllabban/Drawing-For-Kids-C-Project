@@ -11,7 +11,9 @@
 #include "..\Figures\CHexagon.h"
 #include "..\Figures\CTriangle.h"
 #include "..\Figures\CRectangle.h"
-
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment (lib, "winmm.lib")
 playByBothAction::playByBothAction(ApplicationManager* app):Action(app)
 {
 	pOut = pManager->GetOutput();
@@ -152,6 +154,7 @@ void playByBothAction::playSquare()
 			if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
@@ -218,6 +221,7 @@ void playByBothAction::playRectangle()
 			if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
@@ -283,6 +287,7 @@ void playByBothAction::playHexagon()
 			if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
@@ -349,6 +354,7 @@ void playByBothAction::playCircle()
 			if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
@@ -399,7 +405,7 @@ void playByBothAction::playTriangle()
 		pIn->GetPointClicked(p.x, p.y);
 
 		if (p.y >= 0 && p.y < UI.ToolBarHeight) {
-			pOut->PrintMessage("You Clicked the tool bar Game Exited :( ");
+			pOut->PrintMessage("coYou Clicked the tool bar Game Exited :( ");
 
 			Sleep(1000);
 
@@ -415,6 +421,7 @@ void playByBothAction::playTriangle()
 			if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
+				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
