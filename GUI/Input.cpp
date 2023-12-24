@@ -16,6 +16,7 @@ string Input::GetSrting(Output *pO) const
 {
 	pWind->FlushKeyQueue();
 	pWind->FlushMouseQueue();
+	
 	string Label;
 	char Key;
 	while(1)
@@ -36,6 +37,17 @@ string Input::GetSrting(Output *pO) const
 	}
 
 	
+}
+
+clicktype Input::GetMouseClick(int&x, int&y)
+{
+	return pWind->GetMouseClick(x, y);
+
+}
+
+void Input::GetMouseCoordinates(int& x, int& y)
+{
+	pWind->GetMouseCoord(x, y);
 }
 
 //This function reads the position where the user clicks to determine the desired action
@@ -64,7 +76,7 @@ ActionType Input::GetUserAction() const
 			case ITM_CIRCLE: return DRAW_CIRCLE;
 			
 			case SELECT_ONE: return SELECT_SHAPE;
-			
+			case RESIZE_ICON:return RESIZE;
 			case BORDER_COLOR: return CHANGE_BORDERCLR;
 			
 			case FILL_COLOR: return CHANGE_FILLCLR;

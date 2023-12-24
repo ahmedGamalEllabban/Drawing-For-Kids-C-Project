@@ -34,7 +34,8 @@
 #include "Actions/SaveAction.h"
 #include "Actions/LoadAction.h"
 #include "Actions/exitAction.h"
-
+#include "Actions/ResizeAction.h"
+#include"Actions/MoveByDraggingAction.h"
 #pragma comment(lib,"winmm.lib")
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -113,7 +114,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case LOAD_GRAPH: //AHMED HAZEM
 			pAct = new LoadAction(this);
 			break;
-
+		case RESIZE:
+			//pAct = new ResizeAction(this);
+			pAct = new MoveByDraggingAction(this);
+			break;
 		case CHANGE_BORDERCLR: //AHMED HAZEM
 		{
 			if (SelectedFig){

@@ -19,7 +19,8 @@ enum ActionType //The actions supported (you can add more if needed)
 	STATUS,			//A click on the status bar
 	SELECT_SHAPE,    
 	CHANGE_BORDERCLR,
-	CHANGE_FILLCLR,  
+	CHANGE_FILLCLR, 
+	RESIZE,
 	//color list
 	CHNGCLR_BLACK,
 	CHNGCLR_YELLOW,

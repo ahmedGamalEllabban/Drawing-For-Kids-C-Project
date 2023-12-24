@@ -176,6 +176,8 @@
     <ClCompile Include="Actions\SaveAction.cpp" />
     <ClCompile Include="Actions\LoadAction.cpp" />
     <ClCompile Include="Actions\exitAction.cpp" />
+    <ClCompile Include="Actions\ResizeAction.cpp" />
+    <ClCompile Include="Actions\MoveByDraggingAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -291,6 +293,8 @@
     <ClInclude Include="Actions\SaveAction.h" />
     <ClInclude Include="Actions\LoadAction.h" />
     <ClInclude Include="Actions\exitAction.h" />
+    <ClInclude Include="Actions\ResizeAction.h" />
+    <ClInclude Include="Actions\MoveByDraggingAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

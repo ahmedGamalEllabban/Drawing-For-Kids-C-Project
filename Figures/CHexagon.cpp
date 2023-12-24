@@ -110,6 +110,16 @@ void CHexagon::load(ifstream& fin)
 
 }
 
+void CHexagon::Resize(Point)
+{
+}
+
+void CHexagon::DistanceFromCenter(Point P, double& DIFFx, double& DIFFy)
+{
+	DIFFx = Center.x - P.x;
+	DIFFy = Center.y - P.y;
+}
+
 void CHexagon::PrintInfo(Output* pOut)
 {
 	pOut->PrintMessage("Sleceted A Hexagon, ID: " + to_string(ID) + " | Center Point : (" + to_string(Center.x) + ", " + to_string(Center.y) + ") | Side Length : " + to_string(length));

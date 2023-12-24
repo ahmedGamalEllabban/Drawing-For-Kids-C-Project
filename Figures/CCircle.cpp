@@ -89,6 +89,24 @@ void CCircle::load(ifstream& fin)
 
 }
 
+void CCircle::Resize(Point P)
+{
+	if (P.y > UI.ToolBarHeight + UI.ToolBarBorderWidth && P.y < UI.height - UI.StatusBarHeight) {
+			double radius;
+			int XDiff = center.x - P.x;
+			int YDiff = center.y - P.y;
+			radius = sqrt((XDiff * XDiff) + (YDiff * YDiff));
+			if (radius < center.y - (UI.ToolBarHeight + UI.ToolBarBorderWidth) && radius < UI.height - UI.StatusBarHeight - center.y)
+				P2 = P;
+	}
+}
+
+void CCircle::DistanceFromCenter(Point P,double& DIFFx, double& DIFFy)
+{
+	DIFFx = center.x - P.x;
+	DIFFy = center.y - P.y;
+}
+
 void CCircle::PrintInfo(Output* pOut)
 {
 	int DiffX = P2.x - center.x;

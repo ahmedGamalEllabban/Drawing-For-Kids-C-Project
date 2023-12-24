@@ -194,6 +194,16 @@ void CTriangle::load(ifstream& fin)
 	}
 }
 
+void CTriangle::Resize(Point )
+{
+}
+
+void CTriangle::DistanceFromCenter(Point P, double& DIFFx, double& DIFFy)
+{
+	DIFFx = double((Corner1.x + Corner2.x+Corner3.x) / 3.0 - P.x);
+	DIFFy = double((Corner1.y + Corner2.y+Corner3.y) / 3.0 - P.y);
+}
+
 void CTriangle::PrintInfo(Output* pOut)
 {
 	pOut->PrintMessage("Seleced A Triangle, ID: " + to_string(ID) + " | First Vertex: (" + to_string(Corner1.x) + "," + to_string(Corner1.y) + ") | Second Vertex: (" + to_string(Corner2.x) + "," + to_string(Corner2.y) + ") | Third Vertex: (" + to_string(Corner3.x) + "," + to_string(Corner3.y) + ")");

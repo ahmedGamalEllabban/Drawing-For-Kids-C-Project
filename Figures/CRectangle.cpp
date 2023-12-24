@@ -125,6 +125,16 @@ void CRectangle::load(ifstream& fin)
 
 }
 
+void CRectangle::Resize(Point)
+{
+}
+
+void CRectangle::DistanceFromCenter(Point P, double& DIFFx, double& DIFFy)
+{
+	DIFFx = double((Corner1.x+Corner2.x)/2.0 - P.x);
+	DIFFy = double((Corner1.y + Corner2.y) / 2.0 - P.y);
+}
+
 void CRectangle::PrintInfo(Output* pOut)
 {
 	int width = abs(Corner1.x - Corner2.x);

@@ -90,6 +90,16 @@ void CSquare::load(ifstream& fin)
 
 }
 
+void CSquare::Resize(Point)
+{
+}
+
+void CSquare::DistanceFromCenter(Point P, double& DIFFx, double& DIFFy)
+{
+	DIFFx = Center.x - P.x;
+	DIFFy = Center.y - P.y;
+}
+
 void CSquare::PrintInfo(Output* pOut)
 {
 	pOut->PrintMessage("Sleceted A Square, ID: " + to_string(ID) + " | Center Point : (" + to_string(Center.x) + ", " + to_string(Center.y) + ") | Side Length : " + to_string(length));

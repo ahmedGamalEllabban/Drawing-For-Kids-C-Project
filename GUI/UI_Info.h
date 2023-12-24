@@ -23,7 +23,8 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	ITM_TRIANGLE,
 	ITM_CIRCLE, 
 	//TODO: Add more items names here
-	SELECT_ONE,  
+	SELECT_ONE,
+	RESIZE_ICON,
 	BORDER_COLOR, 
 	FILL_COLOR,
 	

@@ -199,6 +199,8 @@
     <ClCompile Include="Actions\playByColorAction.cpp" />
     <ClCompile Include="Actions\UndoAction.cpp" />
     <ClCompile Include="Actions\RedoAction.cpp" />
+    <ClCompile Include="Actions\ResizeAction.cpp" />
+    <ClCompile Include="Actions\MoveByDraggingAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddHexaAction.h" />
@@ -258,6 +260,8 @@
     <ClInclude Include="Actions\playByColorAction.h" />
     <ClInclude Include="Actions\UndoAction.h" />
     <ClInclude Include="Actions\RedoAction.h" />
+    <ClInclude Include="Actions\ResizeAction.h" />
+    <ClInclude Include="Actions\MoveByDraggingAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
