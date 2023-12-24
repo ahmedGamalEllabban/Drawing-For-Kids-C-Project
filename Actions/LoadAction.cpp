@@ -29,8 +29,7 @@ void LoadAction::ReadActionParameters()
 void LoadAction::Execute()
 {
 	ReadActionParameters();
-	ClearAllAction CA(pManager);
-	CA.Execute();  // Clear every thing in FigList before Loading
+	
 	int figsnumber;
 	Input* pIn;
 	Output* pOut;
@@ -43,6 +42,8 @@ void LoadAction::Execute()
 	string CDrawClr, CFillClr,type;
 
 	if (Fin.is_open()) {
+		ClearAllAction CA(pManager); 
+		CA.Execute();  // Clear every thing in FigList before Loading 
 		pOut->PrintMessage("Loaded Successfully :)");
 		Fin >> CDrawClr >> CFillClr;    
 
@@ -57,12 +58,15 @@ void LoadAction::Execute()
 
 		//** To Set The Fill Color 
 		if (CFillClr == "NOT_FILLED") pOut->SetNonFilled();
-		else if (CFillClr == "BLACK") pOut->setFillclr(BLACK);
-		else if (CFillClr == "RED") pOut->setFillclr(RED);
+		else {
+			pOut->setfilled();
+		if (CFillClr == "BLACK") pOut->setFillclr(BLACK);
+		else if (CFillClr == "RED") pOut->setFillclr(RED); 
 		else if (CFillClr == "BLUE") pOut->setFillclr(BLUE);
 		else if (CFillClr == "ORANGE") pOut->setFillclr(ORANGE);
 		else if (CFillClr == "YELLOW") pOut->setFillclr(YELLOW);
 		else if (CFillClr == "GREEN") pOut->setFillclr(GREEN);
+		}
 
 		//** To Set Number Of Figures
 		Fin >> figsnumber;
