@@ -81,6 +81,14 @@ void playByShapeAction::ReadActionParameters()
 
 		}
 
+		if (correct >= wrong + 2) {
+			PlaySound(TEXT("Sound/Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
+
+		else if (wrong >= correct + 2) {
+			PlaySound(TEXT("Sound/Lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
+
 		pOut->ClearDrawArea();
 
 		pOut->PrintMessage("Game Ended. Final Result ----> Correct: " + to_string(correct) + "  " + "Wrong: " + to_string(wrong));
@@ -130,7 +138,10 @@ void playByShapeAction::playSquare()
 				if (correct == SquareCount) break;
 			}
 
-			else wrong++;
+			else {
+				wrong++;
+				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			}
 
 			pManager->deleteChosenFig(p);
 
@@ -173,7 +184,10 @@ void playByShapeAction::playRectangle()
 				if (correct == RectCount) break;
 			}
 
-			else wrong++;
+			else {
+				wrong++;
+				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			}
 
 			pManager->deleteChosenFig(p);
 
@@ -215,7 +229,10 @@ void playByShapeAction::playHexagon()
 				if (correct == HexCount) break;
 			}
 
-			else wrong++;
+			else {
+				wrong++;
+				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			}
 
 			pManager->deleteChosenFig(p);
 
@@ -258,7 +275,10 @@ void playByShapeAction::playCircle()
 				if (correct == CircleCount) break;
 			}
 
-			else wrong++;
+			else {
+				wrong++;
+				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			}
 
 			pManager->deleteChosenFig(p);
 
@@ -301,7 +321,10 @@ void playByShapeAction::playTriangle()
 				if (correct == TriangleCount) break;
 			}
 
-			else wrong++;
+			else {
+				wrong++;
+				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			}
 
 			pManager->deleteChosenFig(p);
 
