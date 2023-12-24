@@ -8,6 +8,7 @@ private:
 	GfxInfo HexaGfxInfo;
 	bool CanDraw;
 	int ID;
+	int length;
 public:
 	AddHexaAction(ApplicationManager* pApp);
 

@@ -25,6 +25,7 @@ void ChangeDrawClrAction::Execute()
 		FIG->ChngDrawClr(DrawingClr);
 		FIG->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
+		op->ClearStatusBar();
 	}
 
 	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList

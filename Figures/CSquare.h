@@ -7,7 +7,7 @@ class CSquare : public CFigure
 	int length;
 public:
 	CSquare();
-	CSquare(Point p, GfxInfo FigureGfxInfo);
+	CSquare(Point p, GfxInfo FigureGfxInfo, int l);
 	virtual void Draw(Output* pOut) const;
 	virtual bool IsInside(int, int) const;
 	virtual Point MoveFigure(Point P);

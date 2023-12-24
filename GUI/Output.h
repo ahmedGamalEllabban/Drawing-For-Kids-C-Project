@@ -26,8 +26,8 @@ public:
 	void ClearPickHideToolBar() const;
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle
-	void DrawSquare(Point P, GfxInfo RectGfxInfo, bool selected = false) const;  // Draw a Square
-	void DrawHexa(Point P, GfxInfo RectGfxInfo, bool selected = false) const;  //  Draw a Hexagon
+	void DrawSquare(Point P, GfxInfo RectGfxInfo, bool selected = false, int length = 100) const;  // Draw a Square
+	void DrawHexa(Point P, GfxInfo RectGfxInfo, bool selected = false, int length = 100) const;  //  Draw a Hexagon
 	void DrawTriangle(Point P1, Point P2, Point P3, GfxInfo RectGfxInfo, bool selected);//Draw a Triangle
 	void DrawCircle(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected);//Draw a Circle
 	

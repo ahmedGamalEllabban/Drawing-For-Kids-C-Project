@@ -3,16 +3,16 @@
 CHexagon::CHexagon()
 {
 }
-CHexagon::CHexagon(Point P, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
+CHexagon::CHexagon(Point P, GfxInfo FigureGfxInfo, int l) :CFigure(FigureGfxInfo)
 {
 	Center = P;
-	length = 100;
+	length = l;
 }
 
 
 void CHexagon::Draw(Output* pOut) const
 {
-	pOut->DrawHexa(Center, FigGfxInfo, Selected);
+	pOut->DrawHexa(Center, FigGfxInfo, Selected, length);
 }
 double TrArea(int x1, int y1, int x2, int y2, int x3, int y3)//REQUIRED TO COMPUTE WHETHER THE POINT IS INSIDE THE HEXAGON
 {
@@ -25,20 +25,20 @@ bool CHexagon::IsInside(int x1, int y1)const {
 
 	// The Length Of The Hexagone Is 100
 	X[0] = Center.x;
-	X[1] = Center.x + 86;
-	X[2] = Center.x + 86;
+	X[1] = Center.x + length * 0.866;
+	X[2] = Center.x + length * 0.866;
 	X[3] = Center.x;
-	X[4] = Center.x - 86;
-	X[5] = Center.x - 86;
+	X[4] = Center.x - length * 0.866;
+	X[5] = Center.x - length * 0.866;
 	X[6] = Center.x;
 	
-	Y[0] = Center.y + 100;
-	Y[1] = Center.y + 50;
-	Y[2] = Center.y - 50;
-	Y[3] = Center.y - 100;
-	Y[4] = Center.y - 50;
-	Y[5] = Center.y + 50;
-	Y[6] = Center.y + 100;
+	Y[0] = Center.y + length;
+	Y[1] = Center.y + length / 2;
+	Y[2] = Center.y - length / 2;
+	Y[3] = Center.y - length;
+	Y[4] = Center.y - length / 2;
+	Y[5] = Center.y + length / 2 ;
+	Y[6] = Center.y + length;
 	double TotalArea = 0;
 	for (int i = 1; i < vertices-2; i++) {
 		TotalArea+=TrArea(X[0],Y[0],X[i],Y[i],X[i+1],Y[i+1]);
@@ -52,7 +52,7 @@ bool CHexagon::IsInside(int x1, int y1)const {
 
 Point CHexagon::MoveFigure(Point move) {
 	Point Center2 = Center;
-	if (move.y - 100 < UI.ToolBarHeight + UI.ToolBarBorderWidth || move.y + 100 > UI.height - UI.StatusBarHeight) {
+	if (move.y - length < UI.ToolBarHeight + UI.ToolBarBorderWidth || move.y + length > UI.height - UI.StatusBarHeight) {
 		Point Temp;
 		Temp.x = -1;
 		Temp.y = -1;
@@ -66,7 +66,7 @@ Point CHexagon::MoveFigure(Point move) {
 
 void CHexagon::save(ofstream& fout)
 {
-	fout << "HEXAGON" << " \t" << ID << "\t" << Center.x << "\t" << Center.y << "\t";
+	fout << "HEXAGON" << " \t" << ID << "\t" << Center.x << "\t" << Center.y << "\t" << length << "\t";
 	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
 	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
 	else if (FigGfxInfo.DrawClr == RED) fout << "RED" << "\t";
@@ -88,7 +88,9 @@ void CHexagon::save(ofstream& fout)
 void CHexagon::load(ifstream& fin)
 {
 	string drawclr, fillclr;
-	fin >> ID >> Center.x >> Center.y >> drawclr >> fillclr;
+	int len;
+	fin >> ID >> Center.x >> Center.y >> len >> drawclr >> fillclr;
+	length = len;
 	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
 	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
 	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }

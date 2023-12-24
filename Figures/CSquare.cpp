@@ -5,24 +5,24 @@ CSquare::CSquare()
 {
 }
 
-CSquare::CSquare(Point p, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
+CSquare::CSquare(Point p, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 {
 	Center = p;
-	length = 100;
+	length = l;
 }
 void CSquare::Draw(Output* pOut) const
 {
-	pOut->DrawSquare(Center, FigGfxInfo, Selected);
+	pOut->DrawSquare(Center, FigGfxInfo, Selected, length);
 }
 
 bool CSquare::IsInside(int x, int y) const
 {
 	int x_min, x_max, y_min, y_max;
 
-	x_min = Center.x - 50;
-	x_max = Center.x + 50;
-	y_min = Center.y - 50;
-	y_max = Center.y + 50;
+	x_min = Center.x - length / 2;
+	x_max = Center.x + length / 2;
+	y_min = Center.y - length / 2;
+	y_max = Center.y + length / 2;
 
 	if (y >= y_min && y <= y_max && x >= x_min && x <= x_max) return 1;
 	return 0;
@@ -30,7 +30,7 @@ bool CSquare::IsInside(int x, int y) const
 
 Point CSquare::MoveFigure(Point P)
 {
-	if (P.y - 50 < UI.ToolBarHeight + UI.ToolBarBorderWidth || P.y + 50 > UI.height - UI.StatusBarHeight) {
+	if (P.y - length / 2 < UI.ToolBarHeight + UI.ToolBarBorderWidth || P.y + length / 2 > UI.height - UI.StatusBarHeight) {
 		Point Temp;
 		Temp.x = -1;
 		Temp.y = -1;
@@ -45,7 +45,7 @@ Point CSquare::MoveFigure(Point P)
 
 void CSquare::save(ofstream& fout)
 {
-	fout << "SQUARE" << " \t\t" << ID << "\t" << Center.x << "\t" << Center.y << "\t";
+	fout << "SQUARE" << " \t\t" << ID << "\t" << Center.x << "\t" << Center.y << "\t" << length << "\t";
 	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
 	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
 	else if (FigGfxInfo.DrawClr == RED) fout << "RED" << "\t";
@@ -69,7 +69,9 @@ void CSquare::save(ofstream& fout)
 void CSquare::load(ifstream& fin)
 {
 	string drawclr, fillclr;
-	fin >> ID >> Center.x >> Center.y >> drawclr >> fillclr;
+	int len;
+	fin >> ID >> Center.x >> Center.y >> len >>  drawclr >> fillclr;
+	length = len;
 	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
 	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
 	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }

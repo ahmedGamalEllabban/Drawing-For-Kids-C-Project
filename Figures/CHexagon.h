@@ -8,7 +8,7 @@ private:
 	int length;
 public:
 	CHexagon();
-	CHexagon(Point, GfxInfo FigureGfxInfo);
+	CHexagon(Point, GfxInfo FigureGfxInfo, int l);
 	virtual void Draw(Output* pOut) const;
 	virtual bool IsInside(int, int)const;
 	virtual Point MoveFigure(Point P);
