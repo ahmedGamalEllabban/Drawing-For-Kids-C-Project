@@ -12,11 +12,11 @@
 #include "Actions/playByShapeAction.h"
 #include "Actions/playByColorAction.h"
 #include "Actions/playByBothAction.h"
-#include "Figures/CCircle.h" // ahmed kamal 
-#include "Figures/CHexagon.h" //  ahmed kamal
-#include "Figures/CRectangle.h" // ahmed kamal
-#include "Figures/CSquare.h" // ahmed kamal
-#include "Figures/CTriangle.h"// ahmed kamal
+#include "Figures/CCircle.h"  
+#include "Figures/CHexagon.h" 
+#include "Figures/CRectangle.h"
+#include "Figures/CSquare.h" 
+#include "Figures/CTriangle.h"
 #include <time.h>
 #include <string>
 #include <Windows.h>
@@ -114,18 +114,18 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case SELECT_SHAPE:
 			pAct = new SelectAction(this);
 			break;
-		case SAVE_GRAPH: //AHMED HAZEM
+		case SAVE_GRAPH: 
 			pAct = new SaveAction(this);
 			break;
 
-		case LOAD_GRAPH: //AHMED HAZEM
+		case LOAD_GRAPH: 
 			pAct = new LoadAction(this);
 			break;
 		case RESIZE:
 			//pAct = new ResizeAction(this);
 			pAct = new MoveByDraggingAction(this);
 			break;
-		case CHANGE_BORDERCLR: //AHMED HAZEM
+		case CHANGE_BORDERCLR: 
 		{
 			if (SelectedFig){
 			pOut->CreateColorlist();
@@ -163,7 +163,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			}
 		}
 
-		case CHANGE_FILLCLR://AHMED HAZEM
+		case CHANGE_FILLCLR:
 		{
 			if (SelectedFig){
 			pOut->CreateColorlist();
@@ -217,27 +217,27 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new PlayRecordingAction(this);
 			break;
 
-		case TO_PLAY:  // ahmed kamal
+		case TO_PLAY:  
 			pAct = new switchToPlayAction(this);
 			isPlayMode = true;
 			break;
 
-		case TO_DRAW: // ahmed kamal
+		case TO_DRAW: 
 			pAct = new switchToDrawAction(this);
 			isPlayMode = false;
 			break;
 
-		case PickHideGame: // ahmed kamal
+		case PickHideGame:
 			pAct = new pickHideAction(this);
 			break;
 
-		case PLAYBYSHAPE: // ahmed kamal
+		case PLAYBYSHAPE: 
 			pAct = new playByShapeAction(this);
 			loopCount = FigCount;
 			isPlaying = true;
 			break;
 
-		case PLAYBYCOLOR: //  ahmed kamal
+		case PLAYBYCOLOR: 
 			pAct = new playByColorAction(this);
 			loopCount = FigCount;
 			isPlaying = true;
@@ -258,13 +258,21 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case REDO:
 			pAct = new RedoAction(this);
 			break;
-		case CLEAR_ALL: //AHMED HAZEM
+		case CLEAR_ALL: 
 			pAct = new ClearAllAction(this);
 			break;
 
 		case MUTE_SOUND:
-			if (soundOn) soundOn = false;
-			else soundOn = true;
+			if (soundOn) {
+				soundOn = false;
+				pOut->ClearDrawToolBar();
+				pOut->createToolBarWithSound();
+			}
+			else {
+				soundOn = true;
+				pOut->ClearDrawToolBar();
+				pOut->CreateDrawToolBar();
+			}
 
 			pAct = new muteAction(this);
 			break;
@@ -470,7 +478,7 @@ bool ApplicationManager::IsPlayingRecord()
 }
 void ApplicationManager::UpdateInterface() const
 {
-	if (!isPlayMode) // ahmed kamal
+	if (!isPlayMode) 
 	{
 		pOut->ClearDrawArea();
 
@@ -478,7 +486,7 @@ void ApplicationManager::UpdateInterface() const
 			FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 	}
 
-	else { // ahmed kamal
+	else { 
 		
 		if (!isPlaying) {
 			pOut->CreatePlayToolBar();
@@ -491,7 +499,7 @@ void ApplicationManager::UpdateInterface() const
 
 	}
 }
-void ApplicationManager::createPlayArea() const // ahmed kamal
+void ApplicationManager::createPlayArea() const 
 {
 
 	pOut->ClearDrawArea();

@@ -1,6 +1,6 @@
 #include "Output.h"
 #include "UI_Info.h"
-#define SquareRad 50 // ahmed kamal
+#define SquareRad 50 
 
 
 Output::Output()
@@ -289,6 +289,56 @@ void Output::ClearPickHideToolBar() const {
 	pWind->SetPen(UI.ToolBarBorderColor, UI.ToolBarBorderWidth);
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 }
+
+void Output::createToolBarWithSound() const
+{
+	UI.InterfaceMode = MODE_DRAW;
+
+
+	string MenuItemImages[DRAW_ITM_COUNT];
+	MenuItemImages[ITM_RECT] = "images\\MenuItems\\Menu_Rect.jpg";
+	MenuItemImages[ITM_SQUARE] = "images\\MenuItems\\square_icon.jpg";
+	MenuItemImages[ITM_HEXA] = "images\\MenuItems\\hexa_icon.jpg";
+	MenuItemImages[ITM_TRIANGLE] = "images\\MenuItems\\tri.jpg";
+	MenuItemImages[ITM_CIRCLE] = "images\\MenuItems\\Menu_Circ.jpg";
+	MenuItemImages[SELECT_ONE] = "images\\MenuItems\\Select_One.jpg";
+	MenuItemImages[FILL_COLOR] = "images\\MenuItems\\Fill_color.jpg";
+	MenuItemImages[BORDER_COLOR] = "images\\MenuItems\\Border_color.jpg";
+	MenuItemImages[RESIZE_ICON] = "images\\MenuItems\\Resize.jpg";
+
+	MenuItemImages[TOPLAYM] = "images\\MenuItems\\toPlay.jpg";
+	///////////////////////////////////
+	MenuItemImages[DELETE_FIG_ICON] = "images\\MenuItems\\Delete.jpg";
+	MenuItemImages[MOVEFIG_ICON] = "images\\MenuItems\\Move.jpg";
+	MenuItemImages[UNDO_ICON] = "images\\MenuItems\\Undo.jpg";
+	MenuItemImages[REDO_ICON] = "images\\MenuItems\\Redo.jpg";
+	MenuItemImages[CLEAR_ALL_ICON] = "images\\MenuItems\\Clear_All.jpg";
+	MenuItemImages[STARTREC_ICON] = "images\\MenuItems\\Start_Recording.jpg";
+	MenuItemImages[STOPREC_ICON] = "images\\MenuItems\\Stop_Recording.jpg";
+	MenuItemImages[PLAYREC_ICON] = "images\\MenuItems\\Play_Recording.jpg";
+	MenuItemImages[SAVE_ICON] = "images\\MenuItems\\Save.jpg";
+	MenuItemImages[LOAD_ICON] = "images\\MenuItems\\Load.jpg";
+	MenuItemImages[MUTE_ICON] = "images\\MenuItems\\Sound.jpg";
+	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
+
+	//TODO: Prepare images for each menu item and add it to the list
+
+	//Draw menu item one image at a time
+	for (int i = 0; i < DRAW_ITM_COUNT; i++)
+		pWind->DrawImage(MenuItemImages[i], i * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+
+	for (int i = 0; i < DRAW_ITM_COUNT; i++) {
+
+		pWind->SetPen(UI.SeperatingBorderColor, UI.SeperatingBorderWidth);
+		pWind->DrawLine(i * UI.MenuItemWidth, 0, i * UI.MenuItemWidth, UI.ToolBarHeight);
+	}
+
+	//Draw a line under the toolbar
+	pWind->SetPen(UI.ToolBarBorderColor, UI.ToolBarBorderWidth);
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
+
+}
+
 void Output::ClearPlayToolBar() const 
 {
 	// clears the play mode tool bar 
@@ -396,7 +446,7 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 
 void Output::DrawSquare(Point P, GfxInfo RectGfxInfo, bool selected, int length) const // Square Function
 {
-	int x1 = P.x - length / 2, x2 = P.x + length / 2, y1 = P.y + length / 2, y2 = P.y - length / 2;  // Ahmed Gamal 
+	int x1 = P.x - length / 2, x2 = P.x + length / 2, y1 = P.y + length / 2, y2 = P.y - length / 2;   
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted

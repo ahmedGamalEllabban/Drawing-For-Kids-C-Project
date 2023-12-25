@@ -27,6 +27,8 @@ void AddRectAction::ReadActionParameters()
 	//Read 2nd corner and store in point P2
 	pIn->GetPointClicked(P2.x, P2.y);
 
+	if (P1.x == P2.x || P1.y == P2.y) CanDraw = false;
+
 	if (P1.y < UI.ToolBarHeight + UI.ToolBarBorderWidth || P2.y < UI.ToolBarHeight + UI.ToolBarBorderWidth)
 		CanDraw = false;
 
@@ -66,7 +68,7 @@ void AddRectAction::Execute()
 	pManager->DeleteRedoList();
 	}
 	else {
-		pManager->GetOutput()->PrintMessage("You Can't Draw On Any Bar");
+		pManager->GetOutput()->PrintMessage("You Can't from these 2 Points");
 	}
 }
 

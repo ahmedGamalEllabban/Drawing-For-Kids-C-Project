@@ -14,15 +14,15 @@ class ApplicationManager
 	enum { MaxActionsCount = 5 };
 private:
 	int FigCount;		//Actual number of figures
-	int loopCount;  // ahmed kamal
+	int loopCount;  
 	int ID;
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	bool soundOn;
 
 	CFigure* SelectedFig; //Pointer to the selected figure
 
-	bool isPlayMode; // ahmed kamal
-	bool isPlaying; // ahmed kamal
+	bool isPlayMode; 
+	bool isPlaying; 
 	Action* UndoList[MaxActionsCount];
 	Action* RedoList[MaxActionsCount];
 	int RedoCount;
@@ -79,7 +79,7 @@ public:
 	int GetSelectedFigureIndex();
 	CFigure* DeleteFigure();
 
-	// -- Play Related functions ***** ahmed kamal
+	// -- Play Related functions ***** 
 	void createPlayArea() const;
 	int getFigCount() const;
 	CFigure* getRandomFig() const;

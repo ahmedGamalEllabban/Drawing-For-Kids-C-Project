@@ -24,6 +24,7 @@ public:
 	void ClearPlayToolBar() const; // clears the play tool bar 
 	void ClearColorListToolBar() const;
 	void ClearPickHideToolBar() const;
+	void createToolBarWithSound() const;
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;  //Draw a rectangle
 	void DrawSquare(Point P, GfxInfo RectGfxInfo, bool selected = false, int length = 100) const;  // Draw a Square

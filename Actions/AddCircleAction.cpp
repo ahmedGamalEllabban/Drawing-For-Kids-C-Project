@@ -28,6 +28,8 @@ void AddCircleAction::ReadActionParameters()
 	//Read another point P2 to calc the radius
 	pIn->GetPointClicked(P2.x, P2.y);
 
+	if (Center.x == P2.x && Center.y == P2.y) CanDraw = false;
+
 
 	if (Center.y > UI.ToolBarHeight + UI.ToolBarBorderWidth && Center.y < UI.height - UI.StatusBarHeight) {
 		double radius;
@@ -74,7 +76,7 @@ void AddCircleAction::Execute()
 		pManager->DeleteRedoList();
 	}
 	else {
-		pManager->GetOutput()->PrintMessage("You Can't Draw Over Any Bar");
+		pManager->GetOutput()->PrintMessage("You Can't draw from these points");
 	}
 }
 
