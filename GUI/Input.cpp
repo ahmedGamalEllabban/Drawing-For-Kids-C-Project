@@ -96,6 +96,7 @@ ActionType Input::GetUserAction() const
 			case PLAYREC_ICON: return PLAY_RECORDING;
 			case SAVE_ICON: return SAVE_GRAPH;
 			case LOAD_ICON: return LOAD_GRAPH;
+			case MUTE_ICON: return MUTE_SOUND;
 			case ITM_EXIT: return EXIT;	
 			
 			default: return EMPTY;	//A click on empty place in desgin toolbar

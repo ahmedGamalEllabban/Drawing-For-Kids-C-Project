@@ -45,7 +45,8 @@ enum ActionType //The actions supported (you can add more if needed)
 	STOP_RECORDING,
 	PLAY_RECORDING,
 	SAVE_GRAPH,
-	LOAD_GRAPH
+	LOAD_GRAPH,
+	MUTE_SOUND
 ///TODO: Add the other action types of the two modes
 };
 

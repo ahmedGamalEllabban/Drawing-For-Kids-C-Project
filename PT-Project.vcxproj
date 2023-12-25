@@ -201,6 +201,7 @@
     <ClCompile Include="Actions\RedoAction.cpp" />
     <ClCompile Include="Actions\ResizeAction.cpp" />
     <ClCompile Include="Actions\MoveByDraggingAction.cpp" />
+    <ClCompile Include="Actions\muteAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\AddHexaAction.h" />
@@ -262,6 +263,7 @@
     <ClInclude Include="Actions\RedoAction.h" />
     <ClInclude Include="Actions\ResizeAction.h" />
     <ClInclude Include="Actions\MoveByDraggingAction.h" />
+    <ClInclude Include="Actions\muteAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

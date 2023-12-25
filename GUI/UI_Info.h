@@ -41,6 +41,7 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	PLAYREC_ICON,
 	SAVE_ICON,
 	LOAD_ICON,
+	MUTE_ICON,
 	ITM_EXIT,		//Exit item
 	
 	DRAW_ITM_COUNT		//no. of menu items ==> This should be the last line in this enum

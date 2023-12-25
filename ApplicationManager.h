@@ -17,6 +17,7 @@ private:
 	int loopCount;  // ahmed kamal
 	int ID;
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
+	bool soundOn;
 
 	CFigure* SelectedFig; //Pointer to the selected figure
 
@@ -87,6 +88,7 @@ public:
 	void deleteChosenFig(Point p);
 	int countShapeColors(string shape, color c);
 	int getFillCount();
+	bool getSoundState();
 	int getNonFillCount();
 	color getRandomColor();
 	int GetFigCount();

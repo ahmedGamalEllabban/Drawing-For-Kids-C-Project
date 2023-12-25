@@ -81,11 +81,11 @@ void playByShapeAction::ReadActionParameters()
 
 		}
 
-		if (correct >= wrong + 2) {
+		if (correct >= wrong + 2 && pManager->getSoundState()) {
 			PlaySound(TEXT("Sound/Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		}
 
-		else if (wrong >= correct + 2) {
+		else if (wrong >= correct + 2 && pManager->getSoundState()) {
 			PlaySound(TEXT("Sound/Lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		}
 
@@ -134,13 +134,16 @@ void playByShapeAction::playSquare()
 			if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
 
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == SquareCount) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);
@@ -180,13 +183,16 @@ void playByShapeAction::playRectangle()
 			if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
 
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == RectCount) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);
@@ -225,13 +231,16 @@ void playByShapeAction::playHexagon()
 			if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
 
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == HexCount) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);
@@ -271,13 +280,16 @@ void playByShapeAction::playCircle()
 			if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
 
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == CircleCount) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);
@@ -317,13 +329,16 @@ void playByShapeAction::playTriangle()
 			if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y))) {
 				correct++;
 
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == TriangleCount) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);

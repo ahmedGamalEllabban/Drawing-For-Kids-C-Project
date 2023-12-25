@@ -33,11 +33,11 @@ void playByColorAction::ReadActionParameters()
 
 		startGame();
 
-		if (correct >= wrong + 2) {
+		if (correct >= wrong + 2 && pManager->getSoundState()) {
 			PlaySound(TEXT("Sound/Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		}
 
-		else if (wrong >= correct + 2) {
+		else if (wrong >= correct + 2 && pManager->getSoundState()) {
 			PlaySound(TEXT("Sound/Lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		}
 
@@ -115,13 +115,17 @@ void playByColorAction::startGame()
 											&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled){
 				correct++;
 
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 				if (correct == count) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);

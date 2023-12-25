@@ -83,11 +83,11 @@ void playByBothAction::ReadActionParameters()
 			playTriangle();
 		}
 
-		if (correct >= wrong + 2) {
+		if (correct >= wrong + 2 && pManager->getSoundState()) {
 			PlaySound(TEXT("Sound/Win.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		}
 
-		else if (wrong >= correct + 2) {
+		else if (wrong >= correct + 2 && pManager->getSoundState()) {
 			PlaySound(TEXT("Sound/Lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		}
 
@@ -164,13 +164,17 @@ void playByBothAction::playSquare()
 			if (dynamic_cast<CSquare*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);
@@ -234,13 +238,17 @@ void playByBothAction::playRectangle()
 			if (dynamic_cast<CRectangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);
@@ -303,13 +311,17 @@ void playByBothAction::playHexagon()
 			if (dynamic_cast<CHexagon*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);
@@ -373,13 +385,17 @@ void playByBothAction::playCircle()
 			if (dynamic_cast<CCircle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);
@@ -443,13 +459,17 @@ void playByBothAction::playTriangle()
 			if (dynamic_cast<CTriangle*>(pManager->GetFigure(p.x, p.y)) && pManager->GetFigure(p.x, p.y)->getFillColor() == randColor
 				&& pManager->GetFigure(p.x, p.y)->getGfxInfo().isFilled) {
 				correct++;
-				PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Correct.wav"), NULL, SND_FILENAME | SND_ASYNC);
 				if (correct == count) break;
 			}
 
 			else {
 				wrong++;
-				PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+				if (pManager->getSoundState())
+					PlaySound(TEXT("Sound/Wrong.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			}
 
 			pManager->deleteChosenFig(p);

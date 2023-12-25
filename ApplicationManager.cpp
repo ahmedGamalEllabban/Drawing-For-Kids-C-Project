@@ -35,6 +35,7 @@
 #include "Actions/LoadAction.h"
 #include "Actions/exitAction.h"
 #include "Actions/ResizeAction.h"
+#include "Actions/muteAction.h"
 #include"Actions/MoveByDraggingAction.h"
 #pragma comment(lib,"winmm.lib")
 //Constructor
@@ -51,6 +52,7 @@ ApplicationManager::ApplicationManager()
 	ID = 0;
 	RecordStarted = false;
 	PlayingRecord = false;
+	soundOn = true;
 	RecordedActionsCount = 0;
 	//Create an array of figure pointers and set them to NULL		
 	for(int i=0; i<MaxFigCount; i++)
@@ -81,26 +83,31 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	switch (ActType)
 	{
 		case DRAW_RECT:
-			PlaySound(TEXT("Sound/rectangle.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			if (soundOn)
+				PlaySound(TEXT("Sound/rectangle.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddRectAction(this);
 			break;
 
 		case DRAW_HEXA:
-			PlaySound(TEXT("Sound/Hexagon.wav"),NULL, SND_FILENAME| SND_ASYNC);
+			if (soundOn)
+				PlaySound(TEXT("Sound/Hexagon.wav"),NULL, SND_FILENAME| SND_ASYNC);
 			pAct = new AddHexaAction(this);
 			break;
 
 		case DRAW_TRIANGLE:
-			PlaySound(TEXT("Sound/Triangle.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			if (soundOn)
+				PlaySound(TEXT("Sound/Triangle.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddTriangleAction(this);
 			break;
 		case DRAW_CIRCLE:
-			PlaySound(TEXT("Sound/Circle.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			if (soundOn)
+				PlaySound(TEXT("Sound/Circle.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddCircleAction(this);
 			break;
 
 		case DRAW_SQUARE:
-			PlaySound(TEXT("Sound/square.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			if (soundOn)
+				PlaySound(TEXT("Sound/square.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			pAct = new AddSquareAction(this);
 			break;
 
@@ -254,6 +261,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case CLEAR_ALL: //AHMED HAZEM
 			pAct = new ClearAllAction(this);
 			break;
+
+		case MUTE_SOUND:
+			if (soundOn) soundOn = false;
+			else soundOn = true;
+
+			pAct = new muteAction(this);
+			break;
+
 		case EXIT:
 			///create ExitAction here
 			pAct = new exitAction(this);
@@ -584,6 +599,11 @@ int ApplicationManager::getFillCount()
 	}
 
 	return count;
+}
+
+bool ApplicationManager::getSoundState()
+{
+	return soundOn;
 }
 
 int ApplicationManager::getNonFillCount()
