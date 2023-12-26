@@ -44,16 +44,18 @@ void MoveByDraggingAction::Execute()
 				Pause(10);
 				pManager->UpdateInterface();
 			}
-			P = CTemp;
+			P = FIG->GetCenter();
 			if (P.x == PB.x &&P.y==PB.y) {
 				pOut->PrintMessage("You moved the figure to the same location the actiton will not be saved in the undo stack");
 				IsReady = false;
 			}
-			if(IsReady)
+			if (IsReady) {
+				pManager->DeleteRedoList();
 			if (pManager->IsRecording()) {
 				MoveByDraggingAction* mAction = new MoveByDraggingAction(pManager);
 				*mAction = *this;
 				pManager->AddActionToRecordingList(mAction);
+			}
 			}
 			pManager->GetOutput()->ClearStatusBar();
 		}

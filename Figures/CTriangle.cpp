@@ -248,6 +248,14 @@ Point CTriangle::GetCorner(int n)
 	return Corner3;
 }
 
+Point CTriangle::GetCenter()
+{
+	Point pTemp;
+	pTemp.x = (Corner1.x + Corner2.x + Corner3.x)/3;
+	pTemp.y = (Corner1.y + Corner2.y + Corner3.y)/3;
+	return pTemp;
+}
+
 void CTriangle::DistanceFromCenter(Point P, double& DIFFx, double& DIFFy)
 {
 	DIFFx = double((Corner1.x + Corner2.x+Corner3.x) / 3.0 - P.x);

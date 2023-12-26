@@ -52,6 +52,7 @@ void ResizeAction::Execute()
 					pManager->AddActionToRecordingList(ReAction);
 				}
 				pManager->GetOutput()->ClearStatusBar();
+				pManager->DeleteRedoList();
 			}
 			else {
 				pOut->PrintMessage("You didn't choose a corner. Try again");

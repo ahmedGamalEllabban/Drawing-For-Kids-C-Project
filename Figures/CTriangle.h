@@ -18,7 +18,7 @@ public:
     virtual void Resize(Point, int);
     virtual int IsACorner(Point);
     virtual Point GetCorner(int);
-
+    virtual Point GetCenter();
     virtual void DistanceFromCenter(Point, double& DIFFx, double& DIFFy);
 
     virtual void PrintInfo(Output* pOut);	//print all figure info on the status bar

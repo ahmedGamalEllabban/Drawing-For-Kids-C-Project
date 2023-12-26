@@ -135,6 +135,11 @@ int CCircle::IsACorner(Point point)
 
 }
 
+Point CCircle::GetCenter()
+{
+	return center;
+}
+
 void CCircle::PrintInfo(Output* pOut)
 {
 	int DiffX = P2.x - center.x;
