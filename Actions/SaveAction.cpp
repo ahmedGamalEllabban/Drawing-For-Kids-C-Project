@@ -54,7 +54,7 @@ void SaveAction::Execute()
 
 
 	Fout << pManager->GetFigCount()<<endl; //Saving Number Of Figures
-	pManager->Saveall(Fout);
+	pManager->Saveall(Fout); // To Save The Data Of Each Figure 
 	Fout.close();
 	pOut->PrintMessage("Saved Successfully :)");
 

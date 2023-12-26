@@ -10,12 +10,12 @@ void ClearAllAction::ReadActionParameters()
 
 void ClearAllAction::Execute()
 {
-	pManager->DeleteAllFigures();
+	pManager->DeleteAllFigures(); //Delete All Figures From FigList
 	pManager->DeleteRedoList();
 	pManager->DeleteUndoList();
 	pManager->DeleteAllRecordedActions();
-	pManager->GetOutput()->SetNonFilled();
-	pManager->GetOutput()->setDrawclr(BLUE);
+	pManager->GetOutput()->SetNonFilled(); //Set Nonfilled By Default
+	pManager->GetOutput()->setDrawclr(BLUE);//Set The Drawing Color BLUE By Default
 	pManager->SetRecordingStatus(false);
 	pManager->SetSelectedFigure(NULL);
 	if (pManager->IsPlayingRecord()) {

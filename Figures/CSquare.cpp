@@ -45,6 +45,8 @@ Point CSquare::MoveFigure(Point P)
 
 void CSquare::save(ofstream& fout)
 {
+
+	/*Saving The NAME & ID & CENTER POINT & LENGTH*/
 	fout << "SQUARE" << " \t\t" << ID << "\t" << Center.x << "\t" << Center.y << "\t" << length << "\t";
 	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
 	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
@@ -53,6 +55,8 @@ void CSquare::save(ofstream& fout)
 	else if (FigGfxInfo.DrawClr == YELLOW) fout << "YELLOW" << "\t";
 	else if (FigGfxInfo.DrawClr == ORANGE) fout << "ORANGE" << "\t";
 
+
+	/*Checing If The Figure Is Filled Then Saving The Fill Color*/
 	if (FigGfxInfo.isFilled == true) {
 		if (FigGfxInfo.FillClr == BLACK) fout << "BLACK" << "\n";
 		else if (FigGfxInfo.FillClr == BLUE) fout << "BLUE" << "\n";
@@ -70,8 +74,12 @@ void CSquare::load(ifstream& fin)
 {
 	string drawclr, fillclr;
 	int len;
+
+	/*Loading ID & CENTER POINT & LENGTH & COLORS*/
 	fin >> ID >> Center.x >> Center.y >> len >>  drawclr >> fillclr;
 	length = len;
+
+	/*Setting The Drawing Color*/
 	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
 	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
 	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }
@@ -79,6 +87,8 @@ void CSquare::load(ifstream& fin)
 	else if (drawclr == "YELLOW") { FigGfxInfo.DrawClr = YELLOW; }
 	else if (drawclr == "GREEN") { FigGfxInfo.DrawClr = GREEN; }
 
+
+	/*Checking If The Figure Is Filled Then Setting The Fill color*/
 	if (fillclr == "NOT_FILLED") { FigGfxInfo.FillClr = NULL; FigGfxInfo.isFilled = false; }
 	else {
 		FigGfxInfo.isFilled = true;

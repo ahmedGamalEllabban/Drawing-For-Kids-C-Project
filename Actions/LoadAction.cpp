@@ -43,7 +43,7 @@ void LoadAction::Execute()
 
 	if (Fin.is_open()) {
 		ClearAllAction CA(pManager); 
-		CA.Execute();  // Clear every thing in FigList before Loading 
+		CA.Execute();  // Clear Every Thing in FigList before Loading in Case The File Exists Only 
 		pOut->PrintMessage("Loaded Successfully :)");
 		Fin >> CDrawClr >> CFillClr;    
 
@@ -93,7 +93,7 @@ void LoadAction::Execute()
 		Fin.close();
 
 	}
-	else pOut->PrintMessage("Sorry, This file isn't exist :("); ///In Case The File Wasn't Exist
+	else pOut->PrintMessage("Sorry, This file doesn't exist :("); ///In Case The File doesn't Exist
 	
 	
 

@@ -6,7 +6,7 @@ CCircle::CCircle()
 }
 
 CCircle::CCircle(Point p1, Point p2, GfxInfo FigureGfxInfo): CFigure(FigureGfxInfo)
-{
+{	//Set The Center And Another Point On The Circle by User
 	center = p1;
 	P2 = p2;
 }
@@ -42,8 +42,10 @@ bool CCircle::IsInside(int x, int y) const{
 		return false;
 }
 void CCircle::save(ofstream& fout)
-{
+{	//**Saving The NAME & ID & COORDINATES That Enable Me To Draw It Again 
 	fout << "CIRCLE" << " \t\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << P2.x << "\t" << P2.y << "\t";
+
+	//**Saving Drawing Color
 	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
 	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
 	else if (FigGfxInfo.DrawClr == RED) fout << "RED" << "\t";
@@ -51,6 +53,7 @@ void CCircle::save(ofstream& fout)
 	else if (FigGfxInfo.DrawClr == YELLOW) fout << "YELLOW" << "\t";
 	else if (FigGfxInfo.DrawClr == ORANGE) fout << "ORANGE" << "\t";
 
+	//**Checking if This Figure is Filled Then Saving The fill Color
 	if (FigGfxInfo.isFilled == true) {
 		if (FigGfxInfo.FillClr == BLACK) fout << "BLACK" << "\n";
 		else if (FigGfxInfo.FillClr == BLUE) fout << "BLUE" << "\n";
@@ -68,7 +71,11 @@ void CCircle::save(ofstream& fout)
 void CCircle::load(ifstream& fin)
 {
 	string drawclr, fillclr;
+
+	//**Setting The ID & COORDINATES
 	fin >> ID >> center.x >> center.y >> P2.x >> P2.y >> drawclr >> fillclr;
+
+	//**Setting The Drawing Color
 	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
 	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
 	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }
@@ -76,8 +83,10 @@ void CCircle::load(ifstream& fin)
 	else if (drawclr == "YELLOW") { FigGfxInfo.DrawClr = YELLOW; }
 	else if (drawclr == "GREEN") { FigGfxInfo.DrawClr = GREEN; }
 
+	//**Checking If It'S Filled Or Not
 	if (fillclr == "NOT_FILLED") { FigGfxInfo.FillClr = NULL; FigGfxInfo.isFilled = false; }
 	else {
+		//**Setting The Fill Color And Make It Filled
 		FigGfxInfo.isFilled = true;
 		if (fillclr == "BLACK") { FigGfxInfo.FillClr = BLACK; }
 		else if (fillclr == "BLUE") { FigGfxInfo.FillClr = BLUE; }
