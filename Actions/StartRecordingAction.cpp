@@ -19,14 +19,14 @@ void StartRecordingAction::ReadActionParameters() {
 	Output* pOut = pManager->GetOutput();
 
 	if (RecordingCanBeEnabled() && !pManager->IsRecording()) {
-		pOut->PrintMessage("Record Have Started");
+		pOut->PrintMessage("Record Has Started");
 		pManager->SetRecordingStatus(true);
 	}
 	else if (!RecordingCanBeEnabled() && !pManager->IsRecording()) {
 		pOut->PrintMessage("Please Reset (Clear All) First To Start Recording");
 	}
 	else if (pManager->IsRecording()) {
-		pOut->PrintMessage("Record Have Already Started");
+		pOut->PrintMessage("Record Has Already Started");
 	}
 
 }

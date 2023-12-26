@@ -307,7 +307,6 @@ void ApplicationManager::AddActionToRecordingList(Action* pAct)
 		if (RecordedActionsCount < MaxRecords) {
 			RecordingActionList[RecordedActionsCount] = pAct;
 			RecordedActionsCount++;
-			RecordStarted = true;
 		}
 		else {
 			pOut->PrintMessage("Error: You Can't Record More Than 20 Actions, The Following Actions Won't Be Recorded");
