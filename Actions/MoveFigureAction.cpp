@@ -88,7 +88,6 @@ void MoveFigureAction::PlayRecording()
 		figure->SetSelected(false);
 		pManager->SetSelectedFigure(NULL);
 		PB = figure->MoveFigure(P);
-		ID = figure->GetID();
 
 		// Adds A copy of this action to undo list
 		MoveFigureAction* mAction = new MoveFigureAction(pManager);
