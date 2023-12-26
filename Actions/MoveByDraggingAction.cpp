@@ -53,6 +53,7 @@ void MoveByDraggingAction::Execute()
 				*mAction = *this;
 				pManager->AddActionToRecordingList(mAction);
 			}
+			pManager->GetOutput()->ClearStatusBar();
 		}
 		else
 			IsReady = false;

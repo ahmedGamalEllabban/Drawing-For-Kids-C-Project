@@ -50,6 +50,7 @@ void ResizeAction::Execute()
 					*ReAction = *this;
 					pManager->AddActionToRecordingList(ReAction);
 				}
+				pManager->GetOutput()->ClearStatusBar();
 			}
 			else
 				IsDone = false;

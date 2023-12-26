@@ -122,6 +122,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new LoadAction(this);
 			break;
 		case RESIZE:
+			if (SelectedFig)
 			pAct = new ResizeAction(this);
 			break;
 		case MOVEBYDRAGGING:
