@@ -10,18 +10,15 @@ void ClearAllAction::ReadActionParameters()
 
 void ClearAllAction::Execute()
 {
-<<<<<<< HEAD
 	pManager->DeleteAllFigures();
 
-=======
 	pManager->DeleteAllFigures(); //Delete All Figures From FigList
->>>>>>> e7101e7f2697d47d05ef78ebc2de079f97f729ee
+
 	pManager->DeleteRedoList();
 
 	pManager->DeleteUndoList();
 
 	pManager->DeleteAllRecordedActions();
-<<<<<<< HEAD
 
 	// resets the drawing style to nonfilled
 	pManager->GetOutput()->SetNonFilled();
@@ -29,10 +26,10 @@ void ClearAllAction::Execute()
 	pManager->GetOutput()->setDrawclr(BLUE);
 
 	// Stops Recording if enabled
-=======
 	pManager->GetOutput()->SetNonFilled(); //Set Nonfilled By Default
+
 	pManager->GetOutput()->setDrawclr(BLUE);//Set The Drawing Color BLUE By Default
->>>>>>> e7101e7f2697d47d05ef78ebc2de079f97f729ee
+
 	pManager->SetRecordingStatus(false);
 
 	pManager->SetSelectedFigure(NULL);
