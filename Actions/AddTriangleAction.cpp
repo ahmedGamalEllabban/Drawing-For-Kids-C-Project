@@ -34,6 +34,10 @@ void AddTriangleAction::ReadActionParameters()
 	if (((P1.x == P2.x) && (P1.y == P2.y)) || (P1.x == P3.x && P1.y == P3.y) || (P2.x == P3.x && P2.y == P3.y) ||(P1.x==P2.x)&&(P1.x==P3.x) || (P1.y == P2.y) && (P1.y == P3.y))
 	// Checks if the area = 0 to prevent drawing
 	if (((P1.x == P2.x) && (P1.y == P2.y)) || (P1.x == P3.x && P1.y == P3.y) || (P2.x == P3.x && P2.y == P3.y))
+
+
+	// Checks if the area = 0 to prevent drawing
+	if (((P1.x == P2.x) && (P1.y == P2.y)) || (P1.x == P3.x && P1.y == P3.y) || (P2.x == P3.x && P2.y == P3.y) || (P1.x == P2.x) && (P1.x == P3.x) || (P1.y == P2.y) && (P1.y == P3.y))
 		CanDraw = false;
 
 	int MinY = 0;
