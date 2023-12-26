@@ -72,13 +72,18 @@ Point CHexagon::MoveFigure(Point move) {
 
 void CHexagon::save(ofstream& fout)
 {
+	//**Saving The NAME & iD & COORDINATES 
 	fout << "HEXAGON" << " \t" << ID << "\t" << Center.x << "\t" << Center.y << "\t" << length << "\t";
+
+	//**Setting The Drawing Color
 	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
 	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
 	else if (FigGfxInfo.DrawClr == RED) fout << "RED" << "\t";
 	else if (FigGfxInfo.DrawClr == GREEN) fout << "GREEN" << "\t";
 	else if (FigGfxInfo.DrawClr == YELLOW) fout << "YELLOW" << "\t";
 	else if (FigGfxInfo.DrawClr == ORANGE) fout << "ORANGE" << "\t";
+
+	//**Checking If The Figure If Filled Then Setting The Fill Color
 	if (FigGfxInfo.isFilled == true) {
 		if (FigGfxInfo.FillClr == BLACK) fout << "BLACK" << "\n";
 		else if (FigGfxInfo.FillClr == BLUE) fout << "BLUE" << "\n";
@@ -95,8 +100,11 @@ void CHexagon::load(ifstream& fin)
 {
 	string drawclr, fillclr;
 	int len;
+	//**Loading The ID & CENTER POINT & THE LENGTH & COLORS
 	fin >> ID >> Center.x >> Center.y >> len >> drawclr >> fillclr;
 	length = len;
+
+	//**Setting The Drawing Color
 	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
 	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
 	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }
@@ -104,6 +112,8 @@ void CHexagon::load(ifstream& fin)
 	else if (drawclr == "YELLOW") { FigGfxInfo.DrawClr = YELLOW; }
 	else if (drawclr == "GREEN") { FigGfxInfo.DrawClr = GREEN; }
 
+
+	/*Checking If The Figure Is Filled Then Setting The Fill Color*/
 	if (fillclr == "NOT_FILLED") { FigGfxInfo.FillClr = NULL; FigGfxInfo.isFilled = false; }
 	else {
 		FigGfxInfo.isFilled = true;

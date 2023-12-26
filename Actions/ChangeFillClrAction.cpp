@@ -3,7 +3,7 @@
 #include "..\Figures\CFigure.h"
 ChangeFillClrAction::ChangeFillClrAction(ApplicationManager* pApp, color FC) :Action(pApp)
 {
-	FillingClr = FC;
+	FillingClr = FC; 
 }
 
 void ChangeFillClrAction::ReadActionParameters()
@@ -22,9 +22,9 @@ void ChangeFillClrAction::Execute()
 		op->setfilled();
 		PrevFillingClr = FIG->getGfxInfo();
 		ID = FIG->GetID();
-		op->setFillclr(FillingClr);
+		op->setFillclr(FillingClr); //Setting The Fill Color With The One Chosen By User
 		FIG->ChngFillClr(FillingClr);
-		FIG->SetSelected(false);
+		FIG->SetSelected(false); //Making The Figure Unselected
 		pManager->SetSelectedFigure(NULL);
 		op->ClearStatusBar();
 	}
