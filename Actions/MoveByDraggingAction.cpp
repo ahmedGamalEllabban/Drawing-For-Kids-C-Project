@@ -86,7 +86,6 @@ void MoveByDraggingAction::PlayRecording()
 	CFigure* figure = pManager->GetFigure(ID);
 	if (figure) {
 		PB = figure->MoveFigure(P);
-		ID = figure->GetID();
 		MoveByDraggingAction* mAction = new MoveByDraggingAction(pManager);
 		*mAction = *this;
 		pManager->AddToUndoList(mAction);
