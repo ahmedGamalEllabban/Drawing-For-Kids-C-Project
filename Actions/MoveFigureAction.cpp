@@ -86,6 +86,7 @@ void MoveFigureAction::PlayRecording()
 	CFigure* figure = pManager->GetSelectedFigure();
 	if (figure) {
 		figure->SetSelected(false);
+		pManager->SetSelectedFigure(NULL);
 		PB = figure->MoveFigure(P);
 		ID = figure->GetID();
 

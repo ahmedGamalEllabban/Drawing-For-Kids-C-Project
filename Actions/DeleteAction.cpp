@@ -62,6 +62,7 @@ void DeleteAction::PlayRecording()
 {
 	CFigure* fig = pManager->DeleteFigure();
 	fig->SetSelected(false);
+	pManager->SetSelectedFigure(NULL);
 	DeletedFig = fig;
 	ID = fig->GetID();
 	fig = NULL;
