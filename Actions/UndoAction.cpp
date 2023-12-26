@@ -22,6 +22,8 @@ void UndoAction::Execute()
 	}
 	else
 		pManager->GetOutput()->PrintMessage("ERROR: you can't Undo When there is no more actions in the actions list (max Actions 5)");
+
+	pManager->sortByID();
 }
 
 
@@ -31,9 +33,12 @@ void UndoAction::ReadActionParameters()
 
 void UndoAction::PlayRecording()
 {
+	
+
 	Action* Act = pManager->GetLastAction();
 	if (Act) {
 		Act->Undo();
+		pManager->sortByID();
 		pManager->AddToRedoList(Act);
 		Act = NULL;
 	}

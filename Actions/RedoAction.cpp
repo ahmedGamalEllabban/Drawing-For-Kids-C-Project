@@ -24,6 +24,8 @@ void RedoAction::Execute()
 	}
 	else
 		pManager->GetOutput()->PrintMessage("ERROR: you can't redo an action unless you undo it first");
+
+	pManager->sortByID();
 }
 
 void RedoAction::ReadActionParameters()
@@ -32,9 +34,12 @@ void RedoAction::ReadActionParameters()
 
 void RedoAction::PlayRecording()
 {
+	
+
 	Action* Act = pManager->GetLastAction_Redo();
 	if (Act) {
 		Act->Redo();
+		pManager->sortByID();
 		pManager->AddToUndoList(Act);
 		Act = NULL;
 	}

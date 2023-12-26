@@ -17,6 +17,8 @@ void switchToDrawAction::ReadActionParameters()
 	pOut->ClearPlayToolBar();
 	pOut->CreateDrawToolBar();
 
+	pManager->resetPlayList();
+
 	pOut->PrintMessage("You switched back to Draw mode, original drawing restored ");
 }
 

@@ -10,6 +10,8 @@
 #pragma comment (lib, "winmm.lib")
 playByColorAction::playByColorAction(ApplicationManager* app) :Action(app)
 {
+	pManager->copyDrawList();
+
 	pOut = pManager->GetOutput();
 	pIn = pManager->GetInput();
 	numOfShapes = pManager->getFigCount();
@@ -55,7 +57,10 @@ void playByColorAction::ReadActionParameters()
 		pOut->ClearPickHideToolBar();
 		pOut->PrintMessage("Can't play without any drawings ");
 	}
+
+	pManager->resetPlayList();
 }
+
 
 void playByColorAction::Execute()
 {

@@ -7,7 +7,7 @@
 AddSquareAction::AddSquareAction(ApplicationManager* pApp):Action(pApp)
 {
 	CanDraw = true;
-	length = 50;
+	length = 90;
 }
 
 void AddSquareAction::ReadActionParameters()

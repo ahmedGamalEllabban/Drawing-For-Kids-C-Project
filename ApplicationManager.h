@@ -17,6 +17,7 @@ private:
 	int loopCount;  
 	int ID;
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
+	CFigure* PlayFigList[MaxFigCount];
 	bool soundOn;
 
 	CFigure* SelectedFig; //Pointer to the selected figure
@@ -70,6 +71,7 @@ public:
 	int GetRecordedActionsCount();
 	int GetUndoActionsCount();
 	int GetRedoActionsCount();
+	void sortByID();
 
 
 	// -- Interface Management Functions
@@ -91,6 +93,11 @@ public:
 	bool getSoundState();
 	int getNonFillCount();
 	color getRandomColor();
+	void copyDrawList();
+	void resetPlayList();
+
+
+	// save load Functions
 	int GetFigCount();
 	void Saveall(ofstream& fout);
 	

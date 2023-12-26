@@ -16,6 +16,8 @@
 #pragma comment (lib, "winmm.lib")
 playByBothAction::playByBothAction(ApplicationManager* app):Action(app)
 {
+	pManager->copyDrawList();
+
 	pOut = pManager->GetOutput();
 	pIn = pManager->GetInput();
 
@@ -105,6 +107,9 @@ void playByBothAction::ReadActionParameters()
 		pOut->ClearPickHideToolBar();
 		pOut->PrintMessage("Can't play without any drawings ");
 	}
+
+	pManager->resetPlayList();
+
 }
 
 void playByBothAction::Execute()
