@@ -17,6 +17,8 @@ void MoveFigureAction::ReadActionParameters()
 
 	//Read center and store in point P
 	pIn->GetPointClicked(P.x, P.y);
+
+	//A validation statement Checks if the point clicked on the tool bar or the status bar to prevent moving
 	if (P.y > UI.ToolBarHeight + UI.ToolBarBorderWidth && P.y < UI.height - UI.StatusBarHeight) {
 		pOut->ClearStatusBar();
 	}
@@ -28,20 +30,28 @@ void MoveFigureAction::ReadActionParameters()
 void MoveFigureAction::Execute() {
 	ReadActionParameters();
 
-
 	CFigure* figure = pManager->GetSelectedFigure();
+
 	if (figure) {
 		figure->SetSelected(false);
+
+		// Gets The Previous Point Before Moving To Use It In Undoing The Action
 		PB = figure->MoveFigure(P);
+
 		if (PB.y != -1) {
+
 			ID = figure->GetID();
 			pManager->DeleteRedoList();
 			pManager->SetSelectedFigure(NULL);
+
 		} else {
+
 			IsReady = false;
 			pManager->SetSelectedFigure(NULL);
 			pManager->GetOutput()->PrintMessage("You Can't Move This Figure Over Any Bar");
+
 		}
+
 		// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
 		if (pManager->IsRecording()) {
 			MoveFigureAction* mAction = new MoveFigureAction(pManager);
@@ -72,11 +82,14 @@ void MoveFigureAction::Redo()
 
 void MoveFigureAction::PlayRecording()
 {
+	// Same As Execute()
 	CFigure* figure = pManager->GetSelectedFigure();
 	if (figure) {
 		figure->SetSelected(false);
 		PB = figure->MoveFigure(P);
 		ID = figure->GetID();
+
+		// Adds A copy of this action to undo list
 		MoveFigureAction* mAction = new MoveFigureAction(pManager);
 		*mAction = *this;
 		pManager->AddToUndoList(mAction);

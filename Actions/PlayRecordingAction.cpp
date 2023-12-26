@@ -10,6 +10,7 @@ void PlayRecordingAction::ReadActionParameters()
 {
 	//Get a Pointer to Output Interface
 	Output* pOut = pManager->GetOutput();
+
 	if (pManager->GetRecordedActionsCount() == 0) {
 	pOut->PrintMessage("There Is No Records To Play");
 	}
@@ -25,22 +26,30 @@ void PlayRecordingAction::ReadActionParameters()
 void PlayRecordingAction::Execute()
 {
 	ReadActionParameters();
+
 	if (CanPlay) {
-	pManager->SetPlayingRecord(true);
+	pManager->SetPlayingRecord(true); // Enables the recording state
+
 	ClearAllAction clearAll(pManager);
+
 	Action** RecordedActions = pManager->GetRecordedActions();
+
 	clearAll.Execute();
+
 	Pause(1000);
+
 		for (int i = 0; i < pManager->GetRecordedActionsCount(); i++) {
-			if (RecordedActions[i]) {
-			RecordedActions[i]->PlayRecording();
-			pManager->UpdateInterface();
-			Pause(1000);
+			if (RecordedActions[i]) { // checks if the action is not null
+
+				RecordedActions[i]->PlayRecording();
+				pManager->UpdateInterface(); // to update every iteration
+				Pause(1000); // delays 1 second between each iteration
+
 			}
 
 		}
 	pManager->GetOutput()->PrintMessage("Record Have Ended");
-	pManager->SetPlayingRecord(false);
+	pManager->SetPlayingRecord(false); // stops the recording state
 	}
 }
 

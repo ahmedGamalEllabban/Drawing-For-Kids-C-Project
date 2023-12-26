@@ -23,7 +23,6 @@ bool CHexagon::IsInside(int x1, int y1)const {
 	int X[vertices];
 	int Y[vertices];
 
-	// The Length Of The Hexagone Is 100
 	X[0] = Center.x;
 	X[1] = Center.x + length * 0.866;
 	X[2] = Center.x + length * 0.866;

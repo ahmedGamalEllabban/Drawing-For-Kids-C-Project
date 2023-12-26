@@ -27,11 +27,13 @@ void AddRectAction::ReadActionParameters()
 	//Read 2nd corner and store in point P2
 	pIn->GetPointClicked(P2.x, P2.y);
 
+	// Checks If Area = 0 It Doesn't Excute The Action
 	if (P1.x == P2.x || P1.y == P2.y) CanDraw = false;
 
+	//A validation statement Checks if the point clicked on the tool bar to prevent drawing
 	if (P1.y < UI.ToolBarHeight + UI.ToolBarBorderWidth || P2.y < UI.ToolBarHeight + UI.ToolBarBorderWidth)
 		CanDraw = false;
-
+	//A validation statement Checks if the point clicked on the the status bar to prevent drawing
 	if (P1.y > UI.height - UI.StatusBarHeight || P2.y > UI.height - UI.StatusBarHeight)
 		CanDraw = false;
 
@@ -47,10 +49,9 @@ void AddRectAction::ReadActionParameters()
 //Execute the action
 void AddRectAction::Execute() 
 {
-	//This action needs to read some parameters first
 	ReadActionParameters();
 
-	if (CanDraw) {
+	if (CanDraw) { // checks if the action is executable
 
 	//Create a rectangle with the parameters read from the user
 	CRectangle *R=new CRectangle(P1, P2, RectGfxInfo);
@@ -58,14 +59,17 @@ void AddRectAction::Execute()
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(R);
 	ID = R->GetID();
+
 	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
 	if (pManager->IsRecording()) {
 		AddRectAction* addAction = new AddRectAction(pManager);
 		*addAction = *this;
 		pManager->AddActionToRecordingList(addAction);
 	}
-	
+
+	// Deletes the redo list
 	pManager->DeleteRedoList();
+
 	}
 	else {
 		pManager->GetOutput()->PrintMessage("You Can't from these 2 Points");
@@ -96,12 +100,14 @@ void AddRectAction::Redo()
 
 void AddRectAction::PlayRecording()
 {
-	//Create a rectangle with the parameters read from the user
+	//Creates a Figure with the parameters been already read from the user
 	CRectangle* R = new CRectangle(P1, P2, RectGfxInfo);
 
-	//Add the rectangle to the list of figures
+	// Adds the Figure to the list of figures
 	pManager->AddFigure(R);
 	ID = R->GetID();
+
+	// Adds the Figure to undo list while playing the record and deletes the redo list
 	AddRectAction* addAction = new AddRectAction(pManager);
 	*addAction = *this;
 	pManager->AddToUndoList(addAction);

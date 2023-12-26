@@ -21,10 +21,18 @@ public:
 	
 	//Execute action (code depends on action type)
 	virtual void Execute() =0;
+
+	// Undo function
 	virtual void Undo() {}
+
+	//Redo Function
 	virtual void Redo() {}
+
+	// Checks if we can undo the action and if not it doesn't undo it or add it to undo list
 	virtual bool CanUndo() { return false; }
-	virtual void PlayRecording() {};
+
+	// Play The Record
+	virtual void PlayRecording() {}; // Ahmed Gamal
 };
 
 #endif
