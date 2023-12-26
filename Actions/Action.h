@@ -32,7 +32,7 @@ public:
 	virtual bool CanUndo() { return false; }
 
 	// Play The Record
-	virtual void PlayRecording() {}; // Ahmed Gamal
+	virtual void PlayRecording() {};
 };
 
 #endif
