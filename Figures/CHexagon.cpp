@@ -14,10 +14,14 @@ void CHexagon::Draw(Output* pOut) const
 {
 	pOut->DrawHexa(Center, FigGfxInfo, Selected, length);
 }
+
+
 double TrArea(int x1, int y1, int x2, int y2, int x3, int y3)//REQUIRED TO COMPUTE WHETHER THE POINT IS INSIDE THE HEXAGON
 {
 	return abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
 }
+
+
 bool CHexagon::IsInside(int x1, int y1)const {
 	const int vertices = 7;
 	int X[vertices];
@@ -51,6 +55,9 @@ bool CHexagon::IsInside(int x1, int y1)const {
 
 Point CHexagon::MoveFigure(Point move) {
 	Point Center2 = Center;
+
+	// Checks if it will be drawn over any of two bars or not
+	// if it won't be drawn over the bars it will be moved
 	if (move.y - length < UI.ToolBarHeight + UI.ToolBarBorderWidth || move.y + length > UI.height - UI.StatusBarHeight) {
 		Point Temp;
 		Temp.x = -1;

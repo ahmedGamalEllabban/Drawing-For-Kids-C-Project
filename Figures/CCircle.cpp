@@ -17,17 +17,21 @@ void CCircle::Draw(Output* pOut) const
 }
 
 Point CCircle::MoveFigure(Point move) {
+	//Gets The Difference Between The Center And The New Point To Move To
+
 	int DiffX = P2.x - center.x;
 	int DiffY = P2.y - center.y;
 	double radius = sqrt(DiffX * DiffX + DiffY * DiffY);
+
+	// Checks if the moved circle will be drawn over the status bar or the tool bar or not
+	// if it won't be drawn over the bars it will be moved
 	if (radius < (UI.height - UI.StatusBarHeight) - move.y && radius < move.y - (UI.ToolBarHeight + UI.ToolBarBorderWidth)) {
-	Point Center2 = center;
-	center = move;
-	P2.x = DiffX + center.x;
-	P2.y = DiffY + center.y;
-	return Center2;
-	}
-	else{
+		Point Center2 = center;
+		center = move;
+		P2.x = DiffX + center.x;
+		P2.y = DiffY + center.y;
+		return Center2;
+	} else {
 		Point Temp1;
 		Temp1.x = -1;
 		Temp1.y = -1;

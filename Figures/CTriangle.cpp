@@ -97,11 +97,10 @@ Point CTriangle::MoveFigure(Point move) {
 	P2.y = Corner2.y + yDiff;
 	P3.y = Corner3.y + yDiff;
 
-	int MinY = 0;
-	int MaxY = 0;
+	// Gets The Maximum And The Minimum Y Coordinate To Use Them In Validation
+	int MinY = P1.y;
+	int MaxY = P1.y;
 
-	MaxY = P1.y;
-	MinY = P1.y;
 	if (P1.y > P2.y) {
 		if (P1.y > P3.y) {
 			MaxY = P1.y;
@@ -131,6 +130,8 @@ Point CTriangle::MoveFigure(Point move) {
 		}
 	}
 
+	// Checks if it will be drawn over any of two bars or not
+	// if it won't be drawn over the bars it will be moved
 	if (MinY < UI.ToolBarHeight + UI.ToolBarBorderWidth || MaxY > UI.height - UI.StatusBarHeight) {
 		Point t;
 		t.x = -1;

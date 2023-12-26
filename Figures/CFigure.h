@@ -27,7 +27,7 @@ public:
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 	void RemoveFillClr(color PrevClr);
-	virtual Point MoveFigure(Point P) = 0;
+	virtual Point MoveFigure(Point P) = 0; // Ahmed Gamal
 	GfxInfo getGfxInfo();
 	void SetGfxinfo(GfxInfo);
 	void SetID(int);

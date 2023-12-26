@@ -30,16 +30,17 @@ bool CSquare::IsInside(int x, int y) const
 
 Point CSquare::MoveFigure(Point P)
 {
+	// Checks if it will be drawn over any of two bars or not
+	// if it won't be drawn over the bars it will be moved
 	if (P.y - length / 2 < UI.ToolBarHeight + UI.ToolBarBorderWidth || P.y + length / 2 > UI.height - UI.StatusBarHeight) {
 		Point Temp;
 		Temp.x = -1;
 		Temp.y = -1;
 		return Temp;
-	}
-	else {
-	Point Center2 = Center;
-	Center = P;
-	return Center2;
+	} else {
+		Point Center2 = Center;
+		Center = P;
+		return Center2;
 	}
 }
 

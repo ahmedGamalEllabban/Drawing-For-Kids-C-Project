@@ -56,6 +56,8 @@ Point CRectangle::MoveFigure(Point move) {
 	P1.y = Corner1.y + yDiff;
 	P2.y = Corner2.y + yDiff;
 
+	// Checks if it will be drawn over any of two bars or not
+	// if it won't be drawn over the bars it will be moved
 	if  (
 		P1.y < UI.ToolBarHeight + UI.ToolBarBorderWidth 
 		|| P2.y < UI.ToolBarHeight + UI.ToolBarBorderWidth 
