@@ -10,6 +10,7 @@ void StopRecordingAction::ReadActionParameters()
 	//Get a Pointer to Output Interface
 	Output* pOut = pManager->GetOutput();
 
+	// Checks if the record has started
 	if (pManager->IsRecording()) {
 		pOut->PrintMessage("Record Have Stopped");
 		pManager->SetRecordingStatus(false);

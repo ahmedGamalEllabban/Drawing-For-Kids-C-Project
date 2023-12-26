@@ -97,11 +97,10 @@ Point CTriangle::MoveFigure(Point move) {
 	P2.y = Corner2.y + yDiff;
 	P3.y = Corner3.y + yDiff;
 
-	int MinY = 0;
-	int MaxY = 0;
+	// Gets The Maximum And The Minimum Y Coordinate To Use Them In Validation
+	int MinY = P1.y;
+	int MaxY = P1.y;
 
-	MaxY = P1.y;
-	MinY = P1.y;
 	if (P1.y > P2.y) {
 		if (P1.y > P3.y) {
 			MaxY = P1.y;
@@ -131,6 +130,8 @@ Point CTriangle::MoveFigure(Point move) {
 		}
 	}
 
+	// Checks if it will be drawn over any of two bars or not
+	// if it won't be drawn over the bars it will be moved
 	if (MinY < UI.ToolBarHeight + UI.ToolBarBorderWidth || MaxY > UI.height - UI.StatusBarHeight) {
 		Point t;
 		t.x = -1;
@@ -153,13 +154,19 @@ Point CTriangle::MoveFigure(Point move) {
 
 void CTriangle::save(ofstream& fout)
 {
+
+	/*Saving NAME & ID & CORNER POINTS*/
 	fout << "TRIANGLE" << "\t" << ID << "  \t" << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t" << Corner3.x << "\t" << Corner3.y << "\t";
+	
+	/*Saving The Drawing Color*/
 	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
 	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
 	else if (FigGfxInfo.DrawClr == RED) fout << "RED" << "\t";
 	else if (FigGfxInfo.DrawClr == GREEN) fout << "GREEN" << "\t";
 	else if (FigGfxInfo.DrawClr == YELLOW) fout << "YELLOW" << "\t";
 	else if (FigGfxInfo.DrawClr == ORANGE) fout << "ORANGE" << "\t";
+
+	/*Checking If The Figure IS Fiiled Then Saving The Fill Color*/
 	if (FigGfxInfo.isFilled == true) {
 		if (FigGfxInfo.FillClr == BLACK) fout << "BLACK" << "\n";
 		else if (FigGfxInfo.FillClr == BLUE) fout << "BLUE" << "\n";
@@ -174,7 +181,11 @@ void CTriangle::save(ofstream& fout)
 void CTriangle::load(ifstream& fin)
 {
 	string drawclr, fillclr;
+
+	/*Loading ID & CORNER POINTS & COLORS*/
 	fin >> ID >> Corner1.x >> Corner1.y >> Corner2.x >> Corner2.y >> Corner3.x >> Corner3.y >> drawclr >> fillclr;
+
+	/*Setting The Drawing Color*/
 	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
 	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
 	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }
@@ -182,6 +193,7 @@ void CTriangle::load(ifstream& fin)
 	else if (drawclr == "YELLOW") { FigGfxInfo.DrawClr = YELLOW; }
 	else if (drawclr == "GREEN") { FigGfxInfo.DrawClr = GREEN; }
 
+	/*Checking If The Figure Is Filled Then Setting The Fill Color*/
 	if (fillclr == "NOT_FILLED") { FigGfxInfo.FillClr = NULL; FigGfxInfo.isFilled = false; }
 	else {
 		FigGfxInfo.isFilled = true;

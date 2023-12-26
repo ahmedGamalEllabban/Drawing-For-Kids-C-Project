@@ -7,7 +7,7 @@
 AddSquareAction::AddSquareAction(ApplicationManager* pApp):Action(pApp)
 {
 	CanDraw = true;
-	length = 150;
+	length = 50;
 }
 
 void AddSquareAction::ReadActionParameters()
@@ -19,12 +19,12 @@ void AddSquareAction::ReadActionParameters()
 
 	pIn->GetPointClicked(Center.x, Center.y);
 
+	//A validation statement Checks if the point clicked on the tool bar or the status bar to prevent drawing
 	if (Center.y - length / 2 < UI.ToolBarHeight + UI.ToolBarBorderWidth || Center.y + length / 2 > UI.height - UI.StatusBarHeight)
 		CanDraw = false;
 
-	SquareGfxInfo.isFilled = pOut->checkisfilled(); // default is not filled
-
-	SquareGfxInfo.DrawClr = pOut->getCrntDrawColor();
+	SquareGfxInfo.isFilled = pOut->checkisfilled();		// default is not filled
+	SquareGfxInfo.DrawClr = pOut->getCrntDrawColor();	
 	SquareGfxInfo.FillClr = pOut->getCrntFillColor();
 
 	pOut->ClearStatusBar();
@@ -34,22 +34,22 @@ void AddSquareAction::Execute()
 {
 	ReadActionParameters();
 
-	if (CanDraw) {
+	if (CanDraw) { // checks if the action is executable
 
+		//Create a Square with the parameters read from the user
+		CSquare* S = new CSquare(Center, SquareGfxInfo, length);
+		pManager->AddFigure(S);
+		ID = S->GetID();
 
-	CSquare* S = new CSquare(Center, SquareGfxInfo, length);
+		// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
+		if (pManager->IsRecording()) {
+			AddSquareAction* addAction = new AddSquareAction(pManager);
+			*addAction = *this;
+			pManager->AddActionToRecordingList(addAction);
+		}
 
-	pManager->AddFigure(S);
-	ID = S->GetID();
-	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
-	if (pManager->IsRecording()) {
-		AddSquareAction* addAction = new AddSquareAction(pManager);
-		*addAction = *this;
-		pManager->AddActionToRecordingList(addAction);
-	}
-
-	
-	pManager->DeleteRedoList();
+		// Delete The Redo List
+		pManager->DeleteRedoList();
 	}
 	else {
 		pManager->GetOutput()->PrintMessage("You Can't Draw On Any Bar");
@@ -74,6 +74,7 @@ void AddSquareAction::Redo()
 {
 	CSquare* S = new CSquare(Center, SquareGfxInfo, length);
 
+	//Add the hexagon to the list of figures
 	pManager->AddFigure(S);
 	 S->SetID(ID);
 
@@ -82,9 +83,10 @@ void AddSquareAction::Redo()
 void AddSquareAction::PlayRecording()
 {
 	CSquare* S = new CSquare(Center, SquareGfxInfo, length);
-
 	pManager->AddFigure(S);
 	ID = S->GetID();
+
+	// Adds the Figure to undo list while playing the record and deletes the redo list
 	AddSquareAction* addAction = new AddSquareAction(pManager);
 	*addAction = *this;
 	pManager->AddToUndoList(addAction);

@@ -56,6 +56,8 @@ Point CRectangle::MoveFigure(Point move) {
 	P1.y = Corner1.y + yDiff;
 	P2.y = Corner2.y + yDiff;
 
+	// Checks if it will be drawn over any of two bars or not
+	// if it won't be drawn over the bars it will be moved
 	if  (
 		P1.y < UI.ToolBarHeight + UI.ToolBarBorderWidth 
 		|| P2.y < UI.ToolBarHeight + UI.ToolBarBorderWidth 
@@ -80,7 +82,10 @@ Point CRectangle::MoveFigure(Point move) {
 
 void CRectangle::save(ofstream& fout)
 {
+	/*Saving NAME & ID & CORNER POINTS*/
 	fout << "RECT" << " \t\t" << ID << "\t" << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t";
+
+	/*Saving The Drawing Color*/
 	if (FigGfxInfo.DrawClr == BLACK) fout << "BLACK" << "\t";
 	else if (FigGfxInfo.DrawClr == BLUE) fout << "BLUE" << "\t";
 	else if (FigGfxInfo.DrawClr == RED) fout << "RED" << "\t";
@@ -88,6 +93,7 @@ void CRectangle::save(ofstream& fout)
 	else if (FigGfxInfo.DrawClr == YELLOW) fout << "YELLOW" << "\t";
 	else if (FigGfxInfo.DrawClr == ORANGE) fout << "ORANGE" << "\t";
 
+	/*Checking If The Figure Is Filled Then Saving The Fill Color*/
 	if (FigGfxInfo.isFilled == true) {
 		if (FigGfxInfo.FillClr == BLACK) fout << "BLACK" << "\n";
 		else if (FigGfxInfo.FillClr == BLUE) fout << "BLUE" << "\n";
@@ -103,7 +109,11 @@ void CRectangle::save(ofstream& fout)
 void CRectangle::load(ifstream& fin)
 {
 	string drawclr, fillclr;
+
+	/*Loading The ID & CORNER POINTS & COLORS*/
 	fin >> ID >> Corner1.x >> Corner1.y >> Corner2.x >> Corner2.y >> drawclr >> fillclr;
+
+	/*Setting The Drawing Color*/
 	if (drawclr == "BLACK") { FigGfxInfo.DrawClr = BLACK; }
 	else if (drawclr == "BLUE") { FigGfxInfo.DrawClr = BLUE; }
 	else if (drawclr == "RED") { FigGfxInfo.DrawClr = RED; }
@@ -111,7 +121,7 @@ void CRectangle::load(ifstream& fin)
 	else if (drawclr == "YELLOW") { FigGfxInfo.DrawClr = YELLOW; }
 	else if (drawclr == "GREEN") { FigGfxInfo.DrawClr = GREEN; }
 
-
+	/*Checking If The Figure Is Filled Then Setting The Fill Color*/
 	if (fillclr == "NOT_FILLED")(FigGfxInfo.FillClr = NULL);
 	else {
 		FigGfxInfo.isFilled = true;

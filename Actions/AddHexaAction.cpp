@@ -9,7 +9,7 @@
 AddHexaAction::AddHexaAction(ApplicationManager* pApp) :Action(pApp)
 {
 	CanDraw = true;
-	length = 100;
+	length = 100; // Sets the length of hexagon with 100
 }
 
 void AddHexaAction::ReadActionParameters()
@@ -21,13 +21,15 @@ void AddHexaAction::ReadActionParameters()
 	pOut->PrintMessage("New Hexagon: Click at Center Point");
 
 	//Read center and store in point P
-	pIn->GetPointClicked(P.x, P.y);
+	pIn->GetPointClicked(Center.x, Center.y);
 
-	 if (P.y - length < UI.ToolBarHeight + UI.ToolBarBorderWidth || P.y + length > UI.height - UI.StatusBarHeight)
+	//A validation statement Checks if the point clicked on the tool bar or the status bar to prevent drawing
+	 if (Center.y - length < UI.ToolBarHeight + UI.ToolBarBorderWidth || Center.y + length > UI.height - UI.StatusBarHeight)
 		CanDraw = false;
 	
 
 	HexaGfxInfo.isFilled = pOut->checkisfilled();	//default is not filled
+
 	//get drawing, filling colors and pen width from the interface
 	HexaGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	HexaGfxInfo.FillClr = pOut->getCrntFillColor();
@@ -39,12 +41,12 @@ void AddHexaAction::ReadActionParameters()
 //Execute the action
 void AddHexaAction::Execute()
 {
-	//This action needs to read some parameters first
 	ReadActionParameters();
-	if (CanDraw) {
+
+	if (CanDraw) { // checks if the action is executable
 
 		//Create a hexagon with the parameters read from the user
-		CHexagon* H = new CHexagon(P, HexaGfxInfo, length);
+		CHexagon* H = new CHexagon(Center, HexaGfxInfo, length);
 
 		//Add the hexagon to the list of figures
 		pManager->AddFigure(H);
@@ -55,6 +57,7 @@ void AddHexaAction::Execute()
 			*addAction = *this;
 			pManager->AddActionToRecordingList(addAction);
 		}
+		// After Adding to application manager it deletes the redo list
 		pManager->DeleteRedoList();
 
 	}
@@ -67,19 +70,16 @@ void AddHexaAction::Undo()
 {
 	CFigure* Fig = pManager->GetFigure(ID);
 	CFigure* Fig2 = pManager->GetSelectedFigure();
-	if (Fig2) {
-		Fig2->SetSelected(false);
-	}
 	pManager->SetSelectedFigure(Fig);
 	pManager->DeleteFigure();
 	delete Fig;
 	Fig = NULL;
-
+	pManager->SetSelectedFigure(Fig2);
 }
 
 void AddHexaAction::Redo()
 {
-	CHexagon* H = new CHexagon(P, HexaGfxInfo, length);
+	CHexagon* H = new CHexagon(Center, HexaGfxInfo, length);
 	//Add the hexagon to the list of figures
 	pManager->AddFigure(H);
 	H->SetID(ID);
@@ -87,12 +87,14 @@ void AddHexaAction::Redo()
 
 void AddHexaAction::PlayRecording()
 {
-	//Create a hexagon with the parameters read from the user
-	CHexagon* H = new CHexagon(P, HexaGfxInfo, length);
+	//Creates a Figure with the parameters been already read from the user
+	CHexagon* H = new CHexagon(Center, HexaGfxInfo, length);
 
-	//Add the hexagon to the list of figures
+	//Adds the Figure to the list of figures
 	pManager->AddFigure(H);
 	ID = H->GetID();
+
+	// Adds the Figure to undo list while playing the recorde and deletes the redo list
 	AddHexaAction* addAction = new AddHexaAction(pManager);
 	*addAction = *this;
 	pManager->AddToUndoList(addAction);

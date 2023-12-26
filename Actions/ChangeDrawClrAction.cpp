@@ -21,11 +21,11 @@ void ChangeDrawClrAction::Execute()
 		PrevDefault.BorderWdth = op->getCrntPenWidth();
 		PrevDrawingClr=FIG->getDrawColor();
 		ID = FIG->GetID();
-		op->setDrawclr(DrawingClr);
-		FIG->ChngDrawClr(DrawingClr);
-		FIG->SetSelected(false);
+		op->setDrawclr(DrawingClr); //SettinG The Drawing Color Chosen By User
+		FIG->ChngDrawClr(DrawingClr); 
+		FIG->SetSelected(false); //Make The Figure Unselected
 		pManager->SetSelectedFigure(NULL);
-		op->ClearStatusBar();
+		op->ClearStatusBar(); 
 	}
 
 	// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList

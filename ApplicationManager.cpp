@@ -446,6 +446,7 @@ CFigure* ApplicationManager::DeleteFigure()
 
 void ApplicationManager::DeleteAllFigures()
 {
+	/*Looping on The FigList And Delete All Figures*/
 	for (int i = 0; i < FigCount; i++) {
 		delete FigList[i];
 		FigList[i] = NULL;
@@ -646,7 +647,7 @@ void ApplicationManager::Saveall(ofstream& fout)
 {
 	for (int i = 0; i < FigCount; i++) {
 		if (FigList[i] != NULL) {
-			FigList[i]->save(fout);
+			FigList[i]->save(fout); //It's A Vertual Function To Save Different Parameters Depending On Each Figure Type
 		}
 	}
 }
@@ -655,7 +656,7 @@ Action* ApplicationManager::GetLastAction()
 {
 	if (ActionsCount > 0) {
 		ActionsCount--;
-		return UndoList[ActionsCount];//////////////
+		return UndoList[ActionsCount];//
 	}
 	else
 		return NULL;

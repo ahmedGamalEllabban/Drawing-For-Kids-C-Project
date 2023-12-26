@@ -30,6 +30,7 @@ void DeleteAction::Execute() {
 		pManager->AddActionToRecordingList(dAction);
 	}
 	pManager->DeleteRedoList();
+	pManager->GetOutput()->ClearStatusBar();
 }
 void DeleteAction::Undo() {
 	pManager->AddFigure(DeletedFig);

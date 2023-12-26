@@ -76,6 +76,7 @@ void MoveByDraggingAction::Redo()
 
 void MoveByDraggingAction::PlayRecording()
 {
+	// Gets The Last Point And Moves To It In While Playing The Record
 	CFigure* figure = pManager->GetFigure(ID);
 	if (figure) {
 		PB = figure->MoveFigure(P);
