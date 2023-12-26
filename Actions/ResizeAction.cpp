@@ -28,6 +28,7 @@ void ResizeAction::Execute()
 	ReadActionParameters();
 	if (IsDone) {
 		CFigure* FIG = pManager->GetSelectedFigure();
+		Output* pOut = pManager->GetOutput();
 		if (FIG) {
 			Input* pIn = pManager->GetInput();
 			num = FIG->IsACorner(P);
@@ -51,11 +52,15 @@ void ResizeAction::Execute()
 					pManager->AddActionToRecordingList(ReAction);
 				}
 			}
-			else
+			else {
+				pOut->PrintMessage("You didn't choose a corner. Try again");
 				IsDone = false;
+			}
 		}
-		else
+		else {
+			pOut->PrintMessage("Please select a figure first");
 			IsDone = false;
+		}
 	}
 }
 

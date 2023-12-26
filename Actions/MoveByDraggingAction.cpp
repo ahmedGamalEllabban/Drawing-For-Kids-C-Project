@@ -25,6 +25,7 @@ void MoveByDraggingAction::Execute()
 {
 	ReadActionParameters();
 	if (IsReady) {
+		Output* pOut = pManager->GetOutput();
 		CFigure* FIG = pManager->GetFigure(P.x, P.y);
 		if (FIG) {
 			Input* pIn = pManager->GetInput();
@@ -45,6 +46,7 @@ void MoveByDraggingAction::Execute()
 			}
 			P = CTemp;
 			if (P.x == PB.x &&P.y==PB.y) {
+				pOut->PrintMessage("You moved the figure to the same location the actiton will not be saved in the undo stack");
 				IsReady = false;
 			}
 			if(IsReady)
@@ -54,8 +56,11 @@ void MoveByDraggingAction::Execute()
 				pManager->AddActionToRecordingList(mAction);
 			}
 		}
-		else
+		else {
+		
+			pOut->PrintMessage("There is no Figure in the area you clicked. Try again");
 			IsReady = false;
+		}
 
 	}
 }
