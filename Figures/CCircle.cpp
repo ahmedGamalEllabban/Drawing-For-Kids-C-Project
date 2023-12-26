@@ -89,14 +89,14 @@ void CCircle::load(ifstream& fin)
 
 }
 
-void CCircle::Resize(Point P)
+void CCircle::Resize(Point P, int x)
 {
 	if (P.y > UI.ToolBarHeight + UI.ToolBarBorderWidth && P.y < UI.height - UI.StatusBarHeight) {
 			double radius;
 			int XDiff = center.x - P.x;
 			int YDiff = center.y - P.y;
 			radius = sqrt((XDiff * XDiff) + (YDiff * YDiff));
-			if (radius < center.y - (UI.ToolBarHeight + UI.ToolBarBorderWidth) && radius < UI.height - UI.StatusBarHeight - center.y)
+			if (radius >= 2 &&radius < center.y - (UI.ToolBarHeight + UI.ToolBarBorderWidth) && radius < UI.height - UI.StatusBarHeight - center.y)
 				P2 = P;
 	}
 }
@@ -105,6 +105,21 @@ void CCircle::DistanceFromCenter(Point P,double& DIFFx, double& DIFFy)
 {
 	DIFFx = center.x - P.x;
 	DIFFy = center.y - P.y;
+}
+
+Point CCircle::GetCorner(int x)
+{
+	return P2;
+}
+
+int CCircle::IsACorner(Point point)
+{
+	int SR = (center.x - P2.x) * (center.x - P2.x) + (center.y - P2.y) * (center.y - P2.y);//square radius
+	int SR1 = (center.x - point.x) * (center.x - point.x) + (center.y - point.y) * (center.y - point.y);//New Radius square
+	if (( abs (sqrt(SR)-sqrt(SR1))) <=25)// sees whether the square distance between the point and the Circle center is equal to the radius 
+	return 1;
+	return -1;
+
 }
 
 void CCircle::PrintInfo(Output* pOut)

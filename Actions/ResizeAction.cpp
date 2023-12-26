@@ -15,9 +15,10 @@ void ResizeAction::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	pOut->PrintMessage("Click on the vertex of the figure you want to resize");
+	pOut->PrintMessage("Click on the vertex of the selected figure to resize");
 	//Read the point and stores it in p
 	pIn->GetPointClicked(P.x, P.y);
+	//if the click was on the tool/status bar the action will be ignored
 	if (P.y <= UI.ToolBarHeight + UI.ToolBarBorderWidth && P.y >= UI.height - UI.StatusBarHeight)
 		IsDone = false;
 }
@@ -26,22 +27,35 @@ void ResizeAction::Execute()
 {
 	ReadActionParameters();
 	if (IsDone) {
-		CFigure* FIG = pManager->GetFigure(P.x, P.y);
+		CFigure* FIG = pManager->GetSelectedFigure();
 		if (FIG) {
 			Input* pIn = pManager->GetInput();
-			ID = FIG->GetID();
-			Point pTemp;
-			while (pIn->GetMouseClick(pTemp.x,pTemp.y)==NO_CLICK) {
-				pIn->GetMouseCoordinates(pTemp.x,pTemp.y);
-				FIG->Resize(pTemp);
-				Pause(10);
-				pManager->UpdateInterface();
+			num = FIG->IsACorner(P);
+			if (num != -1) {
+				P = FIG->GetCorner(num);
+				ID = FIG->GetID();
+				Point pTemp;
+				while (pIn->GetMouseClick(pTemp.x, pTemp.y) == NO_CLICK) {
+					pIn->GetMouseCoordinates(pTemp.x, pTemp.y);
+					FIG->Resize(pTemp,num);
+					Pause(10);
+					pManager->UpdateInterface();
+				}
+				P2 =  FIG->GetCorner(num);
+				pManager->SetSelectedFigure(NULL);
+				FIG->SetSelected(false);
+				// If Recording Is Enabled This Will Add Current Recording To RecordedActionsList
+				if (pManager->IsRecording()) {
+					ResizeAction* ReAction = new ResizeAction(pManager);
+					*ReAction = *this;
+					pManager->AddActionToRecordingList(ReAction);
+				}
 			}
-			P2 = pTemp;
+			else
+				IsDone = false;
 		}
 		else
 			IsDone = false;
-
 	}
 }
 
@@ -54,7 +68,7 @@ void ResizeAction::Undo()
 {
 	CFigure* FIG = pManager->GetFigure(ID);
 	if (FIG) {
-		FIG->Resize(P);
+		FIG->Resize(P,num);
 	}
 }
 
@@ -62,14 +76,17 @@ void ResizeAction::Redo()
 {
 	CFigure* FIG = pManager->GetFigure(ID);
 	if (FIG) {
-		FIG->Resize(P2);
+		FIG->Resize(P2,num);
 	}
 }
 
 void ResizeAction::PlayRecording()
 {
-	CFigure* figure = pManager->GetFigure(ID);
+	CFigure* figure = pManager->GetSelectedFigure();
 	if (figure) {
+		pManager->SetSelectedFigure(NULL);
+		figure->SetSelected(false);
+		figure->Resize(P2, num);
 		ResizeAction* ReAction = new ResizeAction(pManager);
 		*ReAction = *this;
 		pManager->AddToUndoList(ReAction);

@@ -34,11 +34,12 @@ public:
 	color getFillColor();
 	color getDrawColor();
 	virtual void DistanceFromCenter(Point,double&,double&)=0;
-	virtual void Resize(Point) = 0;
+	virtual void Resize(Point, int) = 0;
 	int GetID()const;
+	virtual Point GetCorner(int)=0;
 	void virtual save(ofstream& fout) = 0;
 	void virtual load(ifstream& fin) = 0;
-
+	virtual int IsACorner(Point)=0;//sees whether the given point is a corner or not and returns its number
 	bool getFillStats(); 
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure

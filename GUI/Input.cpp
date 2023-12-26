@@ -80,7 +80,7 @@ ActionType Input::GetUserAction() const
 			case BORDER_COLOR: return CHANGE_BORDERCLR;
 			
 			case FILL_COLOR: return CHANGE_FILLCLR;
-			
+			case MOVEBYDRAG_ICON: return MOVEBYDRAGGING;
 			
 			//
 			case TOPLAYM:  return TO_PLAY;

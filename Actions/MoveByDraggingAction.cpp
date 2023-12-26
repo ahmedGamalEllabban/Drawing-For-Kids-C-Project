@@ -44,6 +44,10 @@ void MoveByDraggingAction::Execute()
 				pManager->UpdateInterface();
 			}
 			P = CTemp;
+			if (P.x == PB.x &&P.y==PB.y) {
+				IsReady = false;
+			}
+			if(IsReady)
 			if (pManager->IsRecording()) {
 				MoveByDraggingAction* mAction = new MoveByDraggingAction(pManager);
 				*mAction = *this;

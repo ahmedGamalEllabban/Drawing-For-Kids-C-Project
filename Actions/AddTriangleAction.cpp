@@ -31,7 +31,7 @@ void AddTriangleAction::ReadActionParameters()
 	//Read 3rd corner and store in point P3
 	pIn->GetPointClicked(P3.x, P3.y);
 
-	if (((P1.x == P2.x) && (P1.y == P2.y)) || (P1.x == P3.x && P1.y == P3.y) || (P2.x == P3.x && P2.y == P3.y))
+	if (((P1.x == P2.x) && (P1.y == P2.y)) || (P1.x == P3.x && P1.y == P3.y) || (P2.x == P3.x && P2.y == P3.y) ||(P1.x==P2.x)&&(P1.x==P3.x) || (P1.y == P2.y) && (P1.y == P3.y))
 		CanDraw = false;
 
 	int MinY = 0;

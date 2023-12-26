@@ -194,8 +194,46 @@ void CTriangle::load(ifstream& fin)
 	}
 }
 
-void CTriangle::Resize(Point )
+void CTriangle::Resize(Point P, int num)
 {
+	if (P.y > UI.ToolBarHeight + UI.ToolBarBorderWidth && P.y < UI.height - UI.StatusBarHeight) {
+		if (num == 1) {
+		if(TriangleArea(P.x,P.y,Corner2.x,Corner2.y,Corner3.x,Corner3.y)>=2)
+			Corner1 = P;
+		}
+		else if (num == 2) {
+			if (TriangleArea(P.x, P.y, Corner1.x, Corner1.y, Corner3.x, Corner3.y)>=2)
+			Corner2 = P;
+		}
+		else if (num == 3) {
+			if (TriangleArea(P.x, P.y, Corner2.x, Corner2.y, Corner1.x, Corner1.y)>=2)
+			Corner3 = P;
+		}
+	}
+}
+
+int CTriangle::IsACorner(Point P)
+{
+	if (std::abs(P.x - Corner1.x) <= 5 && std::abs(P.y - Corner1.y) <= 5) {
+		return 1;
+
+	}
+	 if (std::abs(P.x - Corner2.x)<=5 && std::abs(P.y - Corner2.y) <= 5) {
+		 return 2;
+	}
+	 if (std::abs(P.x - Corner3.x) <= 5 && std::abs(P.y - Corner3.y) <= 5) {
+		return 3;
+	}
+	 return -1;
+}
+
+Point CTriangle::GetCorner(int n)
+{
+	if (n == 1)
+		return Corner1;
+	if (n == 2)
+		return Corner2;
+	return Corner3;
 }
 
 void CTriangle::DistanceFromCenter(Point P, double& DIFFx, double& DIFFy)

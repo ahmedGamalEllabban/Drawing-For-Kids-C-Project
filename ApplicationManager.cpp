@@ -122,7 +122,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new LoadAction(this);
 			break;
 		case RESIZE:
-			//pAct = new ResizeAction(this);
+			pAct = new ResizeAction(this);
+			break;
+		case MOVEBYDRAGGING:
 			pAct = new MoveByDraggingAction(this);
 			break;
 		case CHANGE_BORDERCLR: 
@@ -291,11 +293,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		pAct->Execute();//Execute
 
-		if (!isPlayMode) {
 			AddToUndoList(pAct);
-		}
-
-		else delete pAct;
+		
 
 		pAct=NULL;//You may need to change this line depending to your implementation
 	}

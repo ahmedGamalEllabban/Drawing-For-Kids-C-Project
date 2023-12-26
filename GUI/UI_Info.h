@@ -33,6 +33,7 @@ enum DrawMenuItem //The items of the Draw menu (you should add more items)
 	DELETE_FIG_ICON,
 	
 	MOVEFIG_ICON, 
+	MOVEBYDRAG_ICON,
 	UNDO_ICON,
 	REDO_ICON,
 	CLEAR_ALL_ICON,

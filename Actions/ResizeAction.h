@@ -5,6 +5,7 @@ class ResizeAction :
 {
 private:
     Point P,P2;
+    int num;
     int ID;
     bool IsDone;
 public:

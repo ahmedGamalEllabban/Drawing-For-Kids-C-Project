@@ -23,7 +23,6 @@ bool CHexagon::IsInside(int x1, int y1)const {
 	int X[vertices];
 	int Y[vertices];
 
-	// The Length Of The Hexagone Is 100
 	X[0] = Center.x;
 	X[1] = Center.x + length * 0.866;
 	X[2] = Center.x + length * 0.866;
@@ -37,7 +36,7 @@ bool CHexagon::IsInside(int x1, int y1)const {
 	Y[2] = Center.y - length / 2;
 	Y[3] = Center.y - length;
 	Y[4] = Center.y - length / 2;
-	Y[5] = Center.y + length / 2 ;
+	Y[5] = Center.y + length / 2;
 	Y[6] = Center.y + length;
 	double TotalArea = 0;
 	for (int i = 1; i < vertices-2; i++) {
@@ -112,8 +111,82 @@ void CHexagon::load(ifstream& fin)
 
 }
 
-void CHexagon::Resize(Point)
+void CHexagon::Resize(Point p, int num)
 {
+	if (p.y > UI.ToolBarHeight + UI.ToolBarBorderWidth && p.y < UI.height - UI.StatusBarHeight) {
+		int DiffY = Center.y - p.y;
+		if (num == 1 || num == 4) {
+			if ((DiffY > 2) && (p.y + 2 * DiffY < UI.height - UI.StatusBarHeight) || (DiffY < -2) && (p.y + 2 * DiffY > UI.ToolBarHeight + UI.ToolBarBorderWidth)) {
+				length = abs(DiffY);
+			}
+		}
+		else if ((DiffY > 0) && (p.y + 3 * DiffY < UI.height - UI.StatusBarHeight) && (p.y -  DiffY > UI.ToolBarHeight + UI.ToolBarBorderWidth) ||
+			(DiffY < 0) && (p.y + 3 * DiffY > UI.ToolBarHeight + UI.ToolBarBorderWidth)&& (p.y - DiffY < UI.height - UI.StatusBarHeight)) {
+			length = 2 * abs(DiffY);
+		}
+	}
+}
+
+Point CHexagon::GetCorner(int n)
+{
+	Point pTemp;
+	const int vertices = 6;
+	int X[vertices];
+	int Y[vertices];
+
+	X[0] = Center.x;
+	X[1] = Center.x + length * 0.866;
+	X[2] = Center.x + length * 0.866;
+	X[3] = Center.x;
+	X[4] = Center.x - length * 0.866;
+	X[5] = Center.x - length * 0.866;
+
+	Y[0] = Center.y + length;
+	Y[1] = Center.y + length / 2;
+	Y[2] = Center.y - length / 2;
+	Y[3] = Center.y - length;
+	Y[4] = Center.y - length / 2;
+	Y[5] = Center.y + length / 2; 
+	
+	
+	pTemp.x = X[n-1];
+	pTemp.y = Y[n-1];
+	
+	return pTemp;
+}
+
+int CHexagon::IsACorner(Point point)
+{
+	const int vertices = 6;
+	int X[vertices];
+	int Y[vertices];
+
+	X[0] = Center.x;
+	X[1] = Center.x + length * 0.866;
+	X[2] = Center.x + length * 0.866;
+	X[3] = Center.x;
+	X[4] = Center.x - length * 0.866;
+	X[5] = Center.x - length * 0.866;
+	
+	Y[0] = Center.y + length;
+	Y[1] = Center.y + length / 2;
+	Y[2] = Center.y - length / 2;
+	Y[3] = Center.y - length;
+	Y[4] = Center.y - length / 2;
+	Y[5] = Center.y + length / 2;
+	bool found = false;
+	int i = 0;
+	while (!found && i<vertices) {
+		if (abs(point.x - X[i])<=5 && abs(point.y -Y[i])<=5) {
+			found = true;
+		}
+		i++;
+	}
+	if (found) {
+		return i;
+	}
+	return -1;
+
 }
 
 void CHexagon::DistanceFromCenter(Point P, double& DIFFx, double& DIFFy)

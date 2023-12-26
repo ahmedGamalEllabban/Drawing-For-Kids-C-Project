@@ -125,9 +125,53 @@ void CRectangle::load(ifstream& fin)
 
 }
 
-void CRectangle::Resize(Point)
+void CRectangle::Resize(Point P, int num)
 {
+	if (P.y > UI.ToolBarHeight + UI.ToolBarBorderWidth && P.y < UI.height - UI.StatusBarHeight) {
+		if (num == 1) {
+			if (abs(P.x-Corner2.x)>2 && abs(P.y-Corner2.y)>2)
+			Corner1 = P;
+		}
+		else if (num == 2) {
+			if (abs(P.x - Corner1.x)>2 && abs(P.y - Corner1.y)>2)
+			Corner2 = P;
+		}
+	}
 }
+
+Point CRectangle::GetCorner(int n)
+{
+	if(n==1)
+	return Corner1;
+	return Corner2;
+}
+
+int CRectangle::IsACorner(Point point)
+{
+	if (abs(point.x - Corner1.x) <= 5) {
+
+		if (abs(point.y - Corner1.y) <= 5) {
+			return 1;
+		}
+		else if (abs(point.y - Corner2.y) <= 5) {
+			swap(Corner1.y, Corner2.y);
+			return 1;
+		}
+	}
+	else if (abs(point.x - Corner2.x) <= 5) {
+
+		if (abs(point.y - Corner2.y) <= 5) {
+			return 2;
+		}
+		else if (abs(point.y - Corner1.y) <= 5) {
+			swap(Corner1.y, Corner2.y);
+			return 2;
+		}
+	}
+	return -1;
+}
+
+
 
 void CRectangle::DistanceFromCenter(Point P, double& DIFFx, double& DIFFy)
 {

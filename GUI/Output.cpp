@@ -17,7 +17,7 @@ Output::Output()
 	
 	UI.StatusBarHeight = 50;
 	UI.ToolBarHeight = 50;
-	UI.MenuItemWidth = 56;
+	UI.MenuItemWidth = 54;
 	UI.SeperatingBorderWidth = 2;// the width of the line between the icons
 	// assigning values for pick and hide tool bar;
 	UI.PickHideToolBarHeight = 2*UI.ToolBarHeight;
@@ -116,6 +116,7 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[LOAD_ICON] = "images\\MenuItems\\Load.jpg";
 	MenuItemImages[MUTE_ICON] = "images\\MenuItems\\Mute.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\MenuItems\\Menu_Exit.jpg";
+	MenuItemImages[MOVEBYDRAG_ICON] = "images\\MenuItems\\MoveByDragIcon.jpg";
 
 	//TODO: Prepare images for each menu item and add it to the list
 

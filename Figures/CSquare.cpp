@@ -92,14 +92,36 @@ void CSquare::load(ifstream& fin)
 
 }
 
-void CSquare::Resize(Point)
+void CSquare::Resize(Point p, int x)
 {
+	if (p.y > UI.ToolBarHeight + UI.ToolBarBorderWidth && p.y < UI.height - UI.StatusBarHeight) {
+		int DiffY = Center.y - p.y;
+	if((DiffY>2)&&(p.y+2*DiffY < UI.height - UI.StatusBarHeight)|| (DiffY < -2) && (p.y + 2 * DiffY > UI.ToolBarHeight + UI.ToolBarBorderWidth)){
+		length = 2 * std::abs(DiffY);
+		}
+	}
+}
+
+int CSquare::IsACorner(Point point)
+{
+	if ((std::abs(point.x - (Center.x + length / 2) )<=5 && std::abs(point.y - (Center.y + length / 2))<=5) || (std::abs(point.x - (Center.x + length / 2)) <= 5 && std::abs(point.y - (Center.y - length / 2)) <= 5) ||
+		(std::abs(point.x - (Center.x - length / 2)) <= 5 && std::abs(point.y - (Center.y - length / 2)) <= 5) || (std::abs(point.x - (Center.x - length / 2)) <= 5 && std::abs(point.y - (Center.y + length / 2)) <= 5))
+		return 1;
+	return -1;
 }
 
 void CSquare::DistanceFromCenter(Point P, double& DIFFx, double& DIFFy)
 {
 	DIFFx = Center.x - P.x;
 	DIFFy = Center.y - P.y;
+}
+
+Point CSquare::GetCorner(int n)
+{
+	Point pTemp;
+	pTemp.x = Center.x + length / 2;
+	pTemp.y = Center.y + length / 2;
+	return pTemp;
 }
 
 void CSquare::PrintInfo(Output* pOut)

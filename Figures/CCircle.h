@@ -12,8 +12,10 @@ public:
 	virtual bool IsInside(int, int) const;
 	virtual void save(ofstream& fout);
 	virtual void load(ifstream& fin);
-	virtual void Resize(Point);
+	virtual void Resize(Point, int);
 	virtual void DistanceFromCenter(Point,double& DIFFx, double& DIFFy);
+	virtual Point GetCorner(int);
+	virtual int IsACorner(Point);
 	virtual void PrintInfo(Output* pOut);	//print all figure info on the status bar
 };
 

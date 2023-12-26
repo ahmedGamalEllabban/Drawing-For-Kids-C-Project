@@ -21,6 +21,7 @@ enum ActionType //The actions supported (you can add more if needed)
 	CHANGE_BORDERCLR,
 	CHANGE_FILLCLR, 
 	RESIZE,
+	MOVEBYDRAGGING,
 	//color list
 	CHNGCLR_BLACK,
 	CHNGCLR_YELLOW,
