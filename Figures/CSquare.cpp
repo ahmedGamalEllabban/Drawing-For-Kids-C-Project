@@ -135,6 +135,11 @@ Point CSquare::GetCorner(int n)
 	return pTemp;
 }
 
+Point CSquare::GetCenter()
+{
+	return Center;
+}
+
 void CSquare::PrintInfo(Output* pOut)
 {
 	pOut->PrintMessage("Sleceted A Square, ID: " + to_string(ID) + " | Center Point : (" + to_string(Center.x) + ", " + to_string(Center.y) + ") | Side Length : " + to_string(length));

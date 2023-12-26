@@ -33,10 +33,11 @@ public:
 	void SetID(int);
 	color getFillColor();
 	color getDrawColor();
-	virtual void DistanceFromCenter(Point,double&,double&)=0;
+	virtual void DistanceFromCenter(Point,double&,double&)=0;//calculates the x&y differences from the center and returns it
 	virtual void Resize(Point, int) = 0;
 	int GetID()const;
-	virtual Point GetCorner(int)=0;
+	virtual Point GetCorner(int)=0;//returns the corner by its number
+	virtual Point GetCenter() = 0;//returns the center of the figure
 	void virtual save(ofstream& fout) = 0;
 	void virtual load(ifstream& fin) = 0;
 	virtual int IsACorner(Point)=0;//sees whether the given point is a corner or not and returns its number

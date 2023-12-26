@@ -20,6 +20,7 @@ public:
 	virtual Point GetCorner(int);
 	virtual int IsACorner(Point);
 	virtual void DistanceFromCenter(Point, double& DIFFx, double& DIFFy);
+	virtual Point GetCenter();
 
 	virtual void PrintInfo(Output* pOut);	//print all figure info on the status bar
 

@@ -14,10 +14,11 @@ class ApplicationManager
 	enum { MaxActionsCount = 5 };
 private:
 	int FigCount;		//Actual number of figures
-	int loopCount;  
+	int loopCount;     // Count to loop on in PlayMode
 	int ID;
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
-	bool soundOn;
+	CFigure* PlayFigList[MaxFigCount]; // List of all figures in playMode
+	bool soundOn; // true if sound if on and false otherwise 
 
 	CFigure* SelectedFig; //Pointer to the selected figure
 
@@ -70,6 +71,7 @@ public:
 	int GetRecordedActionsCount();
 	int GetUndoActionsCount();
 	int GetRedoActionsCount();
+	void sortByID();
 
 
 	// -- Interface Management Functions
@@ -80,17 +82,22 @@ public:
 	CFigure* DeleteFigure();
 
 	// -- Play Related functions ***** 
-	void createPlayArea() const;
-	int getFigCount() const;
-	CFigure* getRandomFig() const;
-	void getShapesCount(int &RC, int& SC, int& CC, int& HC, int& TC) const;
-	void getColorsCount(int& BlackC, int& YC, int& OC, int& RC, int& GC, int& BlueC);
-	void deleteChosenFig(Point p);
-	int countShapeColors(string shape, color c);
-	int getFillCount();
-	bool getSoundState();
-	int getNonFillCount();
-	color getRandomColor();
+	void createPlayArea() const; // Draw shapes for playing
+	int getFigCount() const; // returns numOfShapes
+	CFigure* getRandomFig() const; // returns random Figure from the FigList
+	void getShapesCount(int &RC, int& SC, int& CC, int& HC, int& TC) const; // gets the count of every shape
+	void getColorsCount(int& BlackC, int& YC, int& OC, int& RC, int& GC, int& BlueC); // gets the count of every color
+	void deleteChosenFig(Point p); // Deletes the figure chosen while playing
+	int countShapeColors(string shape, color c); // count the number of every shape in every volor
+	int getFillCount(); // returns the number of filled shapes
+	bool getSoundState(); // returns true if sound is on and false otherwise 
+	int getNonFillCount(); // returns the number of non-filled shpes
+	color getRandomColor(); // returns a random fill color from the FigList
+	void copyDrawList(); // makes a copy of the FigList to play from 
+	void resetPlayList(); // resets the PlayList to be empty again 
+
+
+	// save load Functions
 	int GetFigCount();
 	void Saveall(ofstream& fout);
 	

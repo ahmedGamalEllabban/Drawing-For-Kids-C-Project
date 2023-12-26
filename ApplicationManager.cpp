@@ -55,8 +55,12 @@ ApplicationManager::ApplicationManager()
 	soundOn = true;
 	RecordedActionsCount = 0;
 	//Create an array of figure pointers and set them to NULL		
-	for(int i=0; i<MaxFigCount; i++)
-		FigList[i] = NULL;	
+	for (int i = 0; i < MaxFigCount; i++) {
+		FigList[i] = NULL;
+		PlayFigList[i] = NULL;
+	}
+		
+
 	for (int i = 0; i < MaxActionsCount; i++) {
 		UndoList[i] = NULL;
 		RedoList[i] = NULL;
@@ -344,6 +348,24 @@ int ApplicationManager::GetRedoActionsCount()
 	return RedoCount;
 }
 
+void ApplicationManager::sortByID()
+{
+	int i, j, minIndx;
+
+	for (i = 0; i < FigCount - 1; i++) {
+		
+		minIndx = i;
+
+		for (j = i + 1; j < FigCount; j++) {
+			if (FigList[j]->GetID() < FigList[minIndx]->GetID())
+				minIndx = j;
+		}
+
+		if (minIndx != i)
+			swap(FigList[minIndx], FigList[i]);
+	}
+}
+
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
@@ -478,6 +500,7 @@ bool ApplicationManager::IsPlayingRecord()
 }
 void ApplicationManager::UpdateInterface() const
 {
+
 	if (!isPlayMode) 
 	{
 		pOut->ClearDrawArea();
@@ -559,12 +582,11 @@ void ApplicationManager::deleteChosenFig(Point p)
 	int i = GetSelectedFigureIndex();
 
 	if (i != -1) {
-			swap(FigList[i], FigList[loopCount - 1]);
-			loopCount--;
+		PlayFigList[i] = NULL;
 	}	
 
 	for (int i = 0; i < loopCount; i++) {
-		FigList[i]->Draw(pOut);
+		if (PlayFigList[i]) PlayFigList[i]->Draw(pOut);
 	}
 }
 
@@ -638,6 +660,20 @@ color ApplicationManager::getRandomColor()
 	return FigList[randomIndex]->getFillColor();
 }
 
+void ApplicationManager::copyDrawList()
+{
+	for (int i = 0; i < FigCount; i++) {
+		PlayFigList[i] = FigList[i];
+	}
+}
+
+void ApplicationManager::resetPlayList()
+{
+	for (int i = 0; i < FigCount; i++) {
+		PlayFigList[i] = NULL;
+	}
+}
+
 int ApplicationManager::GetFigCount()
 {
 	return FigCount;
@@ -699,14 +735,7 @@ void ApplicationManager::AddToRedoList(Action* pAct)
 	if (RedoCount < MaxActionsCount) {
 		RedoList[RedoCount++] = pAct;
 	}
-	else {//not important
-		delete RedoList[0];
-		RedoList[0] = NULL;
-		RedoList[0] = pAct;
-		for (int i = 0; i < MaxActionsCount - 1; i++) {
-			swap(RedoList[i], RedoList[i + 1]);
-		}
-	}
+	
 }
 void ApplicationManager::DeleteRedoList()
 {
@@ -744,6 +773,10 @@ ApplicationManager::~ApplicationManager()
 {
 	for(int i=0; i<FigCount; i++)
 	delete FigList[i];
+
+	for (int i = 0; i < FigCount; i++)
+		if (PlayFigList[i]) delete PlayFigList[i];
+
 	for (int i = 0; i < ActionsCount; i++) {
 		if (UndoList[i])
 		delete UndoList[i];

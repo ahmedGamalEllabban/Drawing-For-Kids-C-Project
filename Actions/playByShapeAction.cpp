@@ -20,6 +20,8 @@ using namespace std;
 
 playByShapeAction::playByShapeAction(ApplicationManager* app) :Action(app)
 {
+	pManager->copyDrawList();
+
 	pOut = pManager->GetOutput();
 	pIn = pManager->GetInput();
 	numOfShapes = pManager->getFigCount();
@@ -31,6 +33,7 @@ playByShapeAction::playByShapeAction(ApplicationManager* app) :Action(app)
 
 void playByShapeAction::ReadActionParameters()
 {
+
 	if (numOfShapes != 0) {
 
 		Shapes randomShape;
@@ -99,6 +102,7 @@ void playByShapeAction::ReadActionParameters()
 		pOut->PrintMessage("Can't play without any drawings");
 	}
 
+	pManager->resetPlayList();
 }
 
 void playByShapeAction::Execute()
