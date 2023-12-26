@@ -311,6 +311,7 @@ void Output::createToolBarWithSound() const
 	///////////////////////////////////
 	MenuItemImages[DELETE_FIG_ICON] = "images\\MenuItems\\Delete.jpg";
 	MenuItemImages[MOVEFIG_ICON] = "images\\MenuItems\\Move.jpg";
+	MenuItemImages[MOVEBYDRAG_ICON] = "images\\MenuItems\\MoveByDragIcon.jpg";
 	MenuItemImages[UNDO_ICON] = "images\\MenuItems\\Undo.jpg";
 	MenuItemImages[REDO_ICON] = "images\\MenuItems\\Redo.jpg";
 	MenuItemImages[CLEAR_ALL_ICON] = "images\\MenuItems\\Clear_All.jpg";
