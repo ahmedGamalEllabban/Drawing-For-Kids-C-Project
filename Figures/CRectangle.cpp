@@ -201,6 +201,6 @@ void CRectangle::PrintInfo(Output* pOut)
 {
 	int width = abs(Corner1.x - Corner2.x);
 	int height = abs(Corner1.y - Corner2.y);
-	pOut->PrintMessage("Sleceted A Rectangle, ID: " + to_string(ID) + "| Start Point: (" + to_string(Corner1.x) + "," + to_string(Corner1.y) + " | End Point: (" + to_string(Corner2.x) + "," + to_string(Corner2.y) + " | Width: " + to_string(width) + " | Height: " + to_string(height));
+	pOut->PrintMessage("Sleceted A Rectangle, ID: " + to_string(ID) + "| Start Point: (" + to_string(Corner1.x) + "," + to_string(Corner1.y) + ") | End Point: (" + to_string(Corner2.x) + "," + to_string(Corner2.y) + ") | Width: " + to_string(width) + " | Height: " + to_string(height));
 }
 

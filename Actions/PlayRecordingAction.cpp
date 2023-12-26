@@ -48,7 +48,7 @@ void PlayRecordingAction::Execute()
 			}
 
 		}
-	pManager->GetOutput()->PrintMessage("Record Have Ended");
+	pManager->GetOutput()->PrintMessage("Record Has Ended");
 	pManager->SetPlayingRecord(false); // stops the recording state
 	}
 }

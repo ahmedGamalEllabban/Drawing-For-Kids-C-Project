@@ -12,11 +12,11 @@ void StopRecordingAction::ReadActionParameters()
 
 	// Checks if the record has started
 	if (pManager->IsRecording()) {
-		pOut->PrintMessage("Record Have Stopped");
+		pOut->PrintMessage("Record Has Stopped");
 		pManager->SetRecordingStatus(false);
 	}
 	else {
-		pOut->PrintMessage("You Didn't Start Record Yet");
+		pOut->PrintMessage("You Didn't Start Recording Yet");
 	}
 
 }
